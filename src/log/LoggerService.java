@@ -18,6 +18,20 @@ public class LoggerService {
 		
 	}
 	
+	public static void displayRequest(String request){
+		System.out.println("Processing request "+ request);
+	}
+	
+	public static void displayError(String error){
+		System.err.println(error);
+		
+	}
+	
+	public static void displayInfo(String content){
+		System.out.println(content);
+	}
+	
+
 	
 	
 

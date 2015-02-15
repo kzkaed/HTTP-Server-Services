@@ -10,9 +10,7 @@ import java.net.ServerSocket;
 import log.LoggerService;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LoggerServiceTest {
@@ -56,29 +54,42 @@ public class LoggerServiceTest {
 	}
 	
 	@Test
-	public void displayServerStatusTest() throws IOException{
+	public void testDisplayServerStatusTest() throws IOException{
 		LoggerService.displayServerStatus(serverSocket, port, path);
 		assertEquals("Server Starting..." 
 		+"\nServerSocket[addr=0.0.0.0/0.0.0.0,port=0,localport=1235]"
 		+"\nPort: 1235"
-		+"\nDOCUMENT ROOTPUBLIC_DIR\n",
-outContent.toString());
+		+"\nDOCUMENT ROOTPUBLIC_DIR\n",outContent.toString());
 	}
 	
 	@Test
-	public void displayServerStatusTestwithNull() throws IOException{
+	public void testDisplayServerStatusTestwithNull() throws IOException{
 		path = "PUBLIC_DIR";
 		ServerSocket serverSocket = null;
 		LoggerService.displayServerStatus(serverSocket, port, path);
 		assertEquals("Server Starting..." 
 		+"\nnull"
 		+"\nPort: 1235"
-		+"\nDOCUMENT ROOTPUBLIC_DIR\n",
-outContent.toString());
-		
-		
+		+"\nDOCUMENT ROOTPUBLIC_DIR\n",outContent.toString());	
 	}
 	
+	@Test
+	public void testDisplayRequest() {
+		LoggerService.displayRequest("GET / HTTP/1.1");
+		assertEquals("Processing request GET / HTTP/1.1\n",outContent.toString());
+	}
+	
+	@Test
+	public void testDisplayError() {
+		LoggerService.displayError("IOException ioe");
+		assertEquals("IOException ioe\n",errContent.toString());
+	}
+	
+	@Test
+	public void testDisplayInfo() {
+		LoggerService.displayInfo("the content");
+		assertEquals("the content\n",outContent.toString());
+	}
 	
 
 }
