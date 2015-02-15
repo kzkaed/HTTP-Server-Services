@@ -61,5 +61,21 @@ public class LoggerServiceTest {
 outContent.toString());
 		serverSocket.close();
 	}
+	
+	@Test
+	public void displayServerStatusTestwithNull() throws IOException{
+		path = "PUBLIC_DIR";
+		int port = 5000;
+		ServerSocket serverSocket = null;
+		LoggerService.displayServerStatus(serverSocket, port, path);
+		assertEquals("Server Starting..." 
+		+"\nnull"
+		+"\nPort: 5000"
+		+"\nDOCUMENT ROOTPUBLIC_DIR\n",
+outContent.toString());
+		
+	}
+	
+	
 
 }

@@ -19,13 +19,7 @@ public class LoggerService {
 		
 	}
 	
-	public static void displayServerStatus(int port, String document){
-		System.out.println("Server Starting...");
-		System.out.println("Port: " + port);
-		System.out.println("DOCUMENT ROOT" + document);
-		
-		
-	}
+	
 	
 
 	
