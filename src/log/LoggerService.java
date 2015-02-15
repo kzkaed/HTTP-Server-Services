@@ -3,7 +3,6 @@ package log;
 import java.net.ServerSocket;
 import java.util.logging.*;
 
-import server.socket.ServerSocketService;
 
 public class LoggerService {
 	
