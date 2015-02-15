@@ -52,7 +52,8 @@ public class ServerTest {
 		Server server = new Server(mockSSocket,port,document);
 		assertEquals(document, "PUBLIC_DIR");
 		assertEquals(port, 5000);
-		assertEquals(mockSSocket.getClass().toString(), "class server.mocks.MockServerSocket");
+		assertEquals(mockSSocket.getClass().getName(), "server.mocks.MockServerSocket");
+		assertEquals(server.getClass().getName(),"server.Server");
 	}
 	
 	@Test
@@ -86,7 +87,7 @@ public class ServerTest {
 			}
     
         }
-            
+           
     }
 		
 }
