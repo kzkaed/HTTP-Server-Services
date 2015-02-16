@@ -21,7 +21,7 @@ import server.mocks.MockSocket;
 
 public class ServerTest {
 	
-	ServerSocketService service;
+	ServerSocket serverSocket;
 	int port;
 	String document;
 	MockServerSocket mockSSocket;
@@ -32,6 +32,7 @@ public class ServerTest {
 		port = 5000;
 		document = "PUBLIC_DIR";
 		mockSSocket = new MockServerSocket(port);
+		serverSocket = new ServerSocket(port);
 	}
 
 	@After
@@ -41,32 +42,31 @@ public class ServerTest {
 				mockSSocket.close();
 				
 			}
+			if (!serverSocket.isClosed()){
+				serverSocket.close();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 	}
 	
-	@Test
-	public void testServerConstructed() throws Exception {
-		Server server = new Server(mockSSocket,port,document);
-		assertEquals(document, "PUBLIC_DIR");
-		assertEquals(port, 5000);
-		assertEquals(mockSSocket.getClass().getName(), "server.mocks.MockServerSocket");
-		assertEquals(server.getClass().getName(),"server.Server");
-	}
 	
 	@Test
 	public void testServerStart() throws Exception {
-		ServerSocket serverSocket = new ServerSocket(1234);
-		service = new WireServerSocketWrapper(serverSocket);
-		Server server = new Server(service,port,document);
+		
+
+		Server server = new Server(serverSocket,port,document);
 		ServerStarter starter = new ServerStarter(server);
 		starter.start();
-		
+		assertEquals(serverSocket.getClass().getName(), "java.net.ServerSocket");
+		assertTrue(serverSocket.isBound());
+		assertEquals(document, "PUBLIC_DIR");
+		assertEquals(port, 5000);
 		serverSocket.close();
-		assertEquals(service.isClosed(),true);
-		assertEquals(service.getClass().getName(),"server.socket.WireServerSocketWrapper");
+		
+		assertEquals(serverSocket.isClosed(),true);
+		
 		
 	}
 	

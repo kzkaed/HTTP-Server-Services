@@ -1,33 +1,34 @@
 package server;
 
-
+import java.io.IOException;
+import java.net.ServerSocket;
 
 import log.LoggerService;
 import server.socket.ServerSocketService;
 
-
-
 public class Server {
-	public String document;
-	public int port;
-	ServerSocketService service;
-	public ClientHandler handler;
+	private String document;
+	private int port;
+	private ServerSocket serverSocket;
+	private ClientHandler handler;
+	
 	public static boolean controlSwitch = true;
 	
-	public Server(ServerSocketService service, int port, String document){
+	public Server(ServerSocket serverSocket, int port, String document){
 		this.port = port;
 		this.document = document;
-		this.service = service;
+		this.serverSocket = serverSocket;
 	}
 	
 	
-	public void start() throws Exception {
-		LoggerService.displayServerStatus(null, port, document);
+	
+	public void start() throws IOException {
+		LoggerService.displayServerStatus(serverSocket, port, document);
 		
-		while(!service.isClosed()){ 
-			new SingleClientHandler(service.accept()).run();
+		while(!serverSocket.isClosed()){ 
+			new SingleClientHandler(serverSocket.accept()).run();
 		}
-		service.close();
+		serverSocket.close();
 	}
 	
 

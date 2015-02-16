@@ -24,9 +24,6 @@ public class SingleClientHandlerTest {
 
 	@Before
 	public void setUp() throws IOException {
-		
-		
-		
 	}
 	
 	@Test

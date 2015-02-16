@@ -17,7 +17,7 @@ public static void main(String[] args) throws Exception{
 		int port = Integer.parseInt(portString);
 		
 		ServerSocket serverSocket = new ServerSocket(port);
-		new Server(new WireServerSocketWrapper(serverSocket),port,publicDirectory).start();
+		new Server(serverSocket,port,publicDirectory).start();
 	}
 
 }
