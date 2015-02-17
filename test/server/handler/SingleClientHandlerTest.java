@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import log.LoggerService;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,10 +26,7 @@ public class SingleClientHandlerTest {
 
 
 	@Before
-	public void setUp() throws IOException {
-		
-		
-		
+	public void setUp() throws IOException {	
 	}
 	
 	@Test
@@ -39,11 +38,10 @@ public class SingleClientHandlerTest {
 		handler.run();
 		assertEquals(mockSocket.getOutputStream().toString(), response);
 	}
-
+	
 	@After
 	public void tearDown() throws IOException {
 		mockSocket.close();
-		assertEquals(mockSocket.isClosed(),true);
-		
+		assertEquals(mockSocket.isClosed(),true);	
 	}
 }

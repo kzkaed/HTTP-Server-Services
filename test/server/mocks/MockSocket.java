@@ -38,16 +38,18 @@ public class MockSocket extends Socket implements SocketService{
 	
 	public MockSocket(String host, int port) throws IOException{
 		super(host,port);
-		
+		state = BOUND;
 	}
-	public MockSocket(String host, int port, byte[] in){
+	public MockSocket(String host, int port, byte[] in) throws IOException{
 		this.input = new ByteArrayInputStream(in);
 		this.output = new ByteArrayOutputStream();
+		state = BOUND;
 	}
 	
 	@Override
 	public void close(){
 		this.closed = true;
+		state = UNBOUND;
 	}
 	
 	@Override
@@ -65,6 +67,14 @@ public class MockSocket extends Socket implements SocketService{
 		return input;
 	}
 	
-	
+	@Override
+	public boolean isBound(){
+		if (state == BOUND){
+			return true;
+		}else{
+			return false;
+		}
+		 
+	}
 
 }
