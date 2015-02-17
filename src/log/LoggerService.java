@@ -1,14 +1,16 @@
 package log;
 
-import java.net.ServerSocket;
+
+
+import server.socket.ServerSocketService;
 
 public class LoggerService {
 
-	public static void displayServerStatus(ServerSocket serverSocket, int port, String document){
+	public static void displayServerStatus(ServerSocketService serverSocket, int port, String document){
 		System.out.println("Server Starting...");
-		System.out.println(serverSocket);
+		System.out.println(serverSocket.getClass().getName());
 		System.out.println("Port: " + port);
-		System.out.println("DOCUMENT ROOT" + document);		
+		System.out.println("Root Directory: " + document);		
 	}
 	
 	public static void displayRequest(String request){
@@ -23,6 +25,8 @@ public class LoggerService {
 	public static void displayInfo(String content){
 		System.out.println(content);
 	}
+
+
 	
 
 	

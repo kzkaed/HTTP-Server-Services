@@ -13,13 +13,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.socket.ServerSocketService;
+import server.socket.WireServerSocket;
+
 public class LoggerServiceTest {
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 	private int port;
 	private String path;
-	ServerSocket serverSocket;
+	ServerSocketService serverSocket;
 
 	@Before
 	public void setUp() {
@@ -28,7 +31,7 @@ public class LoggerServiceTest {
 	    path = "PUBLIC_DIR";
 	    port = 1235;
 	    try {
-			serverSocket = new ServerSocket(port);
+			serverSocket = new WireServerSocket(new ServerSocket(port));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,20 +60,18 @@ public class LoggerServiceTest {
 	public void testDisplayServerStatusTest() throws IOException{
 		LoggerService.displayServerStatus(serverSocket, port, path);
 		assertEquals("Server Starting..." 
-		+"\nServerSocket[addr=0.0.0.0/0.0.0.0,port=0,localport=1235]"
+		+"\nserver.socket.WireServerSocket"
 		+"\nPort: 1235"
-		+"\nDOCUMENT ROOTPUBLIC_DIR\n",outContent.toString());
+		+"\nRoot Directory: PUBLIC_DIR\n",outContent.toString());
 	}
 	
 	@Test
-	public void testDisplayServerStatusTestwithNull() throws IOException{
-		path = "PUBLIC_DIR";
-		ServerSocket serverSocket = null;
+	public void testDisplayServerStatusTestWithService() throws IOException{
 		LoggerService.displayServerStatus(serverSocket, port, path);
 		assertEquals("Server Starting..." 
-		+"\nnull"
+		+"\nserver.socket.WireServerSocket"
 		+"\nPort: 1235"
-		+"\nDOCUMENT ROOTPUBLIC_DIR\n",outContent.toString());	
+		+"\nRoot Directory: PUBLIC_DIR\n",outContent.toString());
 	}
 	
 	@Test

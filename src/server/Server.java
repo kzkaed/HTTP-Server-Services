@@ -15,12 +15,12 @@ public class Server {
 	public Server(ServerSocketService service, int port, String document){
 		this.port = port;
 		this.document = document;
-		this.service = service;//serverSocketFromMain
+		this.service = service;
 	}
 	
 	
 	public void start() throws Exception {
-		LoggerService.displayServerStatus(null, port, document);
+		LoggerService.displayServerStatus(service, port, document);
 		
 		while(!service.isClosed()){ 
 			new SingleClientHandler(service.accept()).run();

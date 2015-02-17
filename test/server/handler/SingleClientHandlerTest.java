@@ -14,14 +14,11 @@ import org.junit.Test;
 import server.handler.SingleClientHandler;
 import server.mocks.MockSocket;
 
-
-
 public class SingleClientHandlerTest {
 	private SingleClientHandler handler;
 	private MockSocket mockSocket;
 	private OutputStream out;
 	private OutputStream errorOut;
-
 
 	@Before
 	public void setUp() throws IOException {
