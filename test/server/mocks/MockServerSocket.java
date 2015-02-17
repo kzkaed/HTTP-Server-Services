@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import server.socket.ServerSocketService;
+import server.socket.SocketService;
 
 
 public class MockServerSocket implements ServerSocketService{
-
-	
 	private int port;
 	private boolean closed;
+	SocketService socket = new MockSocket();
 	
 	
 	public MockServerSocket(int port) throws IOException{
@@ -21,9 +21,9 @@ public class MockServerSocket implements ServerSocketService{
 	
 
 	@Override
-	public Object accept() {
+	public SocketService accept() {
 		this.closed = false;
-		return true;
+		return socket;
 	}
 
 	@Override

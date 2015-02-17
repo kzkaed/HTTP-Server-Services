@@ -7,11 +7,8 @@ import java.io.OutputStream;
 public interface SocketService {
 	
 	public void close() throws IOException;
-
-	public OutputStream getOutputStream();
-
-	public InputStream getInputStream();
-	
+	public OutputStream getOutputStream() throws IOException;
+	public InputStream getInputStream() throws IOException;
 	public boolean isClosed();
 
 }

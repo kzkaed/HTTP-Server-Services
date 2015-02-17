@@ -6,8 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WireServerSocketWrapper implements ServerSocketService{
-	
-	
 	private ServerSocket serverSocket;
 
 	public WireServerSocketWrapper(ServerSocket socketService){
@@ -15,8 +13,8 @@ public class WireServerSocketWrapper implements ServerSocketService{
 	}
 
 	@Override
-	public Socket accept() throws IOException {
-		return serverSocket.accept();
+	public SocketService accept() throws IOException {
+		return new WireSocket(serverSocket.accept());
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import server.socket.ServerSocketService;
+import server.socket.SocketService;
 
 public class MockServerSocketWrapper implements ServerSocketService {
 	
@@ -17,7 +18,7 @@ public class MockServerSocketWrapper implements ServerSocketService {
 	}
 	
 	@Override
-	public Socket accept() throws IOException {
+	public SocketService accept() throws IOException {
 		this.isClosed = false;
 		return null;
 	}
