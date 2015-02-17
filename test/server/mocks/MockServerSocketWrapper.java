@@ -1,5 +1,6 @@
 package server.mocks;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,19 +17,19 @@ public class MockServerSocketWrapper implements ServerSocketService {
 	}
 	
 	@Override
-	public Socket accept() throws Exception {
+	public Socket accept() throws IOException {
 		this.isClosed = false;
 		return null;
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		isClosed = true;
 		
 	}
 
 	@Override
-	public boolean isClosed() throws Exception {
+	public boolean isClosed() throws IOException {
 		return isClosed;
 	}
 

@@ -1,6 +1,7 @@
 package server.socket;
 
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -14,12 +15,12 @@ public class WireServerSocketWrapper implements ServerSocketService{
 	}
 
 	@Override
-	public Socket accept() throws Exception {
+	public Socket accept() throws IOException {
 		return serverSocket.accept();
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		serverSocket.close();
 	}
 	

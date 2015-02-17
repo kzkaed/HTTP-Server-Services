@@ -27,14 +27,14 @@ public class MockServerSocket implements ServerSocketService{
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		this.closed = true;
 		
 	}
 
 
 	@Override
-	public boolean isClosed() throws Exception {
+	public boolean isClosed() throws IOException {
 		return closed;
 	}
 
