@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 

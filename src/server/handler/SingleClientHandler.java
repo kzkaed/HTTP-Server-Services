@@ -9,20 +9,23 @@ import java.net.Socket;
 
 import log.LoggerService;
 import server.request.HttpRequestParser;
+import server.socket.SocketService;
 
 public class SingleClientHandler {
 	protected Socket socket;
 	private BufferedReader in;
 	private DataOutputStream out;
 
-	public SingleClientHandler(Object object) throws IOException {
-		this.socket = (Socket) object;
+	public SingleClientHandler(SocketService service) throws IOException {
+		this.socket = (Socket) service;
 		this.in = new BufferedReader(new InputStreamReader(
 				socket.getInputStream()));
 		this.out = new DataOutputStream(socket.getOutputStream());
 	}
 
 	
+
+
 	public void run() {
 		String request = "";
 		
