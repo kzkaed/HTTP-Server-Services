@@ -12,14 +12,6 @@ import server.request.HttpRequestParser;
 
 public class HttpRequestParserTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -43,6 +35,21 @@ public class HttpRequestParserTest {
 		HttpRequestParser parser = new HttpRequestParser(request);
 		String response = parser.parse();
 		assertEquals(response, "HTTP/1.1 200 OK\r\n");
+	}
+	
+	@Test
+	public void testPUTRequestResponse() {
+		String request = "PUT / HTTP/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String response = parser.parse();
+		assertEquals(response, "HTTP/1.1 200 OK\r\n");
+	}
+	@Test
+	public void testOPTIONRequestResponse() {
+		String request = "OPTIONS /users/me http/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String response = parser.parse();
+		assertEquals(response, "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT\r\n");
 	}
 
 }

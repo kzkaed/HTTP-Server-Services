@@ -1,4 +1,4 @@
-package server;
+package server.handler;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import server.handler.SingleClientHandler;
 import server.mocks.MockSocket;
 
 
@@ -45,8 +46,4 @@ public class SingleClientHandlerTest {
 		assertEquals(mockSocket.isClosed(),true);
 		
 	}
-
-	
-	
-
 }

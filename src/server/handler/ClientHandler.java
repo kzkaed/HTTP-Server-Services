@@ -1,4 +1,4 @@
-package server;
+package server.handler;
 
 public interface ClientHandler {
 	public void run();

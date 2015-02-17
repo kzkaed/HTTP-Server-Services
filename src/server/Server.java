@@ -3,16 +3,14 @@ package server;
 
 
 import log.LoggerService;
+import server.handler.SingleClientHandler;
 import server.socket.ServerSocketService;
-
 
 
 public class Server {
 	public String document;
 	public int port;
 	ServerSocketService service;
-	public ClientHandler handler;
-	public static boolean controlSwitch = true;
 	
 	public Server(ServerSocketService service, int port, String document){
 		this.port = port;
@@ -26,6 +24,7 @@ public class Server {
 		
 		while(!service.isClosed()){ 
 			new SingleClientHandler(service.accept()).run();
+			
 		}
 		service.close();
 	}

@@ -1,6 +1,6 @@
 package server.socket;
 
-import java.net.Socket;
+
 
 public interface ServerSocketService {
 	

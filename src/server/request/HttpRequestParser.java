@@ -13,7 +13,14 @@ public class HttpRequestParser {
 				response = "HTTP/1.1 200 OK\r\n";
 			}else if (request.indexOf("POST") > -1){
 				response = "HTTP/1.1 200 OK\r\n";
+			}else if (request.indexOf("PUT") > -1){
+				response = "HTTP/1.1 200 OK\r\n";
+			}else if (request.indexOf("HEAD")> -1){
+				response = "HTTP/1.1 200 OK\r\n";
+			}else if (request.indexOf("OPTIONS")> -1){
+				response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT\r\n";
 			}
+			
 			return response;	
 		
 	}
