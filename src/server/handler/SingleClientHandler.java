@@ -24,15 +24,16 @@ public class SingleClientHandler {
 		
 		try {
 			request = in.readLine();
-			processHTTPRequest(request, out);
+			LoggerService.displayInfo(request);
+			processHTTPRequest(request);
 			socket.close();
 		} catch (IOException ioe) {			
 			System.err.println("Can't readline in from socket.." + ioe);
 		}
-		LoggerService.displayInfo(request);
+		
 	}
 
-	void processHTTPRequest(String request, DataOutputStream out) throws IOException {
+	void processHTTPRequest(String request) throws IOException {
 		String response = new HttpRequestParser(request).parse();
 		out.write(response.getBytes());
 		LoggerService.displayInfo(response);

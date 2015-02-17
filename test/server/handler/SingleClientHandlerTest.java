@@ -41,16 +41,6 @@ public class SingleClientHandlerTest {
 		assertEquals(mockSocket.getOutputStream().toString(), response);
 	}
 	
-	@Test
-	public void testError() throws IOException{
-		String request = " ";
-		String response = "HTTP/1.1 200 OK\r\n";		
-		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		handler = new SingleClientHandler(mockSocket);
-		handler.run();
-		assertEquals("", errorOut.toString());	
-	}
-	
 	@After
 	public void tearDown() throws IOException {
 		mockSocket.close();
