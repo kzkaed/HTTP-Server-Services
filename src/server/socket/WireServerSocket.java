@@ -26,5 +26,8 @@ public class WireServerSocket implements ServerSocketService{
 		return serverSocket.isClosed();
 	}
 	
+	public int getPort(){
+		return serverSocket.getLocalPort();
+	}
 
 }
