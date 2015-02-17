@@ -15,7 +15,7 @@ public class Server {
 	public Server(ServerSocketService service, int port, String document){
 		this.port = port;
 		this.document = document;
-		this.service = service;
+		this.service = service;//serverSocketFromMain
 	}
 	
 	

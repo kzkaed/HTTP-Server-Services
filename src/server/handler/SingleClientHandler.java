@@ -12,12 +12,12 @@ import server.request.HttpRequestParser;
 import server.socket.SocketService;
 
 public class SingleClientHandler {
-	protected Socket socket;
+	protected SocketService socket;
 	private BufferedReader in;
 	private DataOutputStream out;
 
 	public SingleClientHandler(SocketService service) throws IOException {
-		this.socket = (Socket) service;
+		this.socket = service;
 		this.in = new BufferedReader(new InputStreamReader(
 				socket.getInputStream()));
 		this.out = new DataOutputStream(socket.getOutputStream());
@@ -31,14 +31,13 @@ public class SingleClientHandler {
 		
 		try {
 			request = in.readLine();
-			
-			LoggerService.displayRequest(request);
 			processHTTPRequest(request, out);
 			socket.close();
-		} catch (IOException ioe) {
-			LoggerService.displayError(ioe.toString());
-			ioe.printStackTrace();
+		} catch (IOException ioe) {			
+			System.err.println("Can't readline in from socket.." + ioe);
 		}
+		LoggerService.displayInfo(request);
+		
 
 	}
 

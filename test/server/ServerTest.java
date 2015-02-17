@@ -66,8 +66,7 @@ public class ServerTest {
 		
 		serverSocket.close();
 		assertEquals(service.isClosed(),true);
-		assertEquals(service.getClass().getName(),"server.socket.WireServerSocket");
-		
+		assertEquals(service.getClass().getName(),"server.socket.WireServerSocket");	
 	}
 	
 	

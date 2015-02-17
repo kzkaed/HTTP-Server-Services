@@ -2,16 +2,13 @@ package server.handler;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import log.LoggerService;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import server.handler.SingleClientHandler;
@@ -21,12 +18,17 @@ import server.mocks.MockSocket;
 
 public class SingleClientHandlerTest {
 	private SingleClientHandler handler;
-	private Socket socket;
 	private MockSocket mockSocket;
+	private OutputStream out;
+	private OutputStream errorOut;
 
 
 	@Before
-	public void setUp() throws IOException {	
+	public void setUp() throws IOException {
+		out = new ByteArrayOutputStream();
+		errorOut = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+		System.setErr(new PrintStream(errorOut));
 	}
 	
 	@Test
@@ -37,6 +39,16 @@ public class SingleClientHandlerTest {
 		handler = new SingleClientHandler(mockSocket);
 		handler.run();
 		assertEquals(mockSocket.getOutputStream().toString(), response);
+	}
+	
+	@Test
+	public void testError() throws IOException{
+		String request = " ";
+		String response = "HTTP/1.1 200 OK\r\n";		
+		mockSocket = new MockSocket("localhost",5000,request.getBytes());
+		handler = new SingleClientHandler(mockSocket);
+		handler.run();
+		assertEquals("", errorOut.toString());	
 	}
 	
 	@After
