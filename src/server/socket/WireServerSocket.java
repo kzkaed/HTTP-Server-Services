@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class WireServerSocketWrapper implements ServerSocketService{
+public class WireServerSocket implements ServerSocketService{
 	private ServerSocket serverSocket;
 
-	public WireServerSocketWrapper(ServerSocket socketService){
+	public WireServerSocket(ServerSocket socketService){
 		this.serverSocket = socketService;
 	}
 

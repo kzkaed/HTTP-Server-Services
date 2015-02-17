@@ -13,7 +13,7 @@ import org.junit.Before;
 
 import server.Server;
 import server.socket.ServerSocketService;
-import server.socket.WireServerSocketWrapper;
+import server.socket.WireServerSocket;
 import server.mocks.MockServerSocketWrapper;
 import server.mocks.MockServerSocket;
 import server.mocks.MockSocket;
@@ -59,7 +59,7 @@ public class ServerTest {
 	@Test
 	public void testServerStart() throws Exception {
 		ServerSocket serverSocket = new ServerSocket(1234);
-		service = new WireServerSocketWrapper(serverSocket);
+		service = new WireServerSocket(serverSocket);
 		Server server = new Server(service,port,document);
 		ServerStarter starter = new ServerStarter(server);
 		starter.start();

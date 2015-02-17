@@ -3,7 +3,7 @@ package server;
 import java.net.ServerSocket;
 import java.util.Map;
 
-import server.socket.WireServerSocketWrapper;
+import server.socket.WireServerSocket;
 
 
 public class Main {
@@ -17,7 +17,7 @@ public static void main(String[] args) throws Exception{
 		int port = Integer.parseInt(portString);
 		
 		ServerSocket serverSocket = new ServerSocket(port);
-		new Server(new WireServerSocketWrapper(serverSocket),port,publicDirectory).start();
+		new Server(new WireServerSocket(serverSocket),port,publicDirectory).start();
 	}
 
 }
