@@ -1,6 +1,10 @@
-package server;
+package server.request;
 
 import static org.junit.Assert.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,9 +15,10 @@ import org.junit.Test;
 import server.request.HttpRequestParser;
 
 public class HttpRequestParserTest {
-
+	
+	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception {	
 	}
 
 	@After
@@ -52,6 +57,27 @@ public class HttpRequestParserTest {
 		HttpRequestParser parser = new HttpRequestParser(request);
 		String response = parser.parse();
 		assertEquals(response, "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT\r\n");
+	}
+	
+	@Test
+	public void testGETParse(){
+		String request = "GET /Public/index.html HTTP1/1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String[] tokens = parser.retreiveTokens(request);
+		assertEquals(tokens[1],"/Public/index.html" );
+	}
+	
+	@Test
+	public void testResponseHeadersAreBuilt(){
+		String request = "GET /Public/index.html HTTP1/1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String headers = "Server: Kristin Server\r\n" 
+				+ "Accept-Ranges: bytes\r\n"
+				+ "Content-Length: 59\r\n"
+				+ "Content-Type: text/html\r\n";
+		String returnedHeaders = parser.buildResponseHeaders();
+		assertEquals(returnedHeaders, headers);
+		
 	}
 
 }

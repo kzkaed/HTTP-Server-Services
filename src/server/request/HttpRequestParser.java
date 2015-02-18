@@ -27,24 +27,16 @@ public class HttpRequestParser {
 	public String parse() {
 			String response = "";
 			if (request.indexOf("GET") > -1){
-				if (request == null){
-					response = STATUS_400;
-				}else{
 				
-				DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-				Calendar cal = Calendar.getInstance();
-				String date = dateFormat.format(cal.getTime());
+				
+				String headers = buildResponseHeaders();
+			
+				
 				
 				response = statusLine 
-						+ "Date: " +date + CRLF
-						+ "Server: Kristin" + CRLF
-						+ "Last-Modified: "+date + CRLF
-						+ "ETag: 34aa387-d-1568eb00"+ CRLF
-						+ "Accept-Ranges: bytes"+ CRLF
-						+ "Content-Length: 59"+ CRLF
-						+ "Vary: Accept-Encoding"+ CRLF
-						+ "Content-Type: text/html" +CRLF+ CRLF + body;
-				}
+						+ headers + CRLF 
+						+ body;
+				
 			}else if (request.indexOf("POST") > -1){
 				response = "HTTP/1.1 200 OK\r\n";
 			}else if (request.indexOf("PUT") > -1){
@@ -62,21 +54,21 @@ public class HttpRequestParser {
 	public String getStatusLine(){
 		return statusLine;
 	}
+	
+	public String[] retreiveTokens(String request){
+		String delimiters = "[ ]+";
+		String[] tokens = request.split(delimiters);
+		return tokens;
+	}
+	
+	public String buildResponseHeaders(){
+		String headers = "Server: Kristin Server" + CRLF
+						+ "Accept-Ranges: bytes"+ CRLF
+						+ "Content-Length: 59"+ CRLF
+						+ "Content-Type: text/html\r\n";
+		
+		return headers;
+		
+	}
 
 }
-//GET<space>URI<space>protocol<crlf> 
-//Request-Line   = Method SP Request-URI SP HTTP-Version CRLF
-//GET / HTTP/1.1
-
-//POST /index.html HTTP/1.1
-//Host: www.example.com
-//Content-Type: application/x-www-form-urlencoded
-//Content-Length: [size of the request body]
-
-/*Request       = Request-Line              ; Section 5.1
-*(( general-header        ; Section 4.5
- | request-header         ; Section 5.3
- | entity-header ) CRLF)  ; Section 7.1
-CRLF
-[ message-body ]          ; Section 4.3
-*/
