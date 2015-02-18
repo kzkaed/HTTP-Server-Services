@@ -30,10 +30,8 @@ public class HttpRequestParserTest {
 		String request = "GET / HTTP/1.1";
 		HttpRequestParser parser = new HttpRequestParser(request);
 		parser.parse();
-		String statusLine = parser.getStatusLine();
-		
+		String statusLine = parser.getStatusLine();	
 		assertEquals(statusLine, "HTTP/1.1 200 OK\r\n");
-
 	}
 	
 	@Test
@@ -76,8 +74,7 @@ public class HttpRequestParserTest {
 				+ "Content-Length: 59\r\n"
 				+ "Content-Type: text/html\r\n";
 		String returnedHeaders = parser.buildResponseHeaders();
-		assertEquals(returnedHeaders, headers);
-		
+		assertEquals(returnedHeaders, headers);	
 	}
 
 }
