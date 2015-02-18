@@ -31,11 +31,13 @@ public class SingleClientHandlerTest {
 	@Test
 	public void testRunProcessHTTPRequest() throws IOException{
 		String request = "GET / HTTP/1.1";
-		String response = "HTTP/1.1 200 OK\r\n";		
+		String statusLine = "HTTP/1.1 200 OK\r\n";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		handler = new SingleClientHandler(mockSocket);
 		handler.run();
-		assertEquals(mockSocket.getOutputStream().toString(), response);
+		assertEquals(mockSocket.getOutputMock(), statusLine);
+		
+		
 	}
 	
 	@After

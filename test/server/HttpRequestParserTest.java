@@ -24,14 +24,16 @@ public class HttpRequestParserTest {
 	public void testGETRequestResponse() {
 		String request = "GET / HTTP/1.1";
 		HttpRequestParser parser = new HttpRequestParser(request);
-		String response = parser.parse();
-		assertEquals(response, "HTTP/1.1 200 OK\r\n");
+		parser.parse();
+		String statusLine = parser.getStatusLine();
+		
+		assertEquals(statusLine, "HTTP/1.1 200 OK\r\n");
 
 	}
 	
 	@Test
 	public void testPOSTRequestResponse() {
-		String request = "POST /bugreport.php HTTP/1.1";
+		String request = "POST / HTTP/1.1";
 		HttpRequestParser parser = new HttpRequestParser(request);
 		String response = parser.parse();
 		assertEquals(response, "HTTP/1.1 200 OK\r\n");

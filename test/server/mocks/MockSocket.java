@@ -19,6 +19,19 @@ public class MockSocket extends Socket implements SocketService{
 	public static final int DISCONNECTED = 30;
 	private int state; //ENUMS?
 	
+	String statusLine = "HTTP/1.1 200 OK\r\n" ;
+	String mockOutput = statusLine 
+	+"Date: Wed, 18 Feb 2015 06:29:56 CST"
+	+"Server: Kristin"
+	+"Last-Modified: Wed, 18 Feb 2015 06:29:56 CST"
+	+"ETag: 34aa387-d-1568eb00"
+	+"Accept-Ranges: bytes"
+	+"Content-Length: 59"
+	+"Vary: Accept-Encoding"
+	+"Content-Type: text/html"
+	+"\r\n"
+	+"<!doctype html><html><head></head><body>hello</body></html>";
+	
 	private InputStream input;
 	private OutputStream output;
 	
@@ -60,6 +73,10 @@ public class MockSocket extends Socket implements SocketService{
 	@Override
 	public OutputStream getOutputStream() {
 		return output;
+	}
+	
+	public String getOutputMock() {
+		return statusLine;
 	}
 
 	@Override
