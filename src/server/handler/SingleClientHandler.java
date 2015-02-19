@@ -8,7 +8,7 @@ import log.LoggerService;
 import server.request.HttpRequestParser;
 import server.socket.SocketService;
 
-public class SingleClientHandler {
+public class SingleClientHandler extends Thread{
 	protected SocketService socket;
 	private BufferedReader in;
 	private DataOutputStream out;
@@ -24,9 +24,11 @@ public class SingleClientHandler {
 		
 		try {
 			request = in.readLine();
-			LoggerService.displayInfo(request);
-			String response = process(request);
-			LoggerService.displayInfo(response);
+			if (request != null){
+				LoggerService.displayInfo(request);
+				String response = process(request);
+				LoggerService.displayInfo(response);
+			}
 			socket.close();
 		} catch (IOException ioe) {			
 			System.err.println(ioe.getStackTrace());

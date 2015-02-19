@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 
-public class WireServerSocket implements ServerSocketService{
+public class WireServerSocket implements ServerSocketService {
 	private ServerSocket serverSocket;
 
 	public WireServerSocket(ServerSocket socketService){
@@ -28,6 +28,10 @@ public class WireServerSocket implements ServerSocketService{
 	
 	public int getPort(){
 		return serverSocket.getLocalPort();
+	}
+
+	public boolean isBound() {
+		return serverSocket.isBound();
 	}
 
 }

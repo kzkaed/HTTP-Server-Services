@@ -11,6 +11,7 @@ public class MockServerSocketWrapper implements ServerSocketService {
 	
 	private MockServerSocket mockServerSocket;
 	private boolean isClosed;
+	private boolean isBound;
 	
 	public MockServerSocketWrapper(MockServerSocket serverSocket){
 		this.mockServerSocket = serverSocket;
@@ -20,18 +21,26 @@ public class MockServerSocketWrapper implements ServerSocketService {
 	@Override
 	public SocketService accept() throws IOException {
 		this.isClosed = false;
+		this.isBound = true;
 		return null;
 	}
 
 	@Override
 	public void close() throws IOException {
 		isClosed = true;
+		isBound = false;
 		
 	}
 
 	@Override
 	public boolean isClosed() throws IOException {
 		return isClosed;
+	}
+
+	@Override
+	public boolean isBound() {
+		
+		return isBound;
 	}
 
 }

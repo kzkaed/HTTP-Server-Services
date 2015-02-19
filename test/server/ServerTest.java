@@ -20,13 +20,14 @@ public class ServerTest {
 	int port;
 	String document;
 	MockServerSocket mockSSocket;
-	
+	ServerSocket serverSocket;
 	
 	@Before
 	public void setUp() throws IOException {
 		port = 5000;
 		document = "PUBLIC_DIR";
 		mockSSocket = new MockServerSocket(port);
+	
 	}
 
 	@After
@@ -43,7 +44,7 @@ public class ServerTest {
 	}
 	
 	@Test
-	public void testServerConstructed() throws Exception {
+	public void testServerConstructed() throws IOException {
 		Server server = new Server(mockSSocket,port,document);
 		assertEquals(document, "PUBLIC_DIR");
 		assertEquals(port, 5000);
@@ -52,12 +53,14 @@ public class ServerTest {
 	}
 	
 	@Test
-	public void testServerStart() throws Exception {
-		ServerSocket serverSocket = new ServerSocket(1234);
+	public void testServerStart() throws IOException {
+		serverSocket = new ServerSocket(port);
+		
 		service = new WireServerSocket(serverSocket);
 		Server server = new Server(service,port,document);
+		
 		ServerStarter starter = new ServerStarter(server);
-		starter.start();
+		//starter.run();
 		
 		serverSocket.close();
 		assertEquals(service.isClosed(),true);
@@ -69,18 +72,15 @@ public class ServerTest {
 	class ServerStarter extends Thread {
         public Server server;
         
+        public void run() {
+        	server.start();	
+		}
+        
         public ServerStarter(Server mServer) {
             this.server = mServer;
         }
 
-        public void run() {
-        	try {
-				server.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    
-        }
+        
            
     }
 		

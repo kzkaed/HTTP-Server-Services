@@ -71,7 +71,6 @@ public class HttpRequestParserTest {
 		HttpRequestParser parser = new HttpRequestParser(request);
 		String headers = "Server: Kristin Server\r\n" 
 				+ "Accept-Ranges: bytes\r\n"
-				+ "Content-Length: 59\r\n"
 				+ "Content-Type: text/html\r\n";
 		String returnedHeaders = parser.buildResponseHeaders();
 		assertEquals(returnedHeaders, headers);	

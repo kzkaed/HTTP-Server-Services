@@ -12,6 +12,7 @@ import server.socket.SocketService;
 public class MockServerSocket implements ServerSocketService{
 	private int port;
 	private boolean closed;
+	private boolean bound;
 	SocketService socket = new MockSocket();
 	
 	
@@ -23,6 +24,7 @@ public class MockServerSocket implements ServerSocketService{
 	@Override
 	public SocketService accept() {
 		this.closed = false;
+		this.bound = true;
 		return socket;
 	}
 
@@ -46,6 +48,12 @@ public class MockServerSocket implements ServerSocketService{
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+
+	@Override
+	public boolean isBound() {
+		return bound;
 	}
 
 }
