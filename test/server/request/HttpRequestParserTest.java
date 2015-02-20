@@ -98,10 +98,9 @@ public class HttpRequestParserTest {
 	
 	@Test
 	public void testGetContent(){
-		String request = "GET / HTTP/1.1";
+		String request = "GET /test.html HTTP/1.1";
 		HttpRequestParser parser = new HttpRequestParser(request);
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
-				+ "</head><body>Mushroom in the Rain<br>with Ants Underneath.</body></html>";
+		String content = "<!doctype html><html><head><title>Test at root</title></head><body>Test at root</body></html>";
 		String contentReceived = parser.getContent(request);
 		assertEquals(content,contentReceived);
 		
@@ -112,11 +111,13 @@ public class HttpRequestParserTest {
 		String request = "GET /test/test.html HTTP/1.1";
 		HttpRequestParser parser = new HttpRequestParser(request);
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
-				+ "</head><body>Mushroom in the Rain<br>with Ants Underneath.</body></html>";
+				+ "</head><body><a href=\"http://www.scutigera.com\">Two</a> Mushroom in the Rain<br>with Ants Underneath.</body></html>";
 		String contentReceived = parser.getContent(request);
 		assertEquals(content,contentReceived);
 		
 	}
+	
+
 
 
 }
