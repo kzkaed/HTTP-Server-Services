@@ -45,14 +45,12 @@ public class MockSocket extends Socket implements SocketService{
 	
 	private boolean closed = false;
 	
-	public MockSocket(){
-		state = UNBOUND;
-	}
-	
-	public MockSocket(String host, int port) throws IOException{
-		super(host,port);
+	public MockSocket() throws IOException{
+		this("localhost", 5000, "GET / HTTP/1.1".getBytes() );
 		state = BOUND;
 	}
+	
+
 	public MockSocket(String host, int port, byte[] in) throws IOException{
 		this.input = new ByteArrayInputStream(in);
 		this.output = new ByteArrayOutputStream();

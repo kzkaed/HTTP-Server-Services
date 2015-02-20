@@ -7,16 +7,20 @@ import java.io.InputStreamReader;
 import log.LoggerService;
 import server.request.HttpRequestParser;
 import server.socket.SocketService;
+import log.Logger;
+import log.SystemLogger;
 
 public class SingleClientHandler extends Thread{
 	protected SocketService socket;
 	private BufferedReader in;
 	private DataOutputStream out;
+	private Logger logger;
 
-	public SingleClientHandler(SocketService service) throws IOException {
-		this.socket = service;
+	public SingleClientHandler(SocketService socket, Logger logger) throws IOException {
+		this.socket = socket;
 		this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		this.out = new DataOutputStream(socket.getOutputStream());
+		this.logger = logger;
 	}
 
 	public void run() {
@@ -25,11 +29,10 @@ public class SingleClientHandler extends Thread{
 		try {
 			request = in.readLine();
 			if (request != null){
-				LoggerService.displayInfo(request);
+				logger.log(request);
 				String response = process(request);
-				LoggerService.displayInfo(response);
+				logger.log(response);
 			}
-			socket.close();
 		} catch (IOException ioe) {			
 			System.err.println(ioe.getStackTrace());
 		}

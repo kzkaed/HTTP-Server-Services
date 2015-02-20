@@ -13,12 +13,15 @@ import org.junit.Test;
 
 import server.handler.SingleClientHandler;
 import server.mocks.MockSocket;
+import log.Logger;
+import log.mocks.StringLogger;
 
 public class SingleClientHandlerTest {
 	private SingleClientHandler handler;
 	private MockSocket mockSocket;
 	private OutputStream out;
 	private OutputStream errorOut;
+	private Logger logger;
 
 	@Before
 	public void setUp() throws IOException {
@@ -33,12 +36,13 @@ public class SingleClientHandlerTest {
 		String request = "GET / HTTP/1.1";
 		String statusLine = "HTTP/1.1 200 OK\r\n";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		handler = new SingleClientHandler(mockSocket);
+		handler = new SingleClientHandler(mockSocket,new StringLogger());
 		handler.run();
-		assertEquals(mockSocket.getOutputMock(), statusLine);
-		
-		
+		assertEquals(mockSocket.getOutputMock(), statusLine);	
 	}
+	
+
+	
 	
 	@After
 	public void tearDown() throws IOException {

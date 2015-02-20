@@ -2,6 +2,7 @@ package server.request;
 
 import static org.junit.Assert.*;
 
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -75,5 +76,47 @@ public class HttpRequestParserTest {
 		String returnedHeaders = parser.buildResponseHeaders();
 		assertEquals(returnedHeaders, headers);	
 	}
+	
+	@Test
+	public void testFindRelativePathRoot(){
+		String request = "GET / HTTP/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String relativePathRoot = parser.findPath("");
+		assertNotNull(relativePathRoot);
+	}
+	
+	@Test 
+	public void testGetDocumentBody(){
+		String request = "GET / HTTP/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String documentBody = parser.getDocumentBody();
+		String body = "<!doctype html><html>"
+				+ "<head></head><body>Mushroom in the Rain"
+				+ "</body></html>";
+		assertEquals(documentBody,body);
+	}
+	
+	@Test
+	public void testGetContent(){
+		String request = "GET / HTTP/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
+				+ "</head><body>Mushroom in the Rain<br>with Ants Underneath.</body></html>";
+		String contentReceived = parser.getContent(request);
+		assertEquals(content,contentReceived);
+		
+	}
+	
+	@Test
+	public void testGetContentOnPath(){
+		String request = "GET /test/test.html HTTP/1.1";
+		HttpRequestParser parser = new HttpRequestParser(request);
+		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
+				+ "</head><body>Mushroom in the Rain<br>with Ants Underneath.</body></html>";
+		String contentReceived = parser.getContent(request);
+		assertEquals(content,contentReceived);
+		
+	}
+
 
 }

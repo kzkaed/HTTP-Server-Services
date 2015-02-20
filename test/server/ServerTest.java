@@ -1,14 +1,14 @@
 package server;
 
+import org.junit.*;
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.Before;
-
+import log.Logger;
+import log.mocks.StringLogger;
 import server.Server;
 import server.socket.ServerSocketService;
 import server.socket.WireServerSocket;
@@ -34,10 +34,8 @@ public class ServerTest {
 	public void tearDown() throws IOException {
 		try {
 			if(mockSSocket !=null ){
-				mockSSocket.close();
-				
-			}
-			
+				mockSSocket.close();	
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -51,23 +49,26 @@ public class ServerTest {
 		assertEquals(mockSSocket.getClass().getName(), "server.mocks.MockServerSocket");
 		assertEquals(server.getClass().getName(),"server.Server");
 	}
+
+	@Test
+	public void testLogServerStatus() throws IOException{
+		mockSSocket.closed = true;
+		Logger logger = new StringLogger();
+		Server server = new Server(mockSSocket,port,document, logger);
+		server.start();
+		assertEquals(((StringLogger)logger).logs.get(0), "Server Starting...");
+	}
 	
 	@Test
 	public void testServerStart() throws IOException {
-		serverSocket = new ServerSocket(port);
+		mockSSocket.closed = true;
+		Logger logger = new StringLogger();
+		Server server = new Server(mockSSocket,port,document, logger);
+		server.start();
 		
-		service = new WireServerSocket(serverSocket);
-		Server server = new Server(service,port,document);
-		
-		ServerStarter starter = new ServerStarter(server);
-		//starter.run();
-		
-		serverSocket.close();
-		assertEquals(service.isClosed(),true);
-		assertEquals(service.getClass().getName(),"server.socket.WireServerSocket");	
+		assertEquals(mockSSocket.isClosed(),true);
 	}
-	
-	
+
 	
 	class ServerStarter extends Thread {
         public Server server;
