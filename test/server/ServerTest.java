@@ -80,9 +80,6 @@ public class ServerTest {
         public ServerStarter(Server mServer) {
             this.server = mServer;
         }
-
-        
-           
     }
 		
 }

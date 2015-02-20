@@ -1,31 +1,28 @@
 package server;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import log.LoggerService;
 import log.SystemLogger;
-import server.handler.SingleClientHandler;
+import log.Logger;
+import server.handler.ClientHandler;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
-import server.socket.WireSocket;
-
 
 public class Server {
 	public String document;
 	public int port;
 	private ServerSocketService service;
-	private log.Logger logger;
+	private Logger logger;
 	
 	public Server(ServerSocketService service, int port, String document){
 		this(service, port, document, new SystemLogger());
 	}
 	
-	public Server(ServerSocketService service, int port, String document, log.Logger logger){
+	public Server(ServerSocketService service, int port, String document, Logger logger){
 		this.port = port;
 		this.document = document;
 		this.service = service;
-		this.logger = logger;
+		this.logger = logger;	
 	}
 		
 	public void start()  {
@@ -35,7 +32,7 @@ public class Server {
 			while(!service.isClosed()){ 
 				logger.log("Listening...");
 				SocketService socket = service.accept();
-				new SingleClientHandler(socket,logger).run();	
+				new ClientHandler(socket,logger).run();	
 				socket.close();
 			}
 			service.close();
