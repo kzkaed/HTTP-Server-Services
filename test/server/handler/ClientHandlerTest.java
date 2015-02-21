@@ -29,38 +29,41 @@ public class ClientHandlerTest {
 
 	@Before
 	public void setUp() throws IOException {
-		out = new ByteArrayOutputStream();
-		errorOut = new ByteArrayOutputStream();
+		this.out = new ByteArrayOutputStream();
+		this.errorOut = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(out));
 		System.setErr(new PrintStream(errorOut));
+		this.logger = new StringLogger();
 	}
 	
 	@Test
 	public void testRunProcessHTTPRequest() throws IOException{
-		String request = "GET / HTTP/1.1";
+		String request = "GET /test.html HTTP/1.1";
 		String statusLine = "HTTP/1.1 200 OK" + CRLF;		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		handler = new ClientHandler(mockSocket,new StringLogger());
+		handler = new ClientHandler(mockSocket, logger);
 		handler.run();
 		assertEquals(mockSocket.getOutputMock(), statusLine);	
 	}
 	
+	
 	@Test
 	public void testLogger() throws IOException{
-		String request = "GET /test.html HTTP/1.1";
-		String statusLine = "HTTP/1.1 200 OK" + CRLF;		
+		String request = "GET /test.html HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		Logger logger = new StringLogger();
+		logger = new StringLogger();
 		handler = new ClientHandler(mockSocket, logger);
+		String loggedRequest = "GET /test.html HTTP/1.1";
+		String loggedResponse = "HTTP/1.1 200 OK" + CRLF
+				+ "Server: Kristin Server" + CRLF
+				+ "Accept-Ranges: bytes" + CRLF
+				+ "Content-Type: text/html" + CRLF + CRLF
+				+"<!doctype html><html><head><title>"
+				+ "Test at root</title></head><body>"
+				+ "Test at root</body></html>";
 		handler.run();
-		assertEquals(((StringLogger)logger).logs.get(0), "GET /test.html HTTP/1.1");
-		assertEquals(((StringLogger)logger).logs.get(1), "HTTP/1.1 200 OK" + CRLF
-														+ "Server: Kristin Server" + CRLF
-														+ "Accept-Ranges: bytes" + CRLF
-														+ "Content-Type: text/html" + CRLF + CRLF
-														+"<!doctype html><html><head><title>"
-														+ "Test at root</title></head><body>"
-														+ "Test at root</body></html>");
+		assertEquals(((StringLogger)logger).logs.get(0), loggedRequest);
+		assertEquals(((StringLogger)logger).logs.get(1), loggedResponse);
 	}
 	
 	@After
