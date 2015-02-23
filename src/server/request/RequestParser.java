@@ -33,14 +33,11 @@ public class RequestParser {
 	
 	final private String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
 
-	String request;
-	BufferedReader in;
-	
-
-	String statusLine;
+	private String request;
+	private BufferedReader in;
+	private String statusLine;
 
 	public RequestParser(String request, BufferedReader in) {
-		
 		this.statusLine = STATUS_200;
 		this.in = in;
 		this.request = request;
@@ -48,26 +45,37 @@ public class RequestParser {
 
 	public Request generateRequest() throws IOException{
 		String request = in.readLine();
+		
 		HashMap<String,String> requestLineTokens = parseRequestLine(request);
 
 		String requestLine = request;
 		String method = requestLineTokens.get("method");
 		String uri = requestLineTokens.get("uri");
 		String protocolVersion = requestLineTokens.get("protocolVersion");
-		String[] contentsOfRequest;
+		
+		String[] allOfRequest;
 		Hashtable<String,String> headers = null;
 		String requestBody = "";//on POST
-
+		
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody);	
 	}
 	
 	private HashMap<String,String> parseRequestLine(String request){
-		String[] tokens = retreiveTokens(request, null);
+		String delimiters = "[ ]+";
+		String[] tokens = retreiveTokens(request, delimiters);
+		
 		HashMap<String,String>requestLine = new HashMap<String,String>();
 		requestLine.put("method", tokens[0]);
 		requestLine.put("uri", tokens[1]);
 		requestLine.put("protocolVersion", tokens[2]);
 		return requestLine;	
+	}
+	
+
+
+	public String[] retreiveTokens(String request, String delimiters) {
+		String[] tokens = request.split(delimiters);
+		return tokens;
 	}
 	
 
@@ -99,19 +107,7 @@ public class RequestParser {
 	public String getStatusLine() {
 		return statusLine;
 	}
-	
-	
 
-	public String[] retreiveTokens(String request, String delimiters) {
-		delimiters = "[ ]+";
-		String[] tokens = request.split(delimiters);
-		
-		return tokens;
-	}
-	
-
-
-	
 	public String buildResponseHeaders() {
 		String headers = "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF 

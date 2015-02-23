@@ -11,19 +11,24 @@ public class RequestTest {
 	
 
 	@Test
-	public void test(){
+	public void testRequestGetsRequestTokens(){
 		String method = "";
-		String url = "";
+		String uri = "";
 		String protocolVersion = "";
 		Hashtable<String,String> headers = null;
 		String requestLine = "GET / HTTP1.1";	
 		String requestBody = "";
 		
-		Request request = new Request(method,url,protocolVersion, headers,requestLine,requestBody);
-		assertEquals(request.requestLine, requestLine);
+		Request request = new Request(method,uri,protocolVersion, headers,requestLine,requestBody);
+		assertEquals(request.getRequestLine(), requestLine);
+		assertEquals(request.getMethod(), method);
+		assertEquals(request.getProtocolVersion(), protocolVersion);
+		assertEquals(request.getURI(), uri);
 	
 		
 	}
+	
+	
 	
 	
 	

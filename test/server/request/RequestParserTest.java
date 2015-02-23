@@ -20,18 +20,6 @@ public class RequestParserTest {
 	private final String COLON = ": ";
 	private final String HEADERS_END = CRLF + CRLF;
 	
-
-	@Test
-	public void testGETRequestResponse() throws IOException {
-		String request = "GET / HTTP/1.1";
-		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
-		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(request,in);
-		parser.buildResponse();
-		String statusLine = parser.getStatusLine();
-		assertEquals(statusLine, "HTTP/1.1 200 OK" + CRLF);
-	}
-
 	@Test
 	public void testPOSTRequestResponse() throws IOException{
 		String request = "POST / HTTP/1.1";
@@ -70,8 +58,8 @@ public class RequestParserTest {
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(request, in);
-	
-		String[] tokens = parser.retreiveTokens(request,null);
+		String delimiters = "[ ]+";
+		String[] tokens = parser.retreiveTokens(request,delimiters);
 		assertEquals(tokens[1], "/public/index.html");
 	}
 

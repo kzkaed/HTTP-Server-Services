@@ -17,12 +17,13 @@ public class Request {
 	private final String SPACE = "";
 
 	
-	public String method;
-	public String uri;
-	public String requestBody;
-	public Hashtable<String,String> headers;
-	public String requestLine;
-	public String protocolVersion;
+	private String method;
+	private String uri;
+	private String protocolVersion;
+	private Hashtable<String,String> headers;
+	private String requestLine;
+	private String requestBody;
+	
 	
 	
 		
@@ -35,10 +36,24 @@ public class Request {
 		this.requestBody = requestBody;
 }	
 		
-	public Request(){
-	 
+	
+	
+	
+	public String getMethod(){
+		return this.method;
 	}
 	
+	public String getProtocolVersion(){
+		return this.protocolVersion;
+	}
+	
+	public String getURI(){
+		return this.uri;
+	}
+	
+	public String getRequestLine(){
+		return this.requestLine;
+	}
 	
 	
 
