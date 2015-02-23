@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.junit.After;
@@ -21,7 +22,7 @@ public class RequestParserTest {
 	
 
 	@Test
-	public void testGETRequestResponse() {
+	public void testGETRequestResponse() throws IOException {
 		String request = "GET / HTTP/1.1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
@@ -32,7 +33,7 @@ public class RequestParserTest {
 	}
 
 	@Test
-	public void testPOSTRequestResponse() {
+	public void testPOSTRequestResponse() throws IOException{
 		String request = "POST / HTTP/1.1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
@@ -42,7 +43,7 @@ public class RequestParserTest {
 	}
 
 	@Test
-	public void testPUTRequestResponse() {
+	public void testPUTRequestResponse() throws IOException{
 		
 		String request = "PUT / HTTP/1.1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
@@ -53,7 +54,7 @@ public class RequestParserTest {
 	}
 
 	@Test
-	public void testOPTIONRequestResponse() {
+	public void testOPTIONRequestResponse() throws IOException{
 		String request = "OPTIONS /users/me http/1.1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
@@ -104,7 +105,7 @@ public class RequestParserTest {
 		RequestParser parser = new RequestParser(request, in);
 		String content = "<!doctype html><html><head><title>Test "
 				+ "at root</title></head><body>Test at root</body></html>";
-		String contentReceived = parser.getBody(request);
+		String contentReceived = parser.getResponseBody(request);
 		assertEquals(content, contentReceived);
 
 	}
@@ -117,7 +118,7 @@ public class RequestParserTest {
 		RequestParser parser = new RequestParser(request, in);
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
 				+ "</head><body><a href=\"http://www.scutigera.com\">Two</a> Mushroom in the Rain<br>with Ants Underneath.</body></html>";
-		String contentReceived = parser.getBody(request);
+		String contentReceived = parser.getResponseBody(request);
 		assertEquals(content, contentReceived);
 
 	}
@@ -129,13 +130,13 @@ public class RequestParserTest {
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(request, in);
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
-		String contentReceived = parser.getBody(request);
+		String contentReceived = parser.getResponseBody(request);
 		assertEquals(content, contentReceived);
 		
 	}
 	
 	@Test
-	public void test404IfFileNotFound(){
+	public void test404IfFileNotFound() throws IOException{
 		String request = "GET /jam HTTP/1.1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));

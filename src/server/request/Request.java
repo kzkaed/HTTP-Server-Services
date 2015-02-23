@@ -14,25 +14,25 @@ public class Request {
 	
 	private final String VERSION_PROTOCOL = "HTTP/1.1";
 	private final String CRLF = "\r\n";
-	private final String SPACE = " ";
+	private final String SPACE = "";
 
 	
 	public String method;
 	public String uri;
-	public String body;
+	public String requestBody;
 	public Hashtable<String,String> headers;
 	public String requestLine;
 	public String protocolVersion;
 	
 	
 		
-	public Request(String method,String uri, String body, Hashtable<String,String> headers, String requestLine, String protocolVersion) {
+	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody) {
 		this.method = method;
 		this.uri = uri;
-		this.body = body;
+		this.protocolVersion = protocolVersion;
 		this.headers = headers;
 		this.requestLine = requestLine;
-		this.protocolVersion = protocolVersion;
+		this.requestBody = requestBody;
 }	
 		
 	public Request(){

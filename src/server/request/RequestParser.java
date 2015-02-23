@@ -1,22 +1,29 @@
 package server.request;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.TimeZone;
-
 import routes.Routes;
 import server.ArgsParser;
-import server.response.ResponseCodes;
+
+
+/*
+ * The normal procedure for parsing an HTTP message is to read the
+start-line into a structure, read each header field into a hash table
+by field name until the empty line, and then use the parsed data to
+determine if a message body is expected.  
+
+If a message body has been
+indicated, then it is read as a stream until an amount of octets
+equal to the message body length is read or the connection is closed.
+*/
+
+
 
 public class RequestParser {
 	final private String CRLF = "\r\n";
@@ -33,23 +40,25 @@ public class RequestParser {
 	String statusLine;
 
 	public RequestParser(String request, BufferedReader in) {
-		this.request = request;
+		
 		this.statusLine = STATUS_200;
 		this.in = in;
+		this.request = request;
 	}
 
-	public Request generateRequest(){
+	public Request generateRequest() throws IOException{
+		String request = in.readLine();
 		HashMap<String,String> requestLineTokens = parseRequestLine(request);
-		
-		String body = getBody(request);
+
 		String requestLine = request;
 		String method = requestLineTokens.get("method");
 		String uri = requestLineTokens.get("uri");
 		String protocolVersion = requestLineTokens.get("protocolVersion");
 		String[] contentsOfRequest;
 		Hashtable<String,String> headers = null;
+		String requestBody = "";//on POST
 
-		return new Request(method, uri, body, headers, requestLine, protocolVersion);	
+		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody);	
 	}
 	
 	private HashMap<String,String> parseRequestLine(String request){
@@ -62,16 +71,16 @@ public class RequestParser {
 	}
 	
 
-	public String buildResponse() {
-		String response = "";
+	public String buildResponse() throws IOException {
+		String response = in.readLine();
 		if (request.indexOf("GET") > -1) {
 			
 			String headers = buildResponseHeaders();
-			String body = getBody(request);
-			if (body.isEmpty()){
+			String responseBody = getResponseBody(request);
+			if (responseBody.isEmpty()){
 				response = STATUS_404 + headers + CRLF + "404 Not Found";  
 			}else{
-				response = statusLine + headers + CRLF + body;		
+				response = statusLine + headers + CRLF + responseBody;		
 			}
 		
 		
@@ -118,7 +127,7 @@ public class RequestParser {
 	
 	
 	
-	String getBody(String request){
+	String getResponseBody(String request){
 	    String body = "";
 	    String relativePath = findPath("");
 	    
