@@ -13,11 +13,8 @@ import server.socket.SocketService;
 
 public class MockSocket extends Socket implements SocketService{
 	
-	public static final int UNBOUND = 0;
-	public static final int BOUND = 10;
-	public static final int CONNECTED = 20;
-	public static final int DISCONNECTED = 30;
-	private int state; //ENUMS?
+	
+	
 	
 	String statusLine = "HTTP/1.1 200 OK\r\n" ;
 	String mockOutput = statusLine 
@@ -35,32 +32,29 @@ public class MockSocket extends Socket implements SocketService{
 	private InputStream input;
 	private OutputStream output;
 	
-	private int port;
-	private String host;
-	private InetAddress address;
+
 	
-	private boolean inputShutdown;
-	private boolean outputShutdown;
+
 	
 	
 	private boolean closed = false;
 	
 	public MockSocket() throws IOException{
 		this("localhost", 5000, "GET / HTTP/1.1".getBytes() );
-		state = BOUND;
+		
 	}
 	
 
 	public MockSocket(String host, int port, byte[] in) throws IOException{
 		this.input = new ByteArrayInputStream(in);
 		this.output = new ByteArrayOutputStream();
-		state = BOUND;
+		
 	}
 	
 	@Override
 	public void close(){
 		this.closed = true;
-		state = UNBOUND;
+		
 	}
 	
 	@Override
@@ -82,14 +76,6 @@ public class MockSocket extends Socket implements SocketService{
 		return input;
 	}
 	
-	@Override
-	public boolean isBound(){
-		if (state == BOUND){
-			return true;
-		}else{
-			return false;
-		}
-		 
-	}
+	
 
 }

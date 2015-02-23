@@ -7,13 +7,21 @@ import org.junit.*;
 
 public class ArgsParserTest {
 		
+		@Test
+		public void testDefaultConstants(){
+			
+			assertEquals(ArgsParser.PORT,"5000");
+			assertEquals(ArgsParser.PUBLIC_DIR,"public");
+			
+		}
 	
 		@Test
-		public void testDefaults(){
+		public void testDefaultsAdded(){
 			ArgsParser parser = new ArgsParser();
 			Map<String, String> context = parser.parse(new String[0]);
 			assertEquals(context.get("Port"), ArgsParser.PORT);
 			assertEquals(context.get("Public Directory"), ArgsParser.PUBLIC_DIR);
+
 		}
 		
 		@Test

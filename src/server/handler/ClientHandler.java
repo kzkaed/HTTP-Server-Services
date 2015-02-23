@@ -5,12 +5,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import server.request.HttpRequestParser;
+import server.request.RequestParser;
 import server.socket.SocketService;
 import log.Logger;
 
 
-public class ClientHandler extends Thread{
+public class ClientHandler {
 	protected SocketService socket;
 	private BufferedReader in;
 	private DataOutputStream out;
@@ -27,22 +27,26 @@ public class ClientHandler extends Thread{
 		String request = "";
 		
 		try {
+	
+			//Request request = new RequestParser(in).parse;
+			//Response response = new ResponseBuilder(request).build;
+			//new ResponseSender(response, out).send;
+			
 			request = in.readLine();
 			if (request != null){
+				String response = new RequestParser(request, in).buildResponse();
+				out.write(response.getBytes());	
+				
 				logger.log(request);
-				String response = process(request);
 				logger.log(response);
 			}
+			socket.close();
 		} catch (IOException ioe) {			
 			System.err.println(ioe.getStackTrace());
 		}
 		
 	}
 
-	private String process(String request) throws IOException {
-		String response = new HttpRequestParser(request).parse();
-		out.write(response.getBytes());
-		return response;
-	}
+
 
 }
