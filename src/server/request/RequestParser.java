@@ -48,12 +48,19 @@ public class RequestParser {
 	}
 	
 	private HashMap<String,String> parseRequestLine(String request){
-		String[] tokens = retreiveTokens(request);
+		String[] tokens = retreiveTokens(request, null);
 		HashMap<String,String>requestLine = new HashMap<String,String>();
 		requestLine.put("method", tokens[0]);
 		requestLine.put("uri", tokens[1]);
 		requestLine.put("protocolVersion", tokens[2]);
 		return requestLine;	
+	}
+	
+	private void allRequest() throws IOException{
+		String input = "";
+		while(!(input = in.readLine()).equals(""))
+			System.out.println(input);
+		in.close();
 	}
 	
 	
@@ -91,8 +98,8 @@ public class RequestParser {
 	
 	
 
-	public String[] retreiveTokens(String request) {
-		String delimiters = "[ ]+";
+	public String[] retreiveTokens(String request, String delimiters) {
+		delimiters = "[ ]+";
 		String[] tokens = request.split(delimiters);
 		
 		return tokens;
