@@ -14,16 +14,21 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.TimeZone;
 
+import routes.Routes;
 import server.ArgsParser;
+import server.response.ResponseCodes;
 
 public class RequestParser {
 	final private String CRLF = "\r\n";
 	final private String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
+	final private String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
+	final private String C404 = "404";
+	
 	final private String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
 
 	String request;
 	BufferedReader in;
-	String body = "<!doctype html><html><head></head><body>Mushroom in the Rain</body></html>";
+	
 
 	String statusLine;
 
@@ -36,12 +41,12 @@ public class RequestParser {
 	public Request generateRequest(){
 		HashMap<String,String> requestLineTokens = parseRequestLine(request);
 		
-		String body = "";
+		String body = getBody(request);
 		String requestLine = request;
 		String method = requestLineTokens.get("method");
 		String uri = requestLineTokens.get("uri");
 		String protocolVersion = requestLineTokens.get("protocolVersion");
-		String[] contents;
+		String[] contentsOfRequest;
 		Hashtable<String,String> headers = null;
 
 		return new Request(method, uri, body, headers, requestLine, protocolVersion);	
@@ -56,27 +61,18 @@ public class RequestParser {
 		return requestLine;	
 	}
 	
-	private void allRequest() throws IOException{
-		String input = "";
-		while(!(input = in.readLine()).equals(""))
-			System.out.println(input);
-		in.close();
-	}
-	
-	
-	
-	
-	
+
 	public String buildResponse() {
 		String response = "";
 		if (request.indexOf("GET") > -1) {
-			//return statusline, headers, and body, if body. 
-			//GET is Read Only, action load body and return with response code and headers
-			
 			
 			String headers = buildResponseHeaders();
-			response = statusLine + headers + CRLF + getBody(request);		
-	
+			String body = getBody(request);
+			if (body.isEmpty()){
+				response = STATUS_404 + headers + CRLF + "404 Not Found";  
+			}else{
+				response = statusLine + headers + CRLF + body;		
+			}
 		
 		
 		} else if (request.indexOf("POST") > -1) {
@@ -84,7 +80,6 @@ public class RequestParser {
 		} else if (request.indexOf("PUT") > -1) {
 			response = "HTTP/1.1 201 Created" + CRLF;
 		} else if (request.indexOf("HEAD") > -1) {
-			//like GET, response code and header only no body
 			response = "HTTP/1.1 200 OK" + CRLF;
 		} else if (request.indexOf("OPTIONS") > -1) {
 			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF;
@@ -121,11 +116,7 @@ public class RequestParser {
 		return relativePath;
 	}
 	
-	String getDocumentBody(){
-		String body = this.body;
-		return body;
-		
-	}
+	
 	
 	String getBody(String request){
 	    String body = "";
@@ -137,16 +128,11 @@ public class RequestParser {
 	    	    
 	    
 	    //Routes - default
-	    String path = relativePath + defaultDirectory +  "/index.html";
-	    if(!uriPath.contentEquals("/")  ){
-	    	
-	    	path = relativePath + defaultDirectory +uriPath;
-	    }else if (uriPath.contentEquals("/test/index")){
-	    	String route = "/test/index.html";
-	    	path = relativePath + defaultDirectory + route;
-	    	
-	    }
+	    Routes route = new Routes();
+	    String routedPath = route.getRoute(uriPath);
 	    
+	    String path = relativePath + defaultDirectory +routedPath;
+	   
 	    try {
 	        BufferedReader in = new BufferedReader(new FileReader(path));
 	        String str;
@@ -157,7 +143,7 @@ public class RequestParser {
 	    } catch (IOException e) {
 	    	
 	    }
-	    
+
 	    return body;
 	}
 

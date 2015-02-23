@@ -16,8 +16,9 @@ public class ResponseCodes {
 			put("200", "OK");
 			put("201", "Created");
 			put("202", "Accepted");
+			put("404", "Not Found");
 			put("415", "Unsupported Media Type");
-			put("500","Internal Server Error");
+			put("500", "Internal Server Error");
 			put("502", "Not Implemented");
 			
 			
@@ -30,6 +31,8 @@ public class ResponseCodes {
 	public static String getReason(String responseCode){
 		return HttpResponses.get(responseCode);
 	}
+	
+	
 	
 	
 }

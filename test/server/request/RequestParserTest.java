@@ -15,6 +15,9 @@ import server.request.RequestParser;
 public class RequestParserTest {
 
 	private final String CRLF = "\r\n";
+	private final String SPACE = "\\s";
+	private final String COLON = ": ";
+	private final String HEADERS_END = CRLF + CRLF;
 	
 
 	@Test
@@ -62,18 +65,18 @@ public class RequestParserTest {
 
 	@Test
 	public void testGETParse() {
-		String request = "GET /Public/index.html HTTP1/1";
+		String request = "GET /public/index.html HTTP1/1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(request, in);
 	
 		String[] tokens = parser.retreiveTokens(request,null);
-		assertEquals(tokens[1], "/Public/index.html");
+		assertEquals(tokens[1], "/public/index.html");
 	}
 
 	@Test
 	public void testResponseHeadersAreBuilt() {
-		String request = "GET /Public/index.html HTTP1/1";
+		String request = "GET /public/index.html HTTP1/1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(request, in);
@@ -91,18 +94,6 @@ public class RequestParserTest {
 		RequestParser parser = new RequestParser(request, in);
 		String relativePathRoot = parser.findPath("");
 		assertNotNull(relativePathRoot);
-	}
-
-	@Test
-	public void testGetDocumentBody() {
-		String request = "GET / HTTP/1.1";
-		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
-		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(request, in);
-		String documentBody = parser.getDocumentBody();
-		String body = "<!doctype html><html>"
-				+ "<head></head><body>Mushroom in the Rain</body></html>";
-		assertEquals(documentBody, body);
 	}
 
 	@Test
@@ -137,11 +128,28 @@ public class RequestParserTest {
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(request, in);
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
-				+ "</head><body>Test Index</body></html>";
+		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
 		String contentReceived = parser.getBody(request);
-		//assertEquals(content, contentReceived);
+		assertEquals(content, contentReceived);
 		
 	}
+	
+	@Test
+	public void test404IfFileNotFound(){
+		String request = "GET /jam HTTP/1.1";
+		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
+		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+		RequestParser parser = new RequestParser(request, in);
+		String responseReceived = parser.buildResponse();
+		String response = "HTTP/1.1 404 Not Found" + CRLF 
+				+ "Server: Kristin Server" + CRLF 
+				+ "Accept-Ranges: bytes" + CRLF 
+				+ "Content-Type: text/html" + HEADERS_END
+				+ "404 Not Found";
+		
+		assertEquals(response, responseReceived);	
+	}
+	
+	
 
 }
