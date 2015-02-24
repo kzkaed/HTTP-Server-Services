@@ -7,13 +7,14 @@ public class ResponseSender {
 	private String response;
 	private OutputStream out;
 	
-	ResponseSender(String response, OutputStream out){
+	public ResponseSender(String response, OutputStream out){
 	 this.out = out;
 	 this.response = response;
 	}
 		
-	void send() throws IOException{
+	public void send() throws IOException{
 		out.write(response.getBytes());
+		
 	}
 
 }

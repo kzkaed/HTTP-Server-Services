@@ -1,16 +1,10 @@
 package server.request;
 
 import java.io.BufferedReader;
-
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Hashtable;
-import routes.Routes;
-import server.ArgsParser;
-
 
 /*
  * The normal procedure for parsing an HTTP message is to read the
@@ -27,52 +21,52 @@ equal to the message body length is read or the connection is closed.
 
 public class RequestParser {
 	final private String CRLF = "\r\n";
-	final private String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
-	final private String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
-	final private String C404 = "404";
-	
-	final private String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
 
-	private String request;
 	private BufferedReader in;
-	private String statusLine;
 
-	public RequestParser(String request, BufferedReader in) {
-		this.statusLine = STATUS_200;
+
+
+	public RequestParser(BufferedReader in) {
 		this.in = in;
-		this.request = request;
+	}
+	
+	private String readRequestLine(){
+		String requestLine = "";
+		try {
+			requestLine = in.readLine();
+		} catch (IOException e) {
+			System.err.println("readRequestLine error" + e.getStackTrace());
+		}
+		return requestLine;
 	}
 
-	public Request parseRequest() throws IOException {
-		//String request = in.readLine();
-		
-	
-		HashMap<String,String> requestLineTokens = parseRequestLine(request);
+	public Request parseRequest()  {
+		String requestLine = readRequestLine();
 
-		String requestLine = request;
+		HashMap<String,String> requestLineTokens = parseRequestLine(requestLine);
+
 		String method = requestLineTokens.get("method");
 		String uri = requestLineTokens.get("uri");
 		String protocolVersion = requestLineTokens.get("protocolVersion");
-		String[] allOfRequest;
+		
+		String[] allOfRequest = null;
 		Hashtable<String,String> headers = null;
-		String requestBody = "";//on POST
+		String requestBody = null;//on POST ?id=3&fun=snow
 		
-		
-		//in.close();
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody);	
 	}
 	
-	private HashMap<String,String> parseRequestLine(String request) {
+	private HashMap<String,String> parseRequestLine(String requestLine) {
 		String delimiters = "[ ]+";
-		String[] tokens = retreiveTokens(request, delimiters);
+		String[] tokens = retreiveTokens(requestLine, delimiters);
 		
-		HashMap<String,String>requestLine = new HashMap<String,String>();
-		requestLine.put("method", tokens[0]);
-		requestLine.put("uri", tokens[1]);
-		requestLine.put("protocolVersion", tokens[2]);
+		HashMap<String,String>requestLineTokens = new HashMap<String,String>();
+		requestLineTokens.put("method", tokens[0]);
+		requestLineTokens.put("uri", tokens[1]);
+		requestLineTokens.put("protocolVersion", tokens[2]);
 		
 		
-		return requestLine;	
+		return requestLineTokens;	
 	}
 	
 
@@ -81,79 +75,16 @@ public class RequestParser {
 		String[] tokens = request.split(delimiters);
 		return tokens;
 	}
+
+
+	
+	
+	
 	
 
-	public String buildResponse() throws IOException {
-		String response = in.readLine();
-		if (request.indexOf("GET") > -1) {
-			
-			String headers = buildResponseHeaders();
-			String responseBody = getResponseBody(request);
-			if (responseBody.isEmpty()){
-				response = STATUS_404 + headers + CRLF + "404 Not Found";  
-			}else{
-				response = statusLine + headers + CRLF + responseBody;		
-			}
+	public void close() throws Exception {
+		System.out.println("Closing");
 		
-		
-		} else if (request.indexOf("POST") > -1) {
-			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.indexOf("PUT") > -1) {
-			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.indexOf("HEAD") > -1) {
-			response = "HTTP/1.1 200 OK" + CRLF;
-		} else if (request.indexOf("OPTIONS") > -1) {
-			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF;
-		}
-		return response;
-	}
-
-	public String getStatusLine() {
-		return statusLine;
-	}
-
-	public String buildResponseHeaders() {
-		String headers = "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF 
-				+ "Content-Type: text/html\r\n";
-		return headers;
-	}
-	
-	String findPath(String path){
-		Path currentRelativePath = Paths.get(path);
-		String relativePath = currentRelativePath.toAbsolutePath().toString();
-		return relativePath;
-	}
-	
-	
-	
-	String getResponseBody(String request){
-	    String body = "";
-	    String relativePath = findPath("");
-	    
-	    HashMap<String,String> requestLine  = parseRequestLine(request);
-	    String uriPath = requestLine.get("uri");
-	    String defaultDirectory = "/"+ArgsParser.PUBLIC_DIR;
-	    	    
-	    
-	    //Routes - default
-	    Routes route = new Routes();
-	    String routedPath = route.getRoute(uriPath);
-	    
-	    String path = relativePath + defaultDirectory +routedPath;
-	   
-	    try {
-	        BufferedReader in = new BufferedReader(new FileReader(path));
-	        String str;
-	        while ((str = in.readLine()) != null) {
-	            body +=str;     
-	        }
-	        in.close();
-	    } catch (IOException e) {
-	    	
-	    }
-
-	    return body;
 	}
 
 }

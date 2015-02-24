@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import server.request.Request;
 import server.request.RequestParser;
 import server.response.ResponseBuilder;
+import server.response.ResponseSender;
 import server.socket.SocketService;
 import log.Logger;
 
@@ -17,6 +18,8 @@ public class ClientHandler {
 	private BufferedReader in;
 	private DataOutputStream out;
 	private Logger logger;
+	private Request request;
+	private String response;
 
 	public ClientHandler(SocketService socket, Logger logger) throws IOException {
 		this.socket = socket;
@@ -26,29 +29,20 @@ public class ClientHandler {
 	}
 
 	public void run() {
-		String requestLine = "";
 		
-		try {
-	
-			//Request request = new RequestParser(in).parse;
-			//Response response = new ResponseBuilder(request).build;
-			//new ResponseSender(response, out).send;
-			
-		
-			requestLine = in.readLine();
-			if (requestLine != null){
-				Request request = new RequestParser(requestLine,in).parseRequest();
-				String response = new ResponseBuilder(request).buildResponse();
-				out.write(response.getBytes());	
-					
-				logger.log(request.getRequestLine());
-				logger.log(response);	
-			}
+		try {	
+			request = new RequestParser(in).parseRequest();
+			response = new ResponseBuilder(request).buildResponse();
+			new ResponseSender(response, out).send();
 			socket.close();
-			
+				
+			logger.log(request.getRequestLine());
+			logger.log(response);	
+	
 		} catch (IOException ioe) {			
 			
 			System.err.println(ioe.getStackTrace());
+		
 		}
 		
 	}
