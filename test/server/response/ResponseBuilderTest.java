@@ -114,13 +114,20 @@ public class ResponseBuilderTest {
 	}
 	
 	@Test
-	public void testGetTakesRoute(){
+	public void testGetTakesRoute() throws IOException{
 		String requestLine = "GET /test/index HTTP/1.1";
 		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
 		String contentReceived = responseBuilder.getResponseBody(request.getURI());
+		String response = responseBuilder.buildResponse();
 		assertEquals(content, contentReceived);
+		String responseExpected = "HTTP/1.1 200 OK" + CRLF
+		+"Server: Kristin Server" + CRLF
+		+"Accept-Ranges: bytes" + CRLF
+		+"Content-Type: text/html" + HEADERS_END
+		+"<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
+		assertEquals(response, responseExpected);
 		
 	}
 	

@@ -62,8 +62,8 @@ public class ClientHandlerTest {
 				+ "Test at root</title></head><body>"
 				+ "Test at root</body></html>";
 		handler.run();
-		assertEquals(((StringLogger)logger).logs.get(0), loggedRequest);
-		assertEquals(((StringLogger)logger).logs.get(1), loggedResponse);
+		assertEquals(loggedRequest, ((StringLogger)logger).logs.get(0));
+		assertEquals(loggedResponse, ((StringLogger)logger).logs.get(1));
 	}
 	
 	@After

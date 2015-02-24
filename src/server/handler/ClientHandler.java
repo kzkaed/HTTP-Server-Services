@@ -5,7 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import server.request.Request;
 import server.request.RequestParser;
+import server.response.ResponseBuilder;
 import server.socket.SocketService;
 import log.Logger;
 
@@ -24,7 +26,7 @@ public class ClientHandler {
 	}
 
 	public void run() {
-		String request = "";
+		String requestLine = "";
 		
 		try {
 	
@@ -32,16 +34,20 @@ public class ClientHandler {
 			//Response response = new ResponseBuilder(request).build;
 			//new ResponseSender(response, out).send;
 			
-			request = in.readLine();
-			if (request != null){
-				String response = new RequestParser(request, in).buildResponse();
+		
+			requestLine = in.readLine();
+			if (requestLine != null){
+				Request request = new RequestParser(requestLine,in).parseRequest();
+				String response = new ResponseBuilder(request).buildResponse();
 				out.write(response.getBytes());	
-				
-				logger.log(request);
+					
+				logger.log(request.getRequestLine());
 				logger.log(response);
+				
 			}
-			socket.close();
+			
 		} catch (IOException ioe) {			
+			
 			System.err.println(ioe.getStackTrace());
 		}
 		

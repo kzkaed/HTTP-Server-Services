@@ -17,6 +17,7 @@ public class ResponseBuilder {
 	private final String CRLF = "\r\n";
 	private final String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
 	private final String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
+	private final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
 	private final String C404 = "404";
 
 	private final String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
@@ -32,9 +33,9 @@ public class ResponseBuilder {
 
 	public String buildResponse() throws IOException {
 		String response = "";
-		if (request.getMethod() == "GET") {
-
-			String headers = buildResponseHeaders();
+		String headers = buildResponseHeaders();
+		
+		if (request.getMethod().contentEquals("GET")) {
 			String responseBody = getResponseBody(request.getURI());
 			
 			if (responseBody.isEmpty()) {
@@ -43,16 +44,19 @@ public class ResponseBuilder {
 				response = STATUS_200 + headers + CRLF + responseBody;
 			}
 
-		} else if (request.getMethod() == "POST") {
+		} else if (request.getMethod().contentEquals("POST")) {
 			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.getMethod() == "PUT") {
+		} else if (request.getMethod().contentEquals("PUT")) {
 			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.getMethod() == "HEAD") {
+		} else if (request.getMethod().contentEquals("HEAD")) {
 			response = "HTTP/1.1 200 OK" + CRLF;
-		} else if (request.getMethod() == "OPTIONS") {
+		} else if (request.getMethod().contentEquals("OPTIONS")) {
 			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT"
 					+ CRLF;
+		}else{
+			response = STATUS_500 + headers + CRLF + "500 " + ResponseCodes.getReason("500");
 		}
+		System.out.println("END "+response);
 		return response;
 	}
 	
@@ -74,7 +78,9 @@ public class ResponseBuilder {
 
 	public String getResponseBody(String uri) {
 		String body = "";
+		
 		String relativePath = findPath("");
+		System.out.println(relativePath);
 
 		//HashMap<String, String> requestLine = parseRequestLine(request);
 		//String uriPath = requestLine.get("uri");

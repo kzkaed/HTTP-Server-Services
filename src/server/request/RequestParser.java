@@ -43,8 +43,9 @@ public class RequestParser {
 		this.request = request;
 	}
 
-	public Request generateRequest() throws IOException{
-		String request = in.readLine();
+	public Request parseRequest() throws IOException{
+		//String request = in.readLine();
+		
 		
 		HashMap<String,String> requestLineTokens = parseRequestLine(request);
 
@@ -52,10 +53,14 @@ public class RequestParser {
 		String method = requestLineTokens.get("method");
 		String uri = requestLineTokens.get("uri");
 		String protocolVersion = requestLineTokens.get("protocolVersion");
-		
+		System.out.println("requestLine " + requestLine);
+		System.out.println("method " + method);
+		System.out.println("uri " + uri);
 		String[] allOfRequest;
 		Hashtable<String,String> headers = null;
 		String requestBody = "";//on POST
+		
+		
 		
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody);	
 	}
