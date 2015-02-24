@@ -5,7 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import routes.Routes;
 import server.ArgsParser;
@@ -18,10 +21,14 @@ public class ResponseBuilder {
 	private final String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
 	private final String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
 	private final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
+	private final String STATUS_502 = "HTTP/1.1 502 Not Implemented" + CRLF;
 	private final String C404 = "404";
 
 	private final String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
-
+	
+	private final String[] METHODS_IMPLEMENTED= {"GET","POST","PUT","HEAD","OPTIONS"};
+	private final List<String> METHODS = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
+	
 	private Request request;
 	private String statusLine;
 
@@ -54,10 +61,13 @@ public class ResponseBuilder {
 			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT"
 					+ CRLF;
 		}else{
-			response = STATUS_500 + headers + CRLF + "500 " + ResponseCodes.getReason("500");
+			response = STATUS_502 + headers + CRLF + "502 " + ResponseCodes.getReason("502");
 		}
 		return response;
 	}
+	
+	
+	
 	
 	public String getStatusLine() {
 		return statusLine;

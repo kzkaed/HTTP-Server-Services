@@ -15,8 +15,9 @@ public class RequestParser {
 	
 	public Request parseRequest()  {
 		String requestLine = readRequestLine();
-		if(requestLine == null){
-			return null;
+		
+		if ( requestLine == null ){
+			return new Request( "" ,"" ,"" ,null ,"" ,null );
 		}
 
 		HashMap<String,String> requestLineTokens = parseRequestLine(requestLine);

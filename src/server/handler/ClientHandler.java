@@ -32,12 +32,12 @@ public class ClientHandler {
 		
 		try {	
 			request = new RequestParser(in).parseRequest();
-			if (request != null) {
-				response = new ResponseBuilder(request).buildResponse();
-				new ResponseSender(response, out).send();	
-				logger.log(request.getRequestLine());
-				logger.log(response);
-			}
+			response = new ResponseBuilder(request).buildResponse();
+			new ResponseSender(response, out).send();	
+			
+			logger.log(request.getRequestLine());
+			logger.log(response);
+		
 			socket.close();
 		} catch (IOException ioe) {			
 			System.err.println(ioe.getStackTrace());
