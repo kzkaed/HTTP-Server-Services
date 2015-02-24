@@ -48,6 +48,13 @@ public class ClientHandler {
 		
 	}
 
+	public String getResponse(){
+		return this.response;
+	}
+	
+	public Request getRequest(){
+		return this.request;
+	}
 
 
 }

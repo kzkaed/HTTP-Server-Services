@@ -35,11 +35,19 @@ public class RequestParserTest {
 	
 	@Test
 	public void testReadsRequestLine(){
-		String request = "GET /public/index.html HTTP1/1";
+		String request = "GET /test/index HTTP1/1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		
+		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index HTTP1/1",null);
 		RequestParser parser = new RequestParser(in);
+		Request resultRequest = parser.parseRequest();
+		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
+		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
+		assertEquals(resultRequest.getRequestLine(),expectRequest.getRequestLine());
+		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
+		assertEquals(resultRequest.getURI(),expectRequest.getURI());
+		assertEquals(resultRequest.getClass(),resultRequest.getClass());
 		
 	}
 

@@ -14,6 +14,7 @@ public class ResponseSender {
 		
 	public void send() throws IOException{
 		out.write(response.getBytes());
+		out.flush();
 		
 	}
 

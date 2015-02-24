@@ -17,17 +17,7 @@ import server.request.RequestParser;
 public class ResponseBuilderTest {
 	
 	private final String CRLF = "\r\n";
-	private final String SPACE = "\\s";
-	private final String COLON = ": ";
 	private final String HEADERS_END = CRLF + CRLF;
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
 
 	@Test
 	public void testGETRequestResponse() throws IOException {
@@ -50,7 +40,6 @@ public class ResponseBuilderTest {
 
 	@Test
 	public void testPUTRequestResponse() throws IOException{
-		
 		String requestLine = "PUT / HTTP/1.1";
 		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);

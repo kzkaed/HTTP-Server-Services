@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import server.handler.ClientHandler;
 import server.mocks.MockSocket;
+import server.request.Request;
 import log.Logger;
 import log.mocks.StringLogger;
 
@@ -66,6 +67,43 @@ public class ClientHandlerTest {
 		assertEquals(loggedResponse, ((StringLogger)logger).logs.get(1));
 	}
 	
+	@Test
+	public void testResponseReceived() throws IOException{
+		String request = "GET /test.html HTTP/1.1";		
+		mockSocket = new MockSocket("localhost",5000,request.getBytes());
+		//logger = new StringLogger();
+		
+		handler = new ClientHandler(mockSocket, logger);
+		
+		String response = "HTTP/1.1 200 OK" + CRLF
+				+ "Server: Kristin Server" + CRLF
+				+ "Accept-Ranges: bytes" + CRLF
+				+ "Content-Type: text/html" + CRLF + CRLF
+				+"<!doctype html><html><head><title>"
+				+ "Test at root</title></head><body>"
+				+ "Test at root</body></html>";
+		handler.run();
+		assertEquals(response, handler.getResponse());
+	}
+	
+	@Test
+	public void testRequestParsed() throws IOException{
+		String requestLine = "GET /test.html HTTP/1.1";		
+		mockSocket = new MockSocket("localhost",5000,requestLine.getBytes());
+		
+		
+		handler = new ClientHandler(mockSocket, logger);
+	
+		Request request = new Request("GET", "/test.html","HTTP/1.1",null,"GET /test.html HTTP/1.1",null);
+		
+		handler.run();
+		assertEquals(request.getClass(), handler.getRequest().getClass());
+		assertEquals(request.getMethod(),handler.getRequest().getMethod());
+		assertEquals(request.getURI(),handler.getRequest().getURI());
+		
+	}
+	
+
 	@After
 	public void tearDown() throws IOException {
 		mockSocket.close();
