@@ -63,7 +63,9 @@ public class ResponseBuilder {
 		return response;
 	}
 	
-	
+	public boolean isMethodImplemented(){
+		return  METHODS_IMPLEMENTED.contains(request.getMethod());
+	}
 	
 	
 	public String getStatusLine() {
