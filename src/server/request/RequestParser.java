@@ -42,6 +42,9 @@ public class RequestParser {
 
 	public Request parseRequest()  {
 		String requestLine = readRequestLine();
+		if(requestLine == null){
+			return null;
+		}
 
 		HashMap<String,String> requestLineTokens = parseRequestLine(requestLine);
 
