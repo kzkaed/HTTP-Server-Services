@@ -38,8 +38,10 @@ public class ResponseBuilder {
 	public String buildResponse() throws IOException {
 		String response = "";
 		String headers = buildResponseHeaders();
+		String requestMethod = request.getMethod();
 		
-		if (request.getMethod().contentEquals("GET")) {
+		
+		if (requestMethod.contentEquals("GET")) {
 			String responseBody = getResponseBody(request.getURI());
 			
 			if (responseBody.isEmpty()) {
@@ -48,13 +50,13 @@ public class ResponseBuilder {
 				response = STATUS_200 + headers + CRLF + responseBody;
 			}
 
-		} else if (request.getMethod().contentEquals("POST")) {
+		} else if (requestMethod.contentEquals("POST")) {
 			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.getMethod().contentEquals("PUT")) {
+		} else if (requestMethod.contentEquals("PUT")) {
 			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (request.getMethod().contentEquals("HEAD")) {
+		} else if (requestMethod.contentEquals("HEAD")) {
 			response = "HTTP/1.1 200 OK" + CRLF;
-		} else if (request.getMethod().contentEquals("OPTIONS")) {
+		} else if (requestMethod.contentEquals("OPTIONS")) {
 			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT"
 					+ CRLF;
 		}else{
@@ -66,7 +68,6 @@ public class ResponseBuilder {
 	public boolean isMethodImplemented(){
 		return  METHODS_IMPLEMENTED.contains(request.getMethod());
 	}
-	
 	
 	public String getStatusLine() {
 		return statusLine;
@@ -83,6 +84,8 @@ public class ResponseBuilder {
 		String relativePath = currentRelativePath.toAbsolutePath().toString();
 		return relativePath;
 	}
+	
+	
 
 	public String getResponseBody(String uri) {
 		String body = "";

@@ -63,7 +63,8 @@ public class ResponseBuilderTest {
 		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String headers = "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF + "Content-Type: text/html" + CRLF;
+							+ "Accept-Ranges: bytes" + CRLF 
+							+ "Content-Type: text/html" + CRLF;
 		String returnedHeaders = responseBuilder.buildResponseHeaders();
 		assertEquals(returnedHeaders, headers);
 	}
@@ -161,12 +162,14 @@ public class ResponseBuilderTest {
 	}
 	
 	@Test
-	public void testIfMethodNotImplemented() throws IOException{
+	public void testIfMethodIsImplemented() throws IOException{
 		Request request = new Request("GET","","",null,null,"");
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
 		assertTrue(responseBuilder.isMethodImplemented());	
 	}
+	
+
 	
 	
 	
