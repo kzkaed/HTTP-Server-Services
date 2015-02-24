@@ -42,9 +42,9 @@ public class ClientHandler {
 				out.write(response.getBytes());	
 					
 				logger.log(request.getRequestLine());
-				logger.log(response);
-				
+				logger.log(response);	
 			}
+			socket.close();
 			
 		} catch (IOException ioe) {			
 			

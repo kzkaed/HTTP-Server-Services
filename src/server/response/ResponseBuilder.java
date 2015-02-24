@@ -78,15 +78,9 @@ public class ResponseBuilder {
 
 	public String getResponseBody(String uri) {
 		String body = "";
-		
 		String relativePath = findPath("");
-		System.out.println(relativePath);
-
-		//HashMap<String, String> requestLine = parseRequestLine(request);
-		//String uriPath = requestLine.get("uri");
 		String defaultDirectory = "/" + ArgsParser.PUBLIC_DIR;
 
-		// Routes - default
 		Routes route = new Routes();
 		String routedPath = route.getRoute(uri);
 

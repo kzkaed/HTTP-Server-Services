@@ -34,7 +34,7 @@ public class Server {
 				SocketService socket = service.accept();
 				new ClientHandler(socket,logger).run();	
 			}
-			
+			service.close();
 		}catch(IOException ioe){
 			logger.error(ioe.getStackTrace().toString());
 			System.exit(1);
