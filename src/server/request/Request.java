@@ -4,18 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-//GET /hello.txt HTTP/1.1
-//User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
-//Host: www.example.com
-//Accept: */*    
-/*The normal procedure for parsing an HTTP message is to read the
-start-line into a structure, read each header field into a hash table
-by field name until the empty line, and then use the parsed data to
-determine if a message body is expected.  If a message body has been
-indicated, then it is read as a stream until an amount of octets
-equal to the message body length is read or the connection is closed.*/
-
-
 public class Request {
 	
 	private final String VERSION_PROTOCOL = "HTTP/1.1";
