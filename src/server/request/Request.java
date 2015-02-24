@@ -1,7 +1,6 @@
 package server.request;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Request {
@@ -18,9 +17,6 @@ public class Request {
 	private String requestLine;
 	private String requestBody;
 	
-	
-	
-		
 	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody) {
 		this.method = method;
 		this.uri = uri;
@@ -28,11 +24,8 @@ public class Request {
 		this.headers = headers;
 		this.requestLine = requestLine;
 		this.requestBody = requestBody;
-}	
-		
-	
-	
-	
+	}	
+			
 	public String getMethod(){
 		return this.method;
 	}
@@ -49,8 +42,6 @@ public class Request {
 		return this.requestLine;
 	}
 	
-	
-
 }
 
 

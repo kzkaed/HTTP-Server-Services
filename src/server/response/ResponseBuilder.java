@@ -56,7 +56,6 @@ public class ResponseBuilder {
 		}else{
 			response = STATUS_500 + headers + CRLF + "500 " + ResponseCodes.getReason("500");
 		}
-		System.out.println("END "+response);
 		return response;
 	}
 	

@@ -17,8 +17,6 @@ import server.request.Request;
 import log.Logger;
 import log.mocks.StringLogger;
 
-
-
 public class ClientHandlerTest {
 	private ClientHandler handler;
 	private MockSocket mockSocket;
@@ -71,8 +69,6 @@ public class ClientHandlerTest {
 	public void testResponseReceived() throws IOException{
 		String request = "GET /test.html HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		//logger = new StringLogger();
-		
 		handler = new ClientHandler(mockSocket, logger);
 		
 		String response = "HTTP/1.1 200 OK" + CRLF
@@ -100,7 +96,6 @@ public class ClientHandlerTest {
 		assertEquals(request.getClass(), handler.getRequest().getClass());
 		assertEquals(request.getMethod(),handler.getRequest().getMethod());
 		assertEquals(request.getURI(),handler.getRequest().getURI());
-		
 	}
 	
 

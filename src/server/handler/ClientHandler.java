@@ -39,11 +39,8 @@ public class ClientHandler {
 				logger.log(response);
 			}
 			socket.close();
-	
 		} catch (IOException ioe) {			
-			
 			System.err.println(ioe.getStackTrace());
-		
 		}
 		
 	}
