@@ -23,11 +23,8 @@ public class ResponseBuilder {
 	private final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
 	private final String STATUS_502 = "HTTP/1.1 502 Not Implemented" + CRLF;
 	private final String C404 = "404";
-
-	private final String MY_PATH = "/Users/kristin-8thlight/repos2/HTTP-Server-Services";
 	
-	private final String[] METHODS_IMPLEMENTED= {"GET","POST","PUT","HEAD","OPTIONS"};
-	private final List<String> METHODS = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
+	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
 	
 	private Request request;
 	private String statusLine;

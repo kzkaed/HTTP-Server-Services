@@ -136,6 +136,22 @@ public class ResponseBuilderTest {
 		assertEquals(response, responseReceived);	
 	}
 	
+	@Test
+	public void test502NotImplemented() throws IOException{
+		
+		Request request = new Request("","","",null,null,"");
+		ResponseBuilder responseBuilder = new ResponseBuilder(request);
+		
+		String responseReceived = responseBuilder.buildResponse();
+		String response = "HTTP/1.1 502 Not Implemented" + CRLF 
+				+ "Server: Kristin Server" + CRLF 
+				+ "Accept-Ranges: bytes" + CRLF 
+				+ "Content-Type: text/html" + HEADERS_END
+				+ "502 Not Implemented";
+		
+		assertEquals(response, responseReceived);	
+	}
+	
 	
 	
 }
