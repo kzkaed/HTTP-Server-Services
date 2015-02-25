@@ -16,12 +16,12 @@ import server.request.Request;
 
 public class ResponseBuilder {
 
-	private final String VERSION_PROTOCOL = "HTTP/1.1";
-	private final String CRLF = "\r\n";
-	private final String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
-	private final String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
-	private final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
-	private final String STATUS_502 = "HTTP/1.1 502 Not Implemented" + CRLF;
+	
+	private final String CRLF = server.GlobalVariables.CRLF;
+	private final String STATUS_200 = server.GlobalVariables.STATUS_200;
+	private final String STATUS_404 = server.GlobalVariables.STATUS_404;
+	private final String STATUS_500 = server.GlobalVariables.STATUS_500;
+	private final String STATUS_502 = server.GlobalVariables.STATUS_502;
 	private final String C404 = "404";
 	
 	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
@@ -90,7 +90,7 @@ public class ResponseBuilder {
 	public String getResponseBody(String uri) {
 		String body = "";
 		String relativePath = findPath("");
-		String defaultDirectory = "/" + ArgsParser.PUBLIC_DIR;
+		String defaultDirectory = "/" + server.GlobalVariables.PUBLIC_DIR_DEFAULT;
 
 		Routes route = new Routes();
 		String routedPath = route.getRoute(uri);

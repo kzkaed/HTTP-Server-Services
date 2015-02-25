@@ -8,10 +8,10 @@ import org.junit.*;
 public class ArgsParserTest {
 		
 		@Test
-		public void testDefaultConstants(){
+		public void testDefaultGlobalVarialbesAreEqual(){
 			
-			assertEquals(ArgsParser.PORT,"5000");
-			assertEquals(ArgsParser.PUBLIC_DIR,"public");
+			assertEquals(ArgsParser.PORT,server.GlobalVariables.PORT_DEFAULT);
+			assertEquals(ArgsParser.PUBLIC_DIR,server.GlobalVariables.PUBLIC_DIR_DEFAULT);
 			
 		}
 	

@@ -46,7 +46,7 @@ public class RequestParser {
 		requestLineTokens.put("method", tokens[0]);
 		requestLineTokens.put("uri", tokens[1]);
 		requestLineTokens.put("protocolVersion", tokens[2]);
-
+		
 		return requestLineTokens;	
 	}
 
