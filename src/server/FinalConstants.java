@@ -1,6 +1,6 @@
 package server;
 
-public final class ServerFinals {
+public final class FinalConstants {
 
 	//read once into local variable
 	public static final String PORT_DEFAULT = "5000";

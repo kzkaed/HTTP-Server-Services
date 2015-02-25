@@ -29,7 +29,7 @@ public class FileStaticAsset {
 	public String getResponseBody(String uri) {
 		String body = "";
 		String absolutePath = findPathAbsolute("");
-		String defaultDirectory = "/" + server.ServerFinals.PUBLIC_DIR_DEFAULT;
+		String defaultDirectory = "/" + server.FinalConstants.PUBLIC_DIR_DEFAULT;
 
 		Routes route = new Routes();
 		String routedPath = route.getRoute(uri);

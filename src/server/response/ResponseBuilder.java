@@ -9,11 +9,11 @@ import server.request.Request;
 public class ResponseBuilder {
 
 	
-	private final String CRLF = server.ServerFinals.CRLF;
-	private final String STATUS_200 = server.ServerFinals.STATUS_200;
-	private final String STATUS_404 = server.ServerFinals.STATUS_404;
-	private final String STATUS_500 = server.ServerFinals.STATUS_500;
-	private final String STATUS_502 = server.ServerFinals.STATUS_502;
+	private final String CRLF = server.FinalConstants.CRLF;
+	private final String STATUS_200 = server.FinalConstants.STATUS_200;
+	private final String STATUS_404 = server.FinalConstants.STATUS_404;
+	private final String STATUS_500 = server.FinalConstants.STATUS_500;
+	private final String STATUS_502 = server.FinalConstants.STATUS_502;
 	
 	
 	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 

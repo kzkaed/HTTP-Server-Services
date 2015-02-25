@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ArgsParser {
 	public static final String PORT = "5000";
-	public static final String PUBLIC_DIR = server.ServerFinals.PUBLIC_DIR_DEFAULT;
+	public static final String PUBLIC_DIR = server.FinalConstants.PUBLIC_DIR_DEFAULT;
 
 	public Map<String,String> parse(String[] args) {
 		Map<String, String> context = new HashMap<String, String>();
