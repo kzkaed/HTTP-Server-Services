@@ -8,14 +8,7 @@ import org.junit.Test;
 
 public class RoutesTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	
 	@Test
 	public void test() {
 		Routes route = new Routes();

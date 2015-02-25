@@ -32,6 +32,7 @@ public class ClientHandler {
 		
 		try {	
 			request = new RequestParser(in).parseRequest();
+			
 			response = new ResponseBuilder(request).buildResponse();
 			new ResponseSender(response, out).send();	
 			

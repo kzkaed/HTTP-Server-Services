@@ -24,7 +24,6 @@ public class ResponseBuilderTest {
 		String requestLine = "GET / HTTP/1.1";
 		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		responseBuilder.buildResponse();
 		String statusLine = responseBuilder.getStatusLine();
 		assertEquals(statusLine, "HTTP/1.1 200 OK" + CRLF);
 	}
@@ -69,49 +68,14 @@ public class ResponseBuilderTest {
 		assertEquals(returnedHeaders, headers);
 	}
 
-	@Test
-	public void testFindRelativePathRoot() {
-		String requestLine = "GET / HTTP/1.1";
-		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine);
-		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 
-		String relativePathRoot = responseBuilder.findPath("");
-		assertNotNull(relativePathRoot);
-	}
-	
-	@Test
-	public void testGetContent() {
-		String requestLine = "GET /test.html HTTP/1.1";
-		Request request = new Request("GET","/test.html","HTTP/1.1",null,null,requestLine);
-		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String content = "<!doctype html><html><head><title>Test "
-				+ "at root</title></head><body>Test at root</body></html>";
-		String contentReceived = responseBuilder.getResponseBody(request.getURI());
-		assertEquals(content, contentReceived);
-
-	}
-	
-	@Test
-	public void testGetContentOnPath() {
-		String requestLine = "GET /test/test.html HTTP/1.1";
-		Request request = new Request("GET","/test/test.html","HTTP/1.1",null,null,requestLine);
-		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
-				+ "</head><body><a href=\"http://www.scutigera.com\">Two</a> Mushroom in the Rain<br>with Ants Underneath.</body></html>";
-		String contentReceived = responseBuilder.getResponseBody(request.getURI());
-		assertEquals(content, contentReceived);
-
-	}
 	
 	@Test
 	public void testGetTakesRoute() throws IOException{
 		String requestLine = "GET /test/index HTTP/1.1";
 		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
-		String contentReceived = responseBuilder.getResponseBody(request.getURI());
 		String response = responseBuilder.buildResponse();
-		assertEquals(content, contentReceived);
 		String responseExpected = "HTTP/1.1 200 OK" + CRLF
 		+"Server: Kristin Server" + CRLF
 		+"Accept-Ranges: bytes" + CRLF

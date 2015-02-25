@@ -1,6 +1,6 @@
 package server;
 
-public final class GlobalVariables {
+public final class ServerFinals {
 
 	//read once into local variable
 	public static final String PORT_DEFAULT = "5000";
@@ -18,14 +18,13 @@ public final class GlobalVariables {
 	public static final String DELIMITER_EQUAL = "=";
 	public static final String DELIMITER_AMP = "&";
 	
-	public static final String TEST_ROUTE = "/test/index";
-	public static final String DEFAULT_INDEX = "/index.html";
-	public static final String TEST_FILE = "/test.html";
-	
 	public static final String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
 	public static final String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;
 	public static final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
 	public static final String STATUS_502 = "HTTP/1.1 502 Not Implemented" + CRLF;
-	public static final String C404 = "404";
+		
+	public static final String TEST_ROUTE = "/test/index";
+	public static final String DEFAULT_INDEX = "/index.html";
+	public static final String TEST_FILE = "/test.html";
 }
 

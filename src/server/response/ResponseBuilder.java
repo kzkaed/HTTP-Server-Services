@@ -1,38 +1,31 @@
 package server.response;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
-import routes.Routes;
-import server.ArgsParser;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import server.request.Request;
 
 public class ResponseBuilder {
 
 	
-	private final String CRLF = server.GlobalVariables.CRLF;
-	private final String STATUS_200 = server.GlobalVariables.STATUS_200;
-	private final String STATUS_404 = server.GlobalVariables.STATUS_404;
-	private final String STATUS_500 = server.GlobalVariables.STATUS_500;
-	private final String STATUS_502 = server.GlobalVariables.STATUS_502;
-	private final String C404 = "404";
+	private final String CRLF = server.ServerFinals.CRLF;
+	private final String STATUS_200 = server.ServerFinals.STATUS_200;
+	private final String STATUS_404 = server.ServerFinals.STATUS_404;
+	private final String STATUS_500 = server.ServerFinals.STATUS_500;
+	private final String STATUS_502 = server.ServerFinals.STATUS_502;
+	
 	
 	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
 	
 	private Request request;
 	private String statusLine;
+	
 
 	public ResponseBuilder(Request request) {
 		this.request = request;
 		this.statusLine = STATUS_200;
-
+		
 	}
 
 	public String buildResponse() throws IOException {
@@ -42,7 +35,8 @@ public class ResponseBuilder {
 		
 		
 		if (requestMethod.contentEquals("GET")) {
-			String responseBody = getResponseBody(request.getURI());
+			FileStaticAsset asset = new FileStaticAsset();
+			String responseBody = asset.getResponseBody(request.getURI());
 			
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";
@@ -77,38 +71,6 @@ public class ResponseBuilder {
 		String headers = "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF + "Content-Type: text/html\r\n";
 		return headers;
-	}
-
-	public String findPath(String path) {
-		Path currentRelativePath = Paths.get(path);
-		String relativePath = currentRelativePath.toAbsolutePath().toString();
-		return relativePath;
-	}
-	
-	
-
-	public String getResponseBody(String uri) {
-		String body = "";
-		String relativePath = findPath("");
-		String defaultDirectory = "/" + server.GlobalVariables.PUBLIC_DIR_DEFAULT;
-
-		Routes route = new Routes();
-		String routedPath = route.getRoute(uri);
-
-		String path = relativePath + defaultDirectory + routedPath;
-
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(path));
-			String str;
-			while ((str = in.readLine()) != null) {
-				body += str;
-			}
-			in.close();
-		} catch (IOException e) {
-
-		}
-
-		return body;
 	}
 
 }

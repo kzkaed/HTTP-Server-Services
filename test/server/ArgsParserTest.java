@@ -10,8 +10,8 @@ public class ArgsParserTest {
 		@Test
 		public void testDefaultGlobalVarialbesAreEqual(){
 			
-			assertEquals(ArgsParser.PORT,server.GlobalVariables.PORT_DEFAULT);
-			assertEquals(ArgsParser.PUBLIC_DIR,server.GlobalVariables.PUBLIC_DIR_DEFAULT);
+			assertEquals(ArgsParser.PORT,server.ServerFinals.PORT_DEFAULT);
+			assertEquals(ArgsParser.PUBLIC_DIR,server.ServerFinals.PUBLIC_DIR_DEFAULT);
 			
 		}
 	
