@@ -19,8 +19,9 @@ public class Routes {
 			route = DEFAULT_INDEX;
 		}else{
 			route = uri;
+			
 		}
-		
+		System.out.println(route);
 		return route;
 	}
 	

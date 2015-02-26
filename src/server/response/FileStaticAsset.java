@@ -33,6 +33,7 @@ public class FileStaticAsset {
 
 		Routes route = new Routes();
 		String routedPath = route.getRoute(uri);
+		System.out.println(routedPath);
 
 		String path = absolutePath + defaultDirectory + routedPath;
 

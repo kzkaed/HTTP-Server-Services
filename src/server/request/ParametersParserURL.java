@@ -2,11 +2,16 @@ package server.request;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
+
+import server.FinalConstants;
+import server.Utilities;
 
 public class ParametersParserURL implements ParametersParser {
 	private URL url;
-	private String urlStr; 
+	private String requestUri; 
 	
 	private String protocol;
 	private String authority;
@@ -17,12 +22,16 @@ public class ParametersParserURL implements ParametersParser {
 	private String path;
 	private String filename;
 
-	private Hashtable<String,String> pairs;
-	private Hashtable<String,Hashtable> pathParams; 
+	private final String HOST = FinalConstants.HOST;
+	private final int PORT = 5000;
+	
+	private Hashtable<String,String> parameterPairs;
+	private String[] queryTokens;
 
-	public ParametersParserURL(String urlStr) throws MalformedURLException{
-		this.urlStr = urlStr;
-		this.url = new URL(urlStr);//need to check this via validation?
+	public ParametersParserURL(String requestUri) throws MalformedURLException{
+		this.requestUri = requestUri;
+		this.url = new URL(requestUri);
+		//System.out.println(url);
 		
 		this.protocol = url.getProtocol();
 		this.authority = url.getAuthority();
@@ -32,8 +41,12 @@ public class ParametersParserURL implements ParametersParser {
 		this.filename = url.getFile();
 		this.ref = url.getRef();
 		this.query = url.getQuery();
+		
+		
+		parameterPairs = new Hashtable<String,String>();
 	
 	}
+	
 	
 	
 	public String getProtocol(){
@@ -55,12 +68,24 @@ public class ParametersParserURL implements ParametersParser {
 	public String getRef(){
 		return this.ref;
 	}
-
-
+	
 	@Override
-	public Hashtable<String, String> getPairs() {
-		return null;
+	public Hashtable<String, String> getParameterNameValuePairs() {
+		Utilities util = new Utilities();
+		String delimiters = "&";
+		String[] queryTokens = util.retreiveTokens(query, delimiters);
+	
+		for(int i = 0;i<queryTokens.length;i++){
+			String[] nameValueTokens = util.retreiveTokens(queryTokens[i], "=");
+				for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
+					parameterPairs.put( nameValueTokens[j], nameValueTokens[j + 1]);
+				}
+			
+		}
+		return parameterPairs;
 	}
+	
+	
 	
 
 }

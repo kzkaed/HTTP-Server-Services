@@ -59,6 +59,7 @@ public class RequestParserTest {
 		assertEquals(resultRequest.getURI(),expectRequest.getURI());
 		assertEquals(resultRequest.getClass(),resultRequest.getClass());
 		
+		//GET is asking for a Service Object called /test/index with Parmeters id = 1 & test = true.
 	}
 
 	

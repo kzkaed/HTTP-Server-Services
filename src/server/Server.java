@@ -34,7 +34,7 @@ public class Server {
 	
 
 		
-	public void start() throws URISyntaxException  {
+	public void start()  {
 		try{
 			
 			logServerInfomation();

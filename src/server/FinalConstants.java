@@ -32,6 +32,7 @@ public final class FinalConstants {
 	
 	public static final String HOST = setHost();
 	
+	
 		
 
 	private static String setHost(){
@@ -41,6 +42,8 @@ public final class FinalConstants {
 			e.printStackTrace();
 			return "Host not set";
 		}
+		
+		
 	}
 	
 	

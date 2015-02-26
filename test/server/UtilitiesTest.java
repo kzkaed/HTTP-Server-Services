@@ -31,4 +31,17 @@ public class UtilitiesTest {
 		assertEquals(tokens[1], "/public/index.html");
 	}
 	
+	@Test
+	public void testParseQueryWithManyParameters(){
+		Utilities util = new Utilities();
+		String[] tokens = util.retreiveTokens("name=kristin&id=1", "&");
+		for(int i = 0; i < tokens.length; i++){
+			System.out.println(tokens[i]);
+			String[] tokens2 = util.retreiveTokens(tokens[i], "=");
+			for(int j = 0; j < tokens2.length; j++){
+				System.out.println(tokens2[j]);
+			}
+		}
+	}
+	
 }

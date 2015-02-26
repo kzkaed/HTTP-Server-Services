@@ -84,17 +84,17 @@ public class ServerTest {
 		String host = InetAddress.getLoopbackAddress().getHostName().toString();
 		String test = InetAddress.getLocalHost().getHostName().toString();
 		System.out.println(host + test);
-		URL url = new URL("http",host,5000, "/test/index");//"http://localhost:5000/test/index?name=kristin#1"
+		//URL url = new URL("http",host,5000, "/test/index");//"http://localhost:5000/test/index?name=kristin#1"
 		String userInfo = null;
 		String path = "/test/index"; 
 		String query = "name=kristin";
 		String fragment = "1";
 		URI uri = new URI("http",userInfo,host,5000,path,query,fragment);
 		
-		System.out.println("url " + url);
+		//System.out.println("url " + url);
 		System.out.println("uri " + uri);
-		ParametersParser paramsParser = new ParametersParserURL(url.toString());
-		assertEquals(paramsParser.getFilename(),"/test/index");
+		//ParametersParser paramsParser = new ParametersParserURL(url.toString());
+		//assertEquals(paramsParser.getFilename(),"/test/index");
 		
 		
 	}
@@ -106,12 +106,9 @@ public class ServerTest {
         public Server server;
         
         public void run() {
-        	try {
+        	
 				server.start();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+				
 		}
         
         public ServerStarter(Server mServer) {
