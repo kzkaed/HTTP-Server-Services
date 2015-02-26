@@ -2,17 +2,9 @@ package server.response;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
 import server.request.Request;
-import server.request.RequestParser;
 
 public class ResponseBuilderTest {
 	
