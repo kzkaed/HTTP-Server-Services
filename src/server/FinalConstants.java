@@ -1,5 +1,8 @@
 package server;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public final class FinalConstants {
 
 	//read once into local variable
@@ -26,5 +29,22 @@ public final class FinalConstants {
 	public static final String TEST_ROUTE = "/test/index";
 	public static final String DEFAULT_INDEX = "/index.html";
 	public static final String TEST_FILE = "/test.html";
-}
+	
+	public static final String HOST = setHost();
+	
+		
 
+	private static String setHost(){
+		try {
+			return InetAddress.getLocalHost().getHostName().toString();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return "Host not set";
+		}
+	}
+	
+	
+	
+	
+
+}

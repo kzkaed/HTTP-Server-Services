@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import server.Utilities;
+
 public class RequestParser {
 
 	private BufferedReader in;
@@ -33,14 +35,12 @@ public class RequestParser {
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody);	
 	}
 	
-	public String[] retreiveTokens(String request, String delimiters) {
-		String[] tokens = request.split(delimiters);
-		return tokens;
-	}
+
 	
 	private HashMap<String,String> parseRequestLine(String requestLine) {
 		String delimiters = "[ ]+";
-		String[] tokens = retreiveTokens(requestLine, delimiters);
+		Utilities util = new Utilities();
+		String[] tokens = util.retreiveTokens(requestLine, delimiters);
 		
 		HashMap<String,String>requestLineTokens = new HashMap<String,String>();
 		requestLineTokens.put("method", tokens[0]);

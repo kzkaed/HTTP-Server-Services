@@ -20,16 +20,6 @@ public class RequestParserTest {
 	private final String COLON = ": ";
 	private final String HEADERS_END = CRLF + CRLF;
 	
-	@Test
-	public void testGETParse() {
-		String request = "GET /public/index.html HTTP1/1";
-		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
-		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(in);
-		String delimiters = "[ ]+";
-		String[] tokens = parser.retreiveTokens(request,delimiters);
-		assertEquals(tokens[1], "/public/index.html");
-	}
 	
 	@Test
 	public void recievesFullURI(){

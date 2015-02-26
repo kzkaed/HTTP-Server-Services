@@ -5,11 +5,19 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.UnknownHostException;
 
 import log.Logger;
 import log.mocks.StringLogger;
 import server.Server;
+import server.request.ParametersParser;
+import server.request.ParametersParserURL;
 import server.socket.ServerSocketService;
 import server.socket.WireServerSocket;
 import server.mocks.MockServerSocket;
@@ -51,7 +59,7 @@ public class ServerTest {
 	}
 
 	@Test
-	public void testLogServerStatus() throws IOException{
+	public void testLogServerStatus() throws IOException, URISyntaxException{
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
 		Server server = new Server(mockSSocket,port,document, logger);
@@ -60,7 +68,7 @@ public class ServerTest {
 	}
 	
 	@Test
-	public void testServerStart() throws IOException {
+	public void testServerStart() throws IOException, URISyntaxException {
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
 		Server server = new Server(mockSSocket,port,document, logger);
@@ -68,13 +76,42 @@ public class ServerTest {
 		
 		assertEquals(mockSSocket.isClosed(),true);
 	}
+	
+	
+	@Test
+	public void test() throws MalformedURLException, URISyntaxException, UnknownHostException {
+		
+		String host = InetAddress.getLoopbackAddress().getHostName().toString();
+		String test = InetAddress.getLocalHost().getHostName().toString();
+		System.out.println(host + test);
+		URL url = new URL("http",host,5000, "/test/index");//"http://localhost:5000/test/index?name=kristin#1"
+		String userInfo = null;
+		String path = "/test/index"; 
+		String query = "name=kristin";
+		String fragment = "1";
+		URI uri = new URI("http",userInfo,host,5000,path,query,fragment);
+		
+		System.out.println("url " + url);
+		System.out.println("uri " + uri);
+		ParametersParser paramsParser = new ParametersParserURL(url.toString());
+		assertEquals(paramsParser.getFilename(),"/test/index");
+		
+		
+	}
+
+	
 
 	
 	class ServerStarter extends Thread {
         public Server server;
         
         public void run() {
-        	server.start();	
+        	try {
+				server.start();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
         
         public ServerStarter(Server mServer) {

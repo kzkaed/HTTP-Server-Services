@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
 
-public class ParametersParserURL {
+public class ParametersParserURL implements ParametersParser {
 	private URL url;
 	private String urlStr; 
 	
@@ -20,7 +20,7 @@ public class ParametersParserURL {
 	private Hashtable<String,String> pairs;
 	private Hashtable<String,Hashtable> pathParams; 
 
-	ParametersParserURL(String urlStr) throws MalformedURLException{
+	public ParametersParserURL(String urlStr) throws MalformedURLException{
 		this.urlStr = urlStr;
 		this.url = new URL(urlStr);//need to check this via validation?
 		
@@ -44,16 +44,22 @@ public class ParametersParserURL {
 		return this.path;
 	}
 	
-	String getQuery(){
+	public String getQuery(){
 		return this.query;
 	}
 	
-	String getFilename(){
+	public String getFilename(){
 		return this.filename;
 	}
 	
-	String getRef(){
+	public String getRef(){
 		return this.ref;
+	}
+
+
+	@Override
+	public Hashtable<String, String> getPairs() {
+		return null;
 	}
 	
 
