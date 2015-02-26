@@ -3,6 +3,7 @@ package server.response;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,15 +27,14 @@ public class FileStaticAsset {
 		return pathAsURI;
 	}
 
-	public String getResponseBody(String uri) {
+	public String getResponseBody(String uri) throws MalformedURLException {
 		String body = "";
 		String absolutePath = findPathAbsolute("");
-		String defaultDirectory = "/" + server.FinalConstants.PUBLIC_DIR_DEFAULT;
+		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
 
-		Routes route = new Routes();
-		String routedPath = route.getRoute(uri);
-		System.out.println(routedPath);
-
+		Routes route = new Routes(uri);
+		String routedPath = route.getRoute();
+		
 		String path = absolutePath + defaultDirectory + routedPath;
 
 		try {

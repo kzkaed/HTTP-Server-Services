@@ -79,20 +79,16 @@ public class ServerTest {
 	
 	
 	@Test
-	public void test() throws MalformedURLException, URISyntaxException, UnknownHostException {
+	public void testAdditionalLogging() throws MalformedURLException, URISyntaxException, UnknownHostException {
 		
 		String host = InetAddress.getLoopbackAddress().getHostName().toString();
 		String test = InetAddress.getLocalHost().getHostName().toString();
-		System.out.println(host + test);
-		//URL url = new URL("http",host,5000, "/test/index");//"http://localhost:5000/test/index?name=kristin#1"
 		String userInfo = null;
 		String path = "/test/index"; 
 		String query = "name=kristin";
 		String fragment = "1";
 		URI uri = new URI("http",userInfo,host,5000,path,query,fragment);
-		
-		//System.out.println("url " + url);
-		System.out.println("uri " + uri);
+	
 		//ParametersParser paramsParser = new ParametersParserURL(url.toString());
 		//assertEquals(paramsParser.getFilename(),"/test/index");
 		

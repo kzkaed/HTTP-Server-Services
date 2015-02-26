@@ -3,7 +3,7 @@ package server;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public final class FinalConstants {
+public final class Constants {
 
 	//read once into local variable
 	public static final String PORT_DEFAULT = "5000";
@@ -32,6 +32,8 @@ public final class FinalConstants {
 	
 	public static final String HOST = setHost();
 	
+	private static int PORT_IN_USE; 
+	
 	
 		
 
@@ -44,6 +46,14 @@ public final class FinalConstants {
 		}
 		
 		
+	}
+	
+	public final static void setPort(int port){
+		PORT_IN_USE = port;
+	}
+	
+	public static int getPort(){
+		return PORT_IN_USE;
 	}
 	
 	

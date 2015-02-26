@@ -58,36 +58,7 @@ public class Server {
 	
 	public void logServerInfomation() {
 		logger.log("Server Starting...");
-		String loopbackHost = InetAddress.getLoopbackAddress().getHostName().toString();
-		String host = "not able to be determined";
-		String ipAddress = "0.0.0.0";
-		URL url = null;
-		URI uri = null;
-		String userInfo = null;
-		String path = null; 
-		String query = null;
-		String fragment = null;
-		try {
-			host = InetAddress.getLocalHost().getHostName().toString();
-			ipAddress = Inet4Address.getLocalHost().getHostAddress();
-			url = new URL("http",host,port,"");
-			uri = new URI("http",userInfo,host,port,path,query,fragment);
-		} catch (UnknownHostException e) {
-			
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		
-		logger.log("machine loopback hostname : "+loopbackHost);
-		logger.log("machine hostname : " +host);
-		logger.log("machine ip address: " +ipAddress);
-		logger.log("port : "  +port);
-		logger.log("url " + url);
-		logger.log("uri " + uri);
-		
+
 	}
 	
 	

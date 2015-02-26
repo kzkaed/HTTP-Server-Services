@@ -3,6 +3,7 @@ package server.response;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,7 +39,7 @@ public class FileStaticAssetTest {
 	}
 	
 	@Test
-	public void testGetContent() {	
+	public void testGetContent() throws MalformedURLException {	
 		String content = "<!doctype html><html><head><title>Test "
 				+ "at root</title></head><body>Test at root</body></html>";
 		String contentReceived = asset.getResponseBody("/test.html");
@@ -48,7 +49,7 @@ public class FileStaticAssetTest {
 
 	
 	@Test
-	public void testGetFileContentOnRoutedPath(){	
+	public void testGetFileContentOnRoutedPath() throws MalformedURLException{	
 		String uriPath = "/test/index";
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
 		String contentReceived = asset.getResponseBody(uriPath);
@@ -59,7 +60,7 @@ public class FileStaticAssetTest {
 	
 	
 	@Test
-	public void testGetContentOnPathWithFilename() {
+	public void testGetContentOnPathWithFilename() throws MalformedURLException {
 		String uriFilename = "/test/test.html";
 		
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"

@@ -2,26 +2,13 @@ package server;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
 
-import org.junit.After;
-import org.junit.Before;
+import java.util.ArrayList;
 import org.junit.Test;
-
-import server.request.RequestParser;
 
 public class UtilitiesTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	
 	@Test
 	public void testGETParse() {
 		Utilities util = new Utilities();
@@ -34,14 +21,25 @@ public class UtilitiesTest {
 	@Test
 	public void testParseQueryWithManyParameters(){
 		Utilities util = new Utilities();
+		ArrayList<String> list = new ArrayList<String>();
 		String[] tokens = util.retreiveTokens("name=kristin&id=1", "&");
 		for(int i = 0; i < tokens.length; i++){
-			System.out.println(tokens[i]);
 			String[] tokens2 = util.retreiveTokens(tokens[i], "=");
 			for(int j = 0; j < tokens2.length; j++){
-				System.out.println(tokens2[j]);
+				list.add(tokens2[j]);;
 			}
+			
 		}
+		assertEquals(tokens[0],"name=kristin");
+		assertEquals(tokens[1],"id=1");
+		assertEquals(list.get(0),"name");
+		assertEquals(list.get(1),"kristin");
+		assertEquals(list.get(2),"id");
+		assertEquals(list.get(3),"1");
+		
+		
 	}
+	
+	
 	
 }

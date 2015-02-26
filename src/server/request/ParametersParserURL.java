@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import server.FinalConstants;
+import server.Constants;
 import server.Utilities;
 
 public class ParametersParserURL implements ParametersParser {
@@ -22,16 +22,17 @@ public class ParametersParserURL implements ParametersParser {
 	private String path;
 	private String filename;
 
-	private final String HOST = FinalConstants.HOST;
-	private final int PORT = 5000;
+	private final String HOST = Constants.HOST;
+	private int PORT_IN_USE = Constants.getPort();
 	
 	private Hashtable<String,String> parameterPairs;
 	private String[] queryTokens;
 
 	public ParametersParserURL(String requestUri) throws MalformedURLException{
 		this.requestUri = requestUri;
-		this.url = new URL(requestUri);
-		//System.out.println(url);
+		
+		this.url = new URL( "http://" + HOST + PORT_IN_USE + requestUri );
+		
 		
 		this.protocol = url.getProtocol();
 		this.authority = url.getAuthority();
@@ -41,9 +42,8 @@ public class ParametersParserURL implements ParametersParser {
 		this.filename = url.getFile();
 		this.ref = url.getRef();
 		this.query = url.getQuery();
-		
-		
-		parameterPairs = new Hashtable<String,String>();
+	
+		this.parameterPairs = new Hashtable<String,String>();
 	
 	}
 	
