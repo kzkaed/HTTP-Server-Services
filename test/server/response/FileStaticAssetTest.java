@@ -17,13 +17,10 @@ import server.request.Request;
 public class FileStaticAssetTest {
 
 	private FileStaticAsset asset;
-	private String testRelativePath;
+	
 	@Before
 	public void setUp()  {
-		asset = new FileStaticAsset();
-		Path currentRelativePath = Paths.get("");
-		testRelativePath = currentRelativePath.toAbsolutePath().toString();
-		
+		asset = new FileStaticAsset();		
 	}
 	@Test
 	public void testFindPathURI(){
@@ -34,8 +31,8 @@ public class FileStaticAssetTest {
 
 	@Test
 	public void testFindRelativePathRoot() {
-		String relativePathRoot = asset.findPathAbsolute("");
-		assertNotNull(relativePathRoot);
+		String absolutePathRoot = asset.findPathAbsolute("");
+		assertNotNull(absolutePathRoot);
 	}
 	
 	@Test

@@ -1,29 +1,26 @@
 package server.request;
 
-import java.io.IOException;
 import java.util.Hashtable;
 
 public class Request {
 	
-	private final String VERSION_PROTOCOL = "HTTP/1.1";
-	private final String CRLF = "\r\n";
-	private final String SPACE = "";
 
-	
 	private String method;
 	private String uri;
 	private String protocolVersion;
 	private Hashtable<String,String> headers;
 	private String requestLine;
 	private String requestBody;
+	private Hashtable<String,String> parameters;
 	
-	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody) {
+	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody, Hashtable<String,String> parameters) {
 		this.method = method;
 		this.uri = uri;
 		this.protocolVersion = protocolVersion;
 		this.headers = headers;
 		this.requestLine = requestLine;
 		this.requestBody = requestBody;
+		this.parameters = parameters;
 	}	
 			
 	public String getMethod(){
@@ -40,6 +37,10 @@ public class Request {
 	
 	public String getRequestLine(){
 		return this.requestLine;
+	}
+	
+	public Hashtable<String,String> getParmeters(){
+		return this.parameters;
 	}
 	
 }

@@ -51,11 +51,17 @@ public class ParametersParserURLTest {
 	public void testGetReference() throws MalformedURLException{
 		
 		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1#paragraph2");
-		assertEquals(paramsParser.getRef(),"paragraph2");
+		assertEquals(paramsParser.getReference(),"paragraph2");
 	}
 	
 	@Test
 	public void testGetFilename() throws MalformedURLException{
+		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1#paragraph2");
+		assertEquals(paramsParser.getFilename(),"/test?name=kristin&id=1");
+	}
+	
+	@Test
+	public void testGetReqestUri() throws MalformedURLException {
 		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1#paragraph2");
 		assertEquals(paramsParser.getFilename(),"/test?name=kristin&id=1");
 	}

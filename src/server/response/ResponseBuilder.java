@@ -32,9 +32,11 @@ public class ResponseBuilder {
 		String requestMethod = request.getMethod();
 		
 		
-		if (requestMethod.contentEquals("GET")) {
+		if (requestMethod.contentEquals("GET")) {//so want to pass in my "Assets"
 			FileStaticAsset asset = new FileStaticAsset();
 			String responseBody = asset.getResponseBody(request.getURI());
+			//DynamicAsset asset = new DynamicAsset(request.getURI());
+			//String responseBody = asset.generatePage();
 			
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";

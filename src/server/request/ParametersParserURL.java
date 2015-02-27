@@ -14,11 +14,10 @@ public class ParametersParserURL implements ParametersParser {
 	private String requestUri; 
 	
 	private String protocol;
-	private String authority;
-	private String host;
+
 	private String query;
-	private int port;
-	private String ref;
+	
+	private String reference;
 	private String path;
 	private String filename;
 
@@ -35,12 +34,9 @@ public class ParametersParserURL implements ParametersParser {
 		
 		
 		this.protocol = url.getProtocol();
-		this.authority = url.getAuthority();
-		this.host = url.getHost();
-		this.port = url.getPort();
 		this.path = url.getPath();
 		this.filename = url.getFile();
-		this.ref = url.getRef();
+		this.reference = url.getRef();
 		this.query = url.getQuery();
 	
 		this.parameterPairs = new Hashtable<String,String>();
@@ -65,18 +61,24 @@ public class ParametersParserURL implements ParametersParser {
 		return this.filename;
 	}
 	
-	public String getRef(){
-		return this.ref;
+	public String getRequestUri(){
+		return this.requestUri;
+	}
+	
+	public String getReference(){
+		return this.reference;
 	}
 	
 	@Override
 	public Hashtable<String, String> getParameterNameValuePairs() {
+		String delimiter;
 		Utilities util = new Utilities();
-		String delimiters = "&";
-		String[] queryTokens = util.retreiveTokens(query, delimiters);
+		delimiter = server.Constants.DELIMITER_AMP;
+		String[] queryTokens = util.retreiveTokens(query, delimiter);
 	
 		for(int i = 0;i<queryTokens.length;i++){
-			String[] nameValueTokens = util.retreiveTokens(queryTokens[i], "=");
+			delimiter = server.Constants.DELIMITER_EQUAL;
+			String[] nameValueTokens = util.retreiveTokens(queryTokens[i],delimiter );
 				for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 					parameterPairs.put( nameValueTokens[j], nameValueTokens[j + 1]);
 				}

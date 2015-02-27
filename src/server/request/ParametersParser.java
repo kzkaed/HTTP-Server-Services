@@ -7,7 +7,7 @@ public interface ParametersParser {
 	public String getPath();
 	public String getQuery();
 	public String getFilename();
-	public String getRef();
+	public String getReference();
 	public Hashtable<String,String> getParameterNameValuePairs();
 
 }

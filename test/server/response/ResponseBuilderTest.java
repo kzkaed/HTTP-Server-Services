@@ -14,7 +14,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testGETRequestResponse() throws IOException {
 		String requestLine = "GET / HTTP/1.1";
-		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String statusLine = responseBuilder.getStatusLine();
 		assertEquals(statusLine, "HTTP/1.1 200 OK" + CRLF);
@@ -23,7 +23,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testPOSTRequestResponse() throws IOException{
 		String requestLine = "POST / HTTP/1.1";
-		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String response = responseBuilder.buildResponse();
 		assertEquals(response, "HTTP/1.1 201 Created" + CRLF);
@@ -32,7 +32,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testPUTRequestResponse() throws IOException{
 		String requestLine = "PUT / HTTP/1.1";
-		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String response = responseBuilder.buildResponse();
 		assertEquals(response, "HTTP/1.1 201 Created" + CRLF);
@@ -41,7 +41,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testOPTIONRequestResponse() throws IOException{
 		String requestLine = "OPTIONS / HTTP/1.1";
-		Request request = new Request("OPTIONS","/","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("OPTIONS","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String response = responseBuilder.buildResponse();
 		assertEquals(response,
@@ -51,7 +51,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testResponseHeadersAreBuilt() {
 		String requestLine = "GET / HTTP/1.1";
-		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("GET","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String headers = "Server: Kristin Server" + CRLF
 							+ "Accept-Ranges: bytes" + CRLF 
@@ -65,7 +65,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void testGetTakesRoute() throws IOException{
 		String requestLine = "GET /test/index HTTP/1.1";
-		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		String response = responseBuilder.buildResponse();
 		String responseExpected = "HTTP/1.1 200 OK" + CRLF
@@ -80,7 +80,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void test404IfFileNotFound() throws IOException{
 		String requestLine = "GET /jam HTTP/1.1";
-		Request request = new Request("GET","/jam","HTTP/1.1",null,null,requestLine);
+		Request request = new Request("GET","/jam","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
 		String responseReceived = responseBuilder.buildResponse();
@@ -96,7 +96,7 @@ public class ResponseBuilderTest {
 	@Test
 	public void test502NotImplemented() throws IOException{
 		
-		Request request = new Request("","","",null,null,"");
+		Request request = new Request("","","",null,null,"",null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
 		String responseReceived = responseBuilder.buildResponse();
@@ -111,7 +111,7 @@ public class ResponseBuilderTest {
 	
 	@Test
 	public void testIfMethodIsNOTImplemented() throws IOException{
-		Request request = new Request("XYZ","","",null,null,"");
+		Request request = new Request("XYZ","","",null,null,"", null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
 		assertFalse(responseBuilder.isMethodImplemented());		
@@ -119,7 +119,7 @@ public class ResponseBuilderTest {
 	
 	@Test
 	public void testIfMethodIsImplemented() throws IOException{
-		Request request = new Request("GET","","",null,null,"");
+		Request request = new Request("GET","","",null,null,"",null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
 		assertTrue(responseBuilder.isMethodImplemented());	

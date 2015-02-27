@@ -90,7 +90,7 @@ public class ClientHandlerTest {
 		
 		handler = new ClientHandler(mockSocket, logger);
 	
-		Request request = new Request("GET", "/test.html","HTTP/1.1",null,"GET /test.html HTTP/1.1",null);
+		Request request = new Request("GET", "/test.html","HTTP/1.1",null,"GET /test.html HTTP/1.1",null,null);
 		
 		handler.run();
 		assertEquals(request.getClass(), handler.getRequest().getClass());

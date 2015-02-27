@@ -4,11 +4,11 @@ import java.util.HashMap;
 	
 public class Response {
     
-	private final String VERSION = "HTTP/1.1";
-	private final String RESPONSE_LINE = "HTTP/1.1 200 OK\r\n";
-	private final String CRLF = "\r\n";
-	private final String SPACE = "\\s";
-    String headerColon = ": ";
+	private final String VERSION_PROTOCOL = server.Constants.VERSION_PROTOCOL;
+	
+	private final String CRLF = server.Constants.CRLF;
+	private final String SPACE = server.Constants.SPACE_E;
+    private final String HEADER_COLON = server.Constants.COLON;
     private byte[] body;
     private String statusCode;
     private String statusMessage;

@@ -2,16 +2,11 @@ package server;
 
 import static org.junit.Assert.*;
 
-import java.net.Inet4Address;
+
 import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+
 import java.net.UnknownHostException;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ConstantsTest {

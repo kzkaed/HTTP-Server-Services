@@ -12,12 +12,13 @@ public class Routes {
 	private static final String DEFAULT_INDEX = "/index.html";
 	private static final String TEST_FILE = "/test.html";
 	private static final String TEST_ROUTE_OBJECT = "/test/test";
-	private static final String QUERY = "?";
+	private static final String QUERY = server.Constants.DELIMITER_QUERY;
 	
 	private String uri;
 	private Hashtable<String,String> parameterPairs;
 	private String path;
 	private ParametersParser params;
+	private HtmlView html;
 
 	public Routes (String uri) throws MalformedURLException{
 		this.uri = uri;
@@ -48,29 +49,6 @@ public class Routes {
 		
 		return route;
 	}
-
-	public String generatePage(){
-		String body="";
-		
-		if (uri.contains(QUERY)){
-			
-			parameterPairs = params.getParameterNameValuePairs();
-			System.out.println(parameterPairs.get("id"));
-			
-			System.out.println("filename" + params.getFilename());
-			System.out.println("path" + params.getPath());
-		}
-		
-		
-		HtmlView html = new HtmlView(parameterPairs);
-		
-		return html.build();
-	}
-	
-	
-	
-	
-	
 	
 
 }

@@ -1,13 +1,7 @@
 package server;
 
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.UnknownHostException;
+
 
 import log.SystemLogger;
 import log.Logger;
@@ -60,9 +54,6 @@ public class Server {
 		logger.log("Server Starting...");
 
 	}
-	
-	
-	
-	
+
 }
 
