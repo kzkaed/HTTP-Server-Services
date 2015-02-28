@@ -19,11 +19,15 @@ public class RequestTest {
 		String requestBody = "";
 		Hashtable<String,String> parameters = null;
 		
+		
 		Request request = new Request(method,uri,protocolVersion, headers,requestLine,requestBody,parameters);
 		assertEquals(request.getRequestLine(), requestLine);
 		assertEquals(request.getMethod(), method);
 		assertEquals(request.getProtocolVersion(), protocolVersion);
 		assertEquals(request.getURI(), uri);
+		assertNull(request.getParmeters());
+		assertNull(request.getHeaders());
+		
 	
 		
 	}

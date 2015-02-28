@@ -43,6 +43,10 @@ public class Request {
 		return this.parameters;
 	}
 	
+	public Hashtable<String,String> getHeaders(){
+		return this.headers;
+	}
+	
 }
 
 
