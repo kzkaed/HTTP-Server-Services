@@ -66,14 +66,13 @@ public class RequestParser {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		//String[] uriTokens = util.retreiveTokens(requestUri,server.Constants.DELIMITER_QUERY);
 	
 		HashMap<String,Object>requestLineTokens = new HashMap<String,Object>();
 		
 		requestLineTokens.put("method", requestTokens[0]);
 		requestLineTokens.put("uri", requestUri);
 		requestLineTokens.put("protocolVersion", requestTokens[2]);
-		System.out.println("query" + query);
+		
 		if (query != null){
 			requestLineTokens.put("query", query );
 			requestLineTokens.put("parameters", (Hashtable<String,String>)subParser.getParameterNameValuePairs());

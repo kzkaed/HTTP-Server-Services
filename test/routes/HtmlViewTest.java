@@ -8,11 +8,11 @@ import org.junit.Test;
 
 public class HtmlViewTest {
 
-	/*@Test
-	public void test() {
-		HtmlView html = new HtmlView(null);
+	@Test
+	public void testHTMLbuilds() {
+		HtmlView html = new HtmlView();
 		String htmlstring = html.build();
-		assertEquals(htmlstring,"");
+		assertEquals(htmlstring,"<!doctype html><html><head></head><body>no parameters or uri - cheers</body></html>");
 	}
-*/
+
 }
