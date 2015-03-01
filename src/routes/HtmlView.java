@@ -13,6 +13,7 @@ public class HtmlView {
 	public HtmlView(Hashtable<String,String> params){
 		builder = new StringBuilder();
 		this.params = params;
+		
 	}
 	
 	public HtmlView(){
@@ -31,14 +32,12 @@ public class HtmlView {
 		builder.append("</head>");
 		builder.append("<body>");
 		
-		if(params != null){
+		if(params != null ){
 			Set<String> keys = params.keySet();
 			for(String key: keys){
 				builder.append(key+ ":" + params.get(key));
+				
 			}
-			
-		}else if(uri != null){
-			builder.append(uri);
 		}else{
 			builder.append("no parameters or uri - cheers");
 		}

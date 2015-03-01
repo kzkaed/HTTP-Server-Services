@@ -1,9 +1,5 @@
 package server;
 
-
-
-
-
 public class ServerStarter extends Thread {
 	public Server server;
         
@@ -12,10 +8,7 @@ public class ServerStarter extends Thread {
     }
 
    public void run() {
-	   System.out.println("in " + getDefaultUncaughtExceptionHandler());
-   
 			server.start();
-	
 
     }
 }

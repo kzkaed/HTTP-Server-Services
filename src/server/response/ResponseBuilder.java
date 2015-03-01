@@ -4,6 +4,7 @@ package server.response;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
 import server.request.Request;
 
 public class ResponseBuilder {
@@ -37,6 +38,7 @@ public class ResponseBuilder {
 			String responseBody = asset.getResponseBody(request.getURI());
 			//DynamicAsset asset = new DynamicAsset(request.getURI());
 			//String responseBody = asset.generatePage();
+			
 			
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";

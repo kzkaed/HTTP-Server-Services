@@ -2,10 +2,13 @@ package server.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.nio.charset.*;
 
+import server.Constants;
 import server.Utilities;
 
 public class RequestParser {
@@ -19,7 +22,7 @@ public class RequestParser {
 	}
 	
 	
-	public Request parseRequest()  {
+	public Request parseRequest() throws UnsupportedEncodingException  {
 		String requestLine = readRequestLine();
 		
 		if ( requestLine == null ){
@@ -54,14 +57,18 @@ public class RequestParser {
 		void parseBody(){
 			
 		}
-	private HashMap<String,Object> parseRequestLine(String requestLine) {
+	private HashMap<String,Object> parseRequestLine(String requestLine) throws UnsupportedEncodingException {
 		
 		Utilities util = new Utilities();
 		String[] requestTokens = util.retreiveTokens(requestLine,server.Constants.DELIMITER_SPACE );
 		String requestUri = requestTokens[1];
+		String decodeRequestUri = java.net.URLDecoder.decode(requestUri,Constants.UTF_8);
+		
+		String uriPath = "";		
 		String query = "";
 		try {
-			subParser = new ParametersParserURL(requestUri);
+			subParser = new ParametersParserURL(decodeRequestUri);
+			uriPath = subParser.getPath();
 			query = subParser.getQuery();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -70,7 +77,7 @@ public class RequestParser {
 		HashMap<String,Object>requestLineTokens = new HashMap<String,Object>();
 		
 		requestLineTokens.put("method", requestTokens[0]);
-		requestLineTokens.put("uri", requestUri);
+		requestLineTokens.put("uri", uriPath);
 		requestLineTokens.put("protocolVersion", requestTokens[2]);
 		
 		if (query != null){

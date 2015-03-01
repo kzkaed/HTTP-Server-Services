@@ -3,6 +3,7 @@ package server.response;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
@@ -36,7 +37,7 @@ public class FileStaticAssetTest {
 	}
 	
 	@Test
-	public void testGetContent() throws MalformedURLException {	
+	public void testGetContent() throws MalformedURLException, UnsupportedEncodingException {	
 		String content = "<!doctype html><html><head><title>Test "
 				+ "at root</title></head><body>Test at root</body></html>";
 		String contentReceived = asset.getResponseBody("/test.html");
@@ -46,7 +47,7 @@ public class FileStaticAssetTest {
 
 	
 	@Test
-	public void testGetFileContentOnRoutedPath() throws MalformedURLException{	
+	public void testGetFileContentOnRoutedPath() throws MalformedURLException, UnsupportedEncodingException{	
 		String uriPath = "/test/index";
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
 		String contentReceived = asset.getResponseBody(uriPath);
@@ -57,7 +58,7 @@ public class FileStaticAssetTest {
 	
 	
 	@Test
-	public void testGetContentOnPathWithFilename() throws MalformedURLException {
+	public void testGetContentOnPathWithFilename() throws MalformedURLException, UnsupportedEncodingException {
 		String uriFilename = "/test/test.html";
 		
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"

@@ -20,6 +20,7 @@ public class ClientHandler {
 	private Logger logger;
 	private Request request;
 	private String response;
+	
 
 	public ClientHandler(SocketService socket, Logger logger) throws IOException {
 		this.socket = socket;

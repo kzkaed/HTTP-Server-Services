@@ -1,5 +1,6 @@
 package routes;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Hashtable;
 
@@ -20,7 +21,7 @@ public class Routes {
 	private ParametersParser params;
 	private HtmlView html;
 
-	public Routes (String uri) throws MalformedURLException{
+	public Routes (String uri) throws MalformedURLException, UnsupportedEncodingException{
 		this.uri = uri;
 		params = new ParametersParserURL(uri);
 		path = params.getPath();

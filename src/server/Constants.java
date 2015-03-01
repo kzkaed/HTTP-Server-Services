@@ -2,12 +2,16 @@ package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 
 public final class Constants {
 
 	//read once into local variable
 	public static final String PORT_DEFAULT = "5000";
 	public static final String PUBLIC_DIR_DEFAULT = "public";
+	
+	public static final String UTF_8 = java.nio.charset.StandardCharsets.UTF_8.name();
+	
 	
 	public static final String VERSION_PROTOCOL = "HTTP/1.1";
 	public static final String CRLF = "\r\n";
@@ -19,7 +23,7 @@ public final class Constants {
 	public static final String DELIMITER_SPACE = "[ ]+";
 	public static final String DELIMITER_QUERY = "\\?";
 	public static final String DELIMITER_EQUAL = "=";
-	public static final String DELIMITER_AMP = "&";
+	public static final String DELIMITER_AMPERSAND = "&";
 	
 	public static final String STATUS_200 = "HTTP/1.1 200 OK" + CRLF;
 	public static final String STATUS_404 = "HTTP/1.1 404 Not Found" + CRLF;

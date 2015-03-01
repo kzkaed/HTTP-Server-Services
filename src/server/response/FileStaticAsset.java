@@ -3,6 +3,7 @@ package server.response;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
@@ -27,7 +28,7 @@ public class FileStaticAsset {
 		return pathAsURI;
 	}
 
-	public String getResponseBody(String uri) throws MalformedURLException {
+	public String getResponseBody(String uri) throws MalformedURLException, UnsupportedEncodingException {
 		String body = "";
 		String absolutePath = findPathAbsolute("");
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
