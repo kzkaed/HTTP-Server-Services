@@ -15,16 +15,16 @@ public class DynamicAssetTest {
 	@Test
 	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
 		String uri = "/test/index";
-		DynamicAsset asset = new DynamicAsset(uri);
-		String html = asset.generatePage();
+		DynamicAsset asset = new DynamicAsset();
+		String html = asset.generate(uri);
 		assertEquals("<!doctype html><html><head></head><body></body></html>",html);
 	}
 	
 	@Test
 	public void testGeneratesHtmlwithDecodedParams() throws MalformedURLException, UnsupportedEncodingException {
 		String uri = "/test/index?name=kristin&id=1&this=that+A%26B%3DC";
-		DynamicAsset asset = new DynamicAsset(uri);
-		String html = asset.generatePage();
+		DynamicAsset asset = new DynamicAsset();
+		String html = asset.generate(uri);
 		assertEquals("<!doctype html><html><head></head><body>this:that A&B=Cname:kristinid:1</body></html>",html);
 	}
 

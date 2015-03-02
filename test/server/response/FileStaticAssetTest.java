@@ -40,7 +40,7 @@ public class FileStaticAssetTest {
 	public void testGetContent() throws MalformedURLException, UnsupportedEncodingException {	
 		String content = "<!doctype html><html><head><title>Test "
 				+ "at root</title></head><body>Test at root</body></html>";
-		String contentReceived = asset.getResponseBody("/test.html");
+		String contentReceived = asset.generate("/test.html");
 		assertEquals(content, contentReceived);
 
 	}
@@ -50,7 +50,7 @@ public class FileStaticAssetTest {
 	public void testGetFileContentOnRoutedPath() throws MalformedURLException, UnsupportedEncodingException{	
 		String uriPath = "/test/index";
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
-		String contentReceived = asset.getResponseBody(uriPath);
+		String contentReceived = asset.generate(uriPath);
 		
 		assertEquals(content, contentReceived);
 	}
@@ -63,7 +63,7 @@ public class FileStaticAssetTest {
 		
 		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
 				+ "</head><body><a href=\"http://www.scutigera.com\">Two</a> Mushroom in the Rain<br>with Ants Underneath.</body></html>";
-		String contentReceived = asset.getResponseBody(uriFilename);
+		String contentReceived = asset.generate(uriFilename);
 		assertEquals(content, contentReceived);
 
 	}

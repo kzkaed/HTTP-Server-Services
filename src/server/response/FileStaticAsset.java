@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 import routes.Routes;
 
-public class FileStaticAsset {
+public class FileStaticAsset implements Asset {
 
 	public FileStaticAsset(){}
 	
@@ -28,7 +28,7 @@ public class FileStaticAsset {
 		return pathAsURI;
 	}
 
-	public String getResponseBody(String uri) throws MalformedURLException, UnsupportedEncodingException {
+	public String generate(String uri) throws MalformedURLException, UnsupportedEncodingException {
 		String body = "";
 		String absolutePath = findPathAbsolute("");
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;

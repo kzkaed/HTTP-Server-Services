@@ -38,6 +38,7 @@ public class HtmlView {
 				builder.append(key+ ":" + params.get(key));
 				
 			}
+			
 		}else{
 			builder.append(content);
 		}

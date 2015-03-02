@@ -34,10 +34,9 @@ public class ResponseBuilder {
 		
 		
 		if (requestMethod.contentEquals("GET")) {//so want to pass in my "Assets"
-			FileStaticAsset asset = new FileStaticAsset();
-			String responseBody = asset.getResponseBody(request.getURI());
-			//DynamicAsset asset = new DynamicAsset(request.getURI());
-			//String responseBody = asset.generatePage();
+			Asset asset = new FileStaticAsset();
+			String responseBody = asset.generate(request.getURI());
+
 			
 			
 			if (responseBody.isEmpty()) {

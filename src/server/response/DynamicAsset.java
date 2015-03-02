@@ -10,22 +10,18 @@ import routes.HtmlView;
 import server.request.ParametersParser;
 import server.request.ParametersParserURL;
 
-public class DynamicAsset {
+public class DynamicAsset implements Asset{
 	
 	private final String QUERY = server.Constants.DELIMITER_QUERY;
 	
 	private String uri;
 	private Hashtable<String,String> parameterPairs;
-	private ParametersParser parser;
 	private HtmlView html;
 
-	public DynamicAsset (String uri) throws MalformedURLException, UnsupportedEncodingException {
-		this.uri = uri;
-		parser = new ParametersParserURL(uri);	
-
-	}
+	public DynamicAsset ()  {}
 	
-	public String generatePage() throws MalformedURLException, UnsupportedEncodingException{
+	public String generate(String uri) throws MalformedURLException, UnsupportedEncodingException{
+		ParametersParser parser = new ParametersParserURL(uri);
 		String content = "";
 		if (parser.getParameterNameValuePairs() != null){
 			parameterPairs = parser.getParameterNameValuePairs();
@@ -38,5 +34,7 @@ public class DynamicAsset {
 
 		
 	}
+
+
 
 }
