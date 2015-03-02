@@ -23,13 +23,7 @@ public class FileStaticAssetTest {
 	public void setUp()  {
 		asset = new FileStaticAsset();		
 	}
-	@Test
-	public void testFindPathURI(){
-		URI uri = asset.findPathURI("/test/index");
-		assertEquals(uri.toString(), "file:///test/index");
-	}
 	
-
 	@Test
 	public void testFindRelativePathRoot() {
 		String absolutePathRoot = asset.findPathAbsolute("");
@@ -38,9 +32,9 @@ public class FileStaticAssetTest {
 	
 	@Test
 	public void testGetContent() throws MalformedURLException, UnsupportedEncodingException {	
-		String content = "<!doctype html><html><head><title>Test "
-				+ "at root</title></head><body>Test at root</body></html>";
-		String contentReceived = asset.generate("/test.html");
+		String content = "<!doctype html><html><head></head><body>Test Static</body></html>";
+		Request request = new Request("GET","/test.html","HTTP1/1", null, "GET /test.html HTTP1/1",null,null);
+		String contentReceived = asset.render(request);
 		assertEquals(content, contentReceived);
 
 	}
@@ -48,23 +42,13 @@ public class FileStaticAssetTest {
 	
 	@Test
 	public void testGetFileContentOnRoutedPath() throws MalformedURLException, UnsupportedEncodingException{	
-		String uriPath = "/test/index";
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
-		String contentReceived = asset.generate(uriPath);
+		String content = "<!doctype html><html><head></head><body>Test</body></html>";
+		Request request = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index HTTP1/1",null,null);
+		String contentReceived = asset.render(request);
 		
 		assertEquals(content, contentReceived);
 	}
 	
 	
 	
-	@Test
-	public void testGetContentOnPathWithFilename() throws MalformedURLException, UnsupportedEncodingException {
-		String uriFilename = "/test/test.html";
-		
-		String content = "<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title>"
-				+ "</head><body><a href=\"http://www.scutigera.com\">Two</a> Mushroom in the Rain<br>with Ants Underneath.</body></html>";
-		String contentReceived = asset.generate(uriFilename);
-		assertEquals(content, contentReceived);
-
-	}
 }

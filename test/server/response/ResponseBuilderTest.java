@@ -72,7 +72,7 @@ public class ResponseBuilderTest {
 		+"Server: Kristin Server" + CRLF
 		+"Accept-Ranges: bytes" + CRLF
 		+"Content-Type: text/html" + HEADERS_END
-		+"<!doctype html><html><head><title>HTTP-Server-Service Test HTML</title></head><body>Test</body></html>";
+		+"<!doctype html><html><head></head><body>Test</body></html>";
 		assertEquals(response, responseExpected);
 		
 	}

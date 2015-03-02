@@ -18,7 +18,6 @@ public class RequestParser {
 
 	public RequestParser(BufferedReader in) {
 		this.in = in;
-		
 	}
 	
 	
@@ -47,35 +46,26 @@ public class RequestParser {
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody, parameters);	
 	}
 	
-		void parseRequestLine(){
-			
-		}
-		
-		void parseHeaders(){
-			
-		}
-		void parseBody(){
-			
-		}
-	private HashMap<String,Object> parseRequestLine(String requestLine) throws UnsupportedEncodingException {
-		
-		Utilities util = new Utilities();
-		String[] requestTokens = util.retreiveTokens(requestLine,server.Constants.DELIMITER_SPACE );
+	
+	private HashMap<String,Object> parseRequestLine(String requestLine)  {
+	
+		String[] requestTokens = Utilities.retreiveTokens(requestLine,server.Constants.DELIMITER_SPACE );
 		String requestUri = requestTokens[1];
-		String decodeRequestUri = java.net.URLDecoder.decode(requestUri,Constants.UTF_8);
 		
-		String uriPath = "";		
-		String query = "";
+		//String decodeRequestUri = java.net.URLDecoder.decode(requestUri,Constants.UTF_8);
+		
 		try {
-			subParser = new ParametersParserURL(decodeRequestUri);
-			uriPath = subParser.getPath();
-			query = subParser.getQuery();
-		} catch (MalformedURLException e) {
+			subParser = new ParametersParserURL(requestUri);
+		} catch (MalformedURLException e) {		
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		String uriPath = subParser.getPath();
+		String query = subParser.getQuery();
+		
 	
 		HashMap<String,Object>requestLineTokens = new HashMap<String,Object>();
-		
 		requestLineTokens.put("method", requestTokens[0]);
 		requestLineTokens.put("uri", uriPath);
 		requestLineTokens.put("protocolVersion", requestTokens[2]);
@@ -115,6 +105,15 @@ public class RequestParser {
 		return parameterPairs;
 	}
 	
+	void parseRequestLine(){
+		
+	}
 	
+	void parseHeaders(){
+		
+	}
+	void parseBody(){
+		
+	}
 
 }

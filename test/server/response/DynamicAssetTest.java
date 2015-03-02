@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.request.Request;
+
 public class DynamicAssetTest {
 
 
@@ -16,16 +18,11 @@ public class DynamicAssetTest {
 	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
 		String uri = "/test/index";
 		DynamicAsset asset = new DynamicAsset();
-		String html = asset.generate(uri);
-		assertEquals("<!doctype html><html><head></head><body></body></html>",html);
+		Request request = new Request(uri);
+		String html = asset.render(request);
+		assertEquals("<!doctype html><html><head></head><body>Test</body></html>",html);
 	}
 	
-	@Test
-	public void testGeneratesHtmlwithDecodedParams() throws MalformedURLException, UnsupportedEncodingException {
-		String uri = "/test/index?name=kristin&id=1&this=that+A%26B%3DC";
-		DynamicAsset asset = new DynamicAsset();
-		String html = asset.generate(uri);
-		assertEquals("<!doctype html><html><head></head><body>this:that A&B=Cname:kristinid:1</body></html>",html);
-	}
+
 
 }

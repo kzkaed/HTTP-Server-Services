@@ -57,9 +57,7 @@ public class ClientHandlerTest {
 				+ "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF
 				+ "Content-Type: text/html" + CRLF + CRLF
-				+"<!doctype html><html><head><title>"
-				+ "Test at root</title></head><body>"
-				+ "Test at root</body></html>";
+				+"<!doctype html><html><head></head><body>Test Static</body></html>";
 		handler.run();
 		assertEquals(loggedRequest, ((StringLogger)logger).logs.get(0));
 		assertEquals(loggedResponse, ((StringLogger)logger).logs.get(1));
@@ -75,9 +73,7 @@ public class ClientHandlerTest {
 				+ "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF
 				+ "Content-Type: text/html" + CRLF + CRLF
-				+"<!doctype html><html><head><title>"
-				+ "Test at root</title></head><body>"
-				+ "Test at root</body></html>";
+				+"<!doctype html><html><head></head><body>Test Static</body></html>";
 		handler.run();
 		assertEquals(response, handler.getResponse());
 	}

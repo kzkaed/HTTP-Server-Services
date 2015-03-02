@@ -33,11 +33,15 @@ public class ResponseBuilder {
 		String requestMethod = request.getMethod();
 		
 		
-		if (requestMethod.contentEquals("GET")) {//so want to pass in my "Assets"
-			Asset asset = new FileStaticAsset();
-			String responseBody = asset.generate(request.getURI());
+		if (requestMethod.contentEquals("GET")) {
+			AssetFactory assetFactory = new AssetFactory(request.getURI());//just /test.html
+			Asset asset = assetFactory.getAsset();
+					
+			String responseBody = asset.render(request);
 
-			
+			if(request.getURI().contentEquals("/jam")){//forward
+				responseBody = "";
+			}
 			
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";

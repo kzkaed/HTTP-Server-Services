@@ -21,10 +21,8 @@ public class Routes {
 	private ParametersParser params;
 	private HtmlView html;
 
-	public Routes (String uri) throws MalformedURLException, UnsupportedEncodingException{
+	public Routes (String uri) {
 		this.uri = uri;
-		params = new ParametersParserURL(uri);
-		path = params.getPath();
 	}
 	
 	public String getRoute() {
@@ -32,15 +30,12 @@ public class Routes {
 	String route;
 		
 	
-		if(path.contentEquals(TEST_ROUTE)){
+		if(uri.contentEquals(TEST_ROUTE)){
 			route = "/test/index.html";
-			//route to object /test/index
-			
-		
-		}else if (path.contentEquals(TEST_FILE)){
+		}else if (uri.contentEquals(TEST_FILE)){
 			route = TEST_FILE;		
 		
-		}else if (path.contentEquals("/") ){
+		}else if (uri.contentEquals("/") ){
 			route = DEFAULT_INDEX;
 			
 		}else{

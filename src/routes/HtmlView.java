@@ -35,7 +35,7 @@ public class HtmlView {
 		if(params != null ){
 			Set<String> keys = params.keySet();
 			for(String key: keys){
-				builder.append(key+ ":" + params.get(key));
+				builder.append(key+ ":" + params.get(key) + "<br>");
 				
 			}
 			

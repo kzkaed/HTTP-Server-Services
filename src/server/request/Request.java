@@ -12,6 +12,7 @@ public class Request {
 	private String requestLine;
 	private String requestBody;
 	private Hashtable<String,String> parameters;
+	private String fullUri;
 	
 	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody, Hashtable<String,String> parameters) {
 		this.method = method;
@@ -22,7 +23,15 @@ public class Request {
 		this.requestBody = requestBody;
 		this.parameters = parameters;
 	}	
-			
+	
+	public Request(String fullUri){
+		this.fullUri = fullUri;
+	}
+	
+	public String getFullUri(){
+		return this.fullUri;
+	}
+	
 	public String getMethod(){
 		return this.method;
 	}

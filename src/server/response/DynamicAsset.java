@@ -9,25 +9,22 @@ import java.util.Set;
 import routes.HtmlView;
 import server.request.ParametersParser;
 import server.request.ParametersParserURL;
+import server.request.Request;
 
 public class DynamicAsset implements Asset{
-	
-	private final String QUERY = server.Constants.DELIMITER_QUERY;
-	
-	private String uri;
-	private Hashtable<String,String> parameterPairs;
+		
+	private Hashtable<String,String> parameters;
 	private HtmlView html;
 
 	public DynamicAsset ()  {}
 	
-	public String generate(String uri) throws MalformedURLException, UnsupportedEncodingException{
-		ParametersParser parser = new ParametersParserURL(uri);
-		String content = "";
-		if (parser.getParameterNameValuePairs() != null){
-			parameterPairs = parser.getParameterNameValuePairs();
-			html = new HtmlView(parameterPairs);
+	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException{
+				
+		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
+			parameters = request.getParmeters();
+			html = new HtmlView(parameters);
 		}else{
-			html = new HtmlView(content);
+			html = new HtmlView("Test");
 		}
 		
 		return html.build();

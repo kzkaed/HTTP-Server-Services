@@ -19,19 +19,14 @@ public class RequestParserTest {
 
 		
 	@Test
-	public void recievesFullURI(){
-		
-	}
-	
-	@Test
 	public void testReadsRequestLine() throws UnsupportedEncodingException{
-		String request = "GET /test%2Findex HTTP1/1";
+		String request = "GET /test/index HTTP1/1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(in);
 		Request resultRequest = parser.parseRequest();
 		
-		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test%2Findex HTTP1/1",null,null);
+		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index HTTP1/1",null,null);
 		
 		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
 		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
@@ -64,8 +59,6 @@ public class RequestParserTest {
 		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
 		assertEquals(resultRequest.getURI(),expectRequest.getURI());
 		assertEquals(resultRequest.getClass(),resultRequest.getClass());
-		
-		//GET is asking for a Service Object called /test/index with Parmeters id = 1 & test = true.
 	}
 	
 	@Test
@@ -84,8 +77,27 @@ public class RequestParserTest {
 		assertEquals(resultRequest.getURI(),expectRequest.getURI());
 		assertEquals(resultRequest.getClass(),resultRequest.getClass());
 		assertEquals(resultRequest.getParmeters().get("name").toString(), "kristin kaeding" );
-		
-		//GET is asking for a Service Object called /test/index with Parmeters id = 1 & test = true.
 	}
+	
+	@Test
+	public void testURlEncodedParsedParametersObscure() throws UnsupportedEncodingException{
+		String request = "GET /test/index?name=kristin%20kaeding&this=that%20A%2BB%3DC HTTP1/1";
+		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
+		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+		
+		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index?name=kristin%20kaeding&this=that%20A%2BB%3DC HTTP1/1",null,null);
+		RequestParser parser = new RequestParser(in);
+		Request resultRequest = parser.parseRequest();
+		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
+		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
+		assertEquals(resultRequest.getRequestLine(),expectRequest.getRequestLine());
+		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
+		assertEquals(resultRequest.getURI(),expectRequest.getURI());
+		assertEquals(resultRequest.getClass(),resultRequest.getClass());
+		assertEquals(resultRequest.getParmeters().get("name").toString(), "kristin kaeding" );
+		assertEquals(resultRequest.getParmeters().get("this").toString(), "that A+B=C" );
+		
+	}
+	
 
 }
