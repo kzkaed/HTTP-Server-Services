@@ -12,7 +12,7 @@ public class HtmlViewTest {
 	public void testHTMLbuilds() {
 		HtmlView html = new HtmlView();
 		String htmlstring = html.build();
-		assertEquals(htmlstring,"<!doctype html><html><head></head><body>no parameters or uri - cheers</body></html>");
+		assertEquals(htmlstring,"<!doctype html><html><head></head><body>null</body></html>");
 	}
 
 }

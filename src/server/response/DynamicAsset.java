@@ -26,16 +26,12 @@ public class DynamicAsset {
 	}
 	
 	public String generatePage() throws MalformedURLException, UnsupportedEncodingException{
-		if (parser.getParameterNameValuePairs() == null){
-			System.out.println("QUERY " + parser.getQuery());
-			System.out.println("P" + parser.getPath());
-			System.out.println("uri" + uri);
-			html = new HtmlView(uri);
-		}else if (parser.getParameterNameValuePairs() != null){
+		String content = "";
+		if (parser.getParameterNameValuePairs() != null){
 			parameterPairs = parser.getParameterNameValuePairs();
 			html = new HtmlView(parameterPairs);
 		}else{
-			html = new HtmlView();
+			html = new HtmlView(content);
 		}
 		
 		return html.build();

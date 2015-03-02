@@ -7,7 +7,7 @@ import java.util.Set;
 public class HtmlView {
 	private StringBuilder builder;
 	private Hashtable<String,String> params;
-	private String uri;
+	private String content;
 	
 	
 	public HtmlView(Hashtable<String,String> params){
@@ -20,9 +20,9 @@ public class HtmlView {
 		builder = new StringBuilder();
 	}
 	
-	public HtmlView(String uri){
+	public HtmlView(String content){
 		builder = new StringBuilder();
-		this.uri = uri;	
+		this.content = content;	
 	}
 	
 	public String build(){
@@ -39,7 +39,7 @@ public class HtmlView {
 				
 			}
 		}else{
-			builder.append("no parameters or uri - cheers");
+			builder.append(content);
 		}
 		
 		builder.append("</body>");
@@ -47,8 +47,5 @@ public class HtmlView {
 		
 		return builder.toString();
 	}
-	
-	
 
 }
-//<!doctype html><html><head><title>Test at root</title></head><body>Test at root</body></html>
