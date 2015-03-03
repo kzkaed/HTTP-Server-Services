@@ -28,11 +28,11 @@ public class Server {
 	
 	public void start()  {
 		try{
-	
 			logServerInfomation();
 			
 			while(!service.isClosed()){ 
 				logListening();
+				
 				SocketService socket = service.accept();
 				new ClientHandler(socket,logger).run();	
 			}
@@ -50,7 +50,6 @@ public class Server {
 	
 	public void logServerInfomation() {
 		logger.log("Server Starting...");
-
 	}
 
 }
