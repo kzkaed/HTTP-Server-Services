@@ -48,9 +48,9 @@ public class ParserURITest {
 		String expectedParameter = "kristin kaeding";
 		String expectedParameter2 = "1";
 		String expectedParameter3 = "test";
-		assertEquals(expectedParameter,parser.getParameterNameValuePairs().get("name")); 
-		assertEquals(expectedParameter2,parser.getParameterNameValuePairs().get("id")); 
-		assertEquals(expectedParameter3,parser.getParameterNameValuePairs().get("language")); 
+		assertEquals(expectedParameter,parser.getParameterPairs().get("name")); 
+		assertEquals(expectedParameter2,parser.getParameterPairs().get("id")); 
+		assertEquals(expectedParameter3,parser.getParameterPairs().get("language")); 
 	}
 
 }

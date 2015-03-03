@@ -11,14 +11,11 @@ import org.junit.Test;
 
 public class ParametersParserURLTest {
 
-	
-	
-	
 	@Test
 	public void testGetPairsAndDecodes() throws MalformedURLException, UnsupportedEncodingException{
 		
 		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");
-		Hashtable<String,String> pairs = paramsParser.getParameterNameValuePairs();
+		Hashtable<String,String> pairs = paramsParser.getParameterPairs();
 		assertEquals(pairs.get("name"),"kristin");	
 		assertEquals(pairs.get("id"),"1");
 		assertEquals(pairs.get("this"),"that A&B=C");
@@ -31,13 +28,6 @@ public class ParametersParserURLTest {
 		assertEquals(query,"name=kristin&id=1&this=that+A%26B%3DC");
 	}
 
-	
-	@Test
-	public void testGetReference() throws MalformedURLException, UnsupportedEncodingException{		
-		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");
-		assertEquals(paramsParser.getReference(),"paragraph2");
-	}
-	
 	@Test
 	public void testGetFilename() throws MalformedURLException, UnsupportedEncodingException{
 		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");

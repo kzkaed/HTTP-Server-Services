@@ -15,13 +15,11 @@ public class ResponseBuilder {
 	private final String STATUS_404 = server.Constants.STATUS_404;
 	private final String STATUS_502 = server.Constants.STATUS_502;
 	
-	
 	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
 	
 	private Request request;
 	private String statusLine;
 	
-
 	public ResponseBuilder(Request request) {
 		this.request = request;
 		this.statusLine = STATUS_200;
@@ -34,12 +32,12 @@ public class ResponseBuilder {
 		
 		
 		if (requestMethod.contentEquals("GET")) {
-			AssetFactory assetFactory = new AssetFactory(request.getURI());//just /test.html
+			AssetFactory assetFactory = new AssetFactory(request.getURI());
 			Asset asset = assetFactory.getAsset();
 					
 			String responseBody = asset.render(request);
 
-			if(request.getURI().contentEquals("/jam")){//forward
+			if(request.getURI().contentEquals("/jam")){
 				responseBody = "";
 			}
 			

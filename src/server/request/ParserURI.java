@@ -28,7 +28,6 @@ public class ParserURI implements ParametersParser {
 		this.port = uri.getPort();
 		this.path = uri.getPath();
 		this.filename = uri.getFragment();
-		this.reference = uri.getFragment();
 		this.query = uri.getQuery();
 		this.parameterPairs = new Hashtable<String,String>();
 	}
@@ -61,22 +60,15 @@ public class ParserURI implements ParametersParser {
 	}
 
 	@Override
-	public String getReference() {
-		return this.reference;
-	}
-
-
-	@Override
-	public Hashtable<String, String> getParameterNameValuePairs() {
+	public Hashtable<String, String> getParameterPairs() {
 		String delimiter;
-		Utilities util = new Utilities();
 		
 		delimiter = server.Constants.DELIMITER_AMPERSAND;
-		String[] queryTokens = util.retreiveTokens(query, delimiter);
+		String[] queryTokens = Utilities.retreiveTokens(query, delimiter);
 		for(int i = 0; i<queryTokens.length; i++){
 			
 			delimiter = server.Constants.DELIMITER_EQUAL;
-			String[] nameValueTokens = util.retreiveTokens(queryTokens[i],delimiter );
+			String[] nameValueTokens = Utilities.retreiveTokens(queryTokens[i],delimiter );
 			for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 				String parameterName = nameValueTokens[j];
 				String parameterValue = nameValueTokens[j+1];

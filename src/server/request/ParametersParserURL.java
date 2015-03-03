@@ -16,7 +16,6 @@ public class ParametersParserURL implements ParametersParser {
 	private String requestUri; 
 	private String protocol;
 	private String query;
-	private String reference;
 	private String path;
 	private String filename;
 	private int port;
@@ -32,7 +31,6 @@ public class ParametersParserURL implements ParametersParser {
 		this.protocol = url.getProtocol();
 		this.path = url.getPath();
 		this.filename = url.getFile();
-		this.reference = url.getRef();
 		this.query = url.getQuery();
 		this.parameterPairs = new Hashtable<String,String>();
 	}
@@ -66,13 +64,9 @@ public class ParametersParserURL implements ParametersParser {
 	public String getRequestUri(){
 		return this.requestUri;
 	}
-	
-	public String getReference(){
-		return this.reference;
-	}
-	
+		
 	@Override
-	public Hashtable<String, String> getParameterNameValuePairs() {
+	public Hashtable<String, String> getParameterPairs() {
 		if(query != null){
 			String delimiter;
 			Utilities util = new Utilities();

@@ -26,11 +26,9 @@ public class Server {
 		this.logger = logger;	
 	}
 	
-
-		
 	public void start()  {
 		try{
-			
+	
 			logServerInfomation();
 			
 			while(!service.isClosed()){ 

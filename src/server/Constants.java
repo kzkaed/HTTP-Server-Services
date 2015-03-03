@@ -2,7 +2,6 @@ package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 
 public final class Constants {
 
@@ -11,7 +10,6 @@ public final class Constants {
 	public static final String PUBLIC_DIR_DEFAULT = "public";
 	
 	public static final String UTF_8 = java.nio.charset.StandardCharsets.UTF_8.name();
-	
 	
 	public static final String VERSION_PROTOCOL = "HTTP/1.1";
 	public static final String CRLF = "\r\n";
@@ -30,16 +28,14 @@ public final class Constants {
 	public static final String STATUS_500 = "HTTP/1.1 500 Internal Server Error" + CRLF;
 	public static final String STATUS_502 = "HTTP/1.1 502 Not Implemented" + CRLF;
 		
-	public static final String TEST_ROUTE = "/test/index";
 	public static final String DEFAULT_INDEX = "/index.html";
+	
+	public static final String TEST_ROUTE = "/test/index";
 	public static final String TEST_FILE = "/test.html";
 	
 	public static final String HOST = setHost();
-	
 	private static int PORT_IN_USE; 
 	
-	
-		
 
 	private static String setHost(){
 		try {
@@ -48,8 +44,6 @@ public final class Constants {
 			e.printStackTrace();
 			return "Host not set";
 		}
-		
-		
 	}
 	
 	public final static void setPort(int port){

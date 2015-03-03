@@ -52,8 +52,6 @@ public class RequestParser {
 		String[] requestTokens = Utilities.retreiveTokens(requestLine,server.Constants.DELIMITER_SPACE );
 		String requestUri = requestTokens[1];
 		
-		//String decodeRequestUri = java.net.URLDecoder.decode(requestUri,Constants.UTF_8);
-		
 		try {
 			subParser = new ParametersParserURL(requestUri);
 		} catch (MalformedURLException e) {		
@@ -64,7 +62,6 @@ public class RequestParser {
 		String uriPath = subParser.getPath();
 		String query = subParser.getQuery();
 		
-	
 		HashMap<String,Object>requestLineTokens = new HashMap<String,Object>();
 		requestLineTokens.put("method", requestTokens[0]);
 		requestLineTokens.put("uri", uriPath);
@@ -72,7 +69,7 @@ public class RequestParser {
 		
 		if (query != null){
 			requestLineTokens.put("query", query );
-			requestLineTokens.put("parameters", (Hashtable<String,String>)subParser.getParameterNameValuePairs());
+			requestLineTokens.put("parameters", (Hashtable<String,String>)subParser.getParameterPairs());
 		}
 		
 		return requestLineTokens;	
@@ -89,24 +86,7 @@ public class RequestParser {
 		return requestLine;
 	}
 	
-	public Hashtable<String, String> getParameterNameValuePairs(String query) {
-		Hashtable<String,String> parameterPairs = new Hashtable<String,String>();
-		Utilities util = new Utilities();
-		String delimiters = "&";
-		String[] queryTokens = util.retreiveTokens(query, delimiters);
-	
-		for(int i = 0;i<queryTokens.length;i++){
-			String[] nameValueTokens = util.retreiveTokens(queryTokens[i], "=");
-				for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
-					parameterPairs.put( nameValueTokens[j], nameValueTokens[j + 1]);
-				}
-			
-		}
-		return parameterPairs;
-	}
-	
-	void parseRequestLine(){
-		
+	void parseRequestLine(){	
 	}
 	
 	void parseHeaders(){

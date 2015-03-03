@@ -1,11 +1,5 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -41,20 +35,13 @@ public class Utilities {
 
 		Routes route = new Routes(filename);
 		String routedPath = route.getRoute();
-		
-		
+
 		String path = absolutePath + defaultDirectory + routedPath;
 
 		Path pathCheck = Paths.get(path);
 		if (Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS)){
 			return true;
 		}
-		/*File file = new File(path);
-		if(file.isFile()){
-			return true;
-		}
-		*/
-
 		return false;
 	}
 
