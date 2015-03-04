@@ -34,10 +34,13 @@ public class RequestParser {
 		String uri = requestLineTokens.get("uri").toString();
 		String protocolVersion = requestLineTokens.get("protocolVersion").toString();
 
-		Hashtable<String,String> parameters = null;
+		Hashtable<String,String> parameters;
 		if(requestLineTokens.containsKey("parameters")){
-			parameters =  (Hashtable<String, String>) requestLineTokens.get("parameters");
+			parameters =  (Hashtable<String, String>) requestLineTokens.get("parameters");	
+		}else{
+			parameters =  new Hashtable<String,String>();
 		}
+		
 		
 		String[] allOfRequest = null;
 		Hashtable<String,String> headers = null;

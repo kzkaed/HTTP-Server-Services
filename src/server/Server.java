@@ -2,10 +2,13 @@ package server;
 
 import java.io.IOException;
 
-
 import log.SystemLogger;
 import log.Logger;
+import routes.AssetManager;
 import server.handler.ClientHandler;
+import server.response.Asset;
+import server.response.DynamicShowParamsAsset;
+import server.response.FileStaticAsset;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
 
@@ -14,19 +17,25 @@ public class Server {
 	public int port;
 	private ServerSocketService service;
 	private Logger logger;
+	private AssetManager manager;
 	
-	public Server(ServerSocketService service, int port, String document){
-		this(service, port, document, new SystemLogger());
+	
+	public Server(ServerSocketService service, int port, String document, AssetManager manager){
+		this(service, port, document, manager, new SystemLogger() );
 	}
 	
-	public Server(ServerSocketService service, int port, String document, Logger logger){
+	public Server(ServerSocketService service, int port, String document, AssetManager manager, Logger logger){
 		this.port = port;
 		this.document = document;
 		this.service = service;
-		this.logger = logger;	
+		this.logger = logger;
+		this.manager = manager;
+		
 	}
 	
 	public void start()  {
+		manager.register(new FileStaticAsset());
+		manager.register(new DynamicShowParamsAsset());
 		try{
 			logServerInfomation();
 			
@@ -34,7 +43,7 @@ public class Server {
 				logListening();
 				
 				SocketService socket = service.accept();
-				new ClientHandler(socket,logger).run();	
+				new ClientHandler(socket,logger, manager).run();	
 			}
 			service.close();
 		}catch(IOException ioe){

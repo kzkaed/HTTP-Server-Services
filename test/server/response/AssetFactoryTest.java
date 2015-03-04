@@ -31,7 +31,7 @@ public class AssetFactoryTest {
 		String uri = "/jam";
 		AssetFactory assetFactory = new AssetFactory(uri);
 		Asset asset = assetFactory.getAsset();
-		Asset expectedAsset = new DynamicAsset();
+		Asset expectedAsset = new DynamicShowParamsAsset();
 		assertEquals(expectedAsset.getClass(), asset.getClass());
 	}
 }

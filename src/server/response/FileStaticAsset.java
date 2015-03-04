@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import routes.Routes;
+import server.Utilities;
 import server.request.Request;
 
 public class FileStaticAsset implements Asset {
@@ -17,20 +18,13 @@ public class FileStaticAsset implements Asset {
 	public FileStaticAsset(){}
 	
 	
-	public String findPathAbsolute(String path) {
-		Path currentRelativePath = Paths.get(path);
-		String absolutePath = currentRelativePath.toAbsolutePath().toString();
-		return absolutePath;
-	}
-	
 	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException {
 		String body = "";
-		String absolutePath = findPathAbsolute("");
+		String absolutePath = Utilities.findPathAbsolute("");
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
 
 		Routes route = new Routes(request.getURI());
 		String routedPath = route.getRoute();
-		
 		
 		String path = absolutePath + defaultDirectory + routedPath;
 
@@ -46,6 +40,19 @@ public class FileStaticAsset implements Asset {
 		}
 
 		return body;
+	}
+
+
+	@Override
+	public boolean canHandle(Request request) {
+		System.out.println(request.getURI());
+		if(request.getURI().contains("test/index")){
+			return true;
+		}else if (request.getURI().contains("file")){
+			return true;
+		}
+		
+		return false;		
 	}
 	
 }

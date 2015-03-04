@@ -39,7 +39,11 @@ public class HtmlView {
 				
 			}
 			
-		}else{
+		}
+		else if(content == null){
+			builder.append("");
+		}
+		else{
 			builder.append(content);
 		}
 		

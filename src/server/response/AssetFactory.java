@@ -14,7 +14,7 @@ public class AssetFactory {
 		if(doesStaticAssetExist(uri)){
 			return new FileStaticAsset();
 		}
-		return new DynamicAsset();		
+		return new DynamicShowParamsAsset();		
 	}
 	
 	

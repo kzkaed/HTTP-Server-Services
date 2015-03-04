@@ -11,12 +11,12 @@ import server.request.ParametersParser;
 import server.request.ParametersParserURL;
 import server.request.Request;
 
-public class DynamicAsset implements Asset{
+public class DynamicShowParamsAsset implements Asset{
 		
 	private Hashtable<String,String> parameters;
 	private HtmlView html;
 
-	public DynamicAsset ()  {}
+	public DynamicShowParamsAsset ()  {}
 	
 	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException{
 				
@@ -30,6 +30,21 @@ public class DynamicAsset implements Asset{
 		return html.build();
 
 		
+	}
+
+	@Override
+	public boolean canHandle(Request request) {
+		System.out.println(request.getURI());
+		if(request.getURI().contentEquals("/")){
+			return true;
+		}else if (request.getURI().contains("showParams")){
+			return true;
+		}else if (request.getURI().contentEquals("parameters")){
+			return true;
+		}else { 
+			return false;
+		}
+			
 	}
 
 

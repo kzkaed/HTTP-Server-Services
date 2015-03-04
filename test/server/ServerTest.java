@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 
 import log.Logger;
 import log.mocks.StringLogger;
+import routes.AssetManager;
 import server.Server;
 import server.request.ParametersParser;
 import server.request.ParametersParserURL;
@@ -51,7 +52,8 @@ public class ServerTest {
 	
 	@Test
 	public void testServerConstructed() throws IOException {
-		Server server = new Server(mockSSocket,port,document);
+		
+		Server server = new Server(mockSSocket,port,document, new AssetManager());
 		assertEquals(document, "PUBLIC_DIR");
 		assertEquals(port, 5000);
 		assertEquals(mockSSocket.getClass().getName(), "server.mocks.MockServerSocket");
@@ -62,7 +64,7 @@ public class ServerTest {
 	public void testLogServerStatus() throws IOException, URISyntaxException{
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
-		Server server = new Server(mockSSocket,port,document, logger);
+		Server server = new Server(mockSSocket,port,document, new AssetManager(), logger);
 		server.start();
 		assertEquals(((StringLogger)logger).logs.get(0), "Server Starting...");
 	}
@@ -71,7 +73,7 @@ public class ServerTest {
 	public void testServerStart() throws IOException, URISyntaxException {
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
-		Server server = new Server(mockSSocket,port,document, logger);
+		Server server = new Server(mockSSocket,port,document, new AssetManager(), logger);
 		server.start();
 		
 		assertEquals(mockSSocket.isClosed(),true);
@@ -91,8 +93,6 @@ public class ServerTest {
 	
 		//ParametersParser paramsParser = new ParametersParserURL(url.toString());
 		//assertEquals(paramsParser.getFilename(),"/test/index");
-		
-		
 	}
 
 	

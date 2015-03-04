@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import routes.AssetManager;
 import server.request.Request;
 
 public class ResponseBuilder {
@@ -25,15 +26,14 @@ public class ResponseBuilder {
 		this.statusLine = STATUS_200;
 	}
 
-	public String buildResponse() throws IOException {
+	public String buildResponse(AssetManager manager) throws IOException {
 		String response = "";
 		String headers = buildResponseHeaders();
 		String requestMethod = request.getMethod();
 		
 		
 		if (requestMethod.contentEquals("GET")) {
-			AssetFactory assetFactory = new AssetFactory(request.getURI());
-			Asset asset = assetFactory.getAsset();
+			Asset asset = manager.getAsset(request);
 					
 			String responseBody = asset.render(request);
 
@@ -48,12 +48,19 @@ public class ResponseBuilder {
 			}
 
 		} else if (requestMethod.contentEquals("POST")) {
-			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (requestMethod.contentEquals("PUT")) {
-			response = "HTTP/1.1 201 Created" + CRLF;
-		} else if (requestMethod.contentEquals("HEAD")) {
+		
 			response = "HTTP/1.1 200 OK" + CRLF;
+		
+		} else if (requestMethod.contentEquals("PUT")) {
+			
+			response = "HTTP/1.1 200 OK" + CRLF;
+		
+		} else if (requestMethod.contentEquals("HEAD")) {
+			
+			response = "HTTP/1.1 200 OK" + CRLF;
+		
 		} else if (requestMethod.contentEquals("OPTIONS")) {
+			
 			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT"
 					+ CRLF;
 		}else{

@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import routes.AssetManager;
 import server.request.Request;
 import server.request.RequestParser;
 import server.response.ResponseBuilder;
@@ -20,9 +21,11 @@ public class ClientHandler {
 	private Logger logger;
 	private Request request;
 	private String response;
+	private AssetManager manager;
 	
 
-	public ClientHandler(SocketService socket, Logger logger) throws IOException {
+	public ClientHandler(SocketService socket, Logger logger, AssetManager manager) throws IOException {
+		this.manager = manager;
 		this.socket = socket;
 		this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		this.out = new DataOutputStream(socket.getOutputStream());
@@ -34,7 +37,7 @@ public class ClientHandler {
 		try {	
 			request = new RequestParser(in).parseRequest();
 			
-			response = new ResponseBuilder(request).buildResponse();
+			response = new ResponseBuilder(request).buildResponse(this.manager);
 			new ResponseSender(response, out).send();	
 			
 			logger.log(request.getRequestLine());

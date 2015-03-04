@@ -3,7 +3,11 @@ package server.response;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+
 import org.junit.Test;
+
+import routes.AssetManager;
+import routes.MockAsset;
 import server.request.Request;
 
 public class ResponseBuilderTest {
@@ -25,8 +29,8 @@ public class ResponseBuilderTest {
 		String requestLine = "POST / HTTP/1.1";
 		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String response = responseBuilder.buildResponse();
-		assertEquals(response, "HTTP/1.1 201 Created" + CRLF);
+		String response = responseBuilder.buildResponse(null);
+		assertEquals(response, "HTTP/1.1 200 OK" + CRLF);
 	}
 
 	@Test
@@ -34,8 +38,8 @@ public class ResponseBuilderTest {
 		String requestLine = "PUT / HTTP/1.1";
 		Request request = new Request("POST","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String response = responseBuilder.buildResponse();
-		assertEquals(response, "HTTP/1.1 201 Created" + CRLF);
+		String response = responseBuilder.buildResponse(null);
+		assertEquals(response, "HTTP/1.1 200 OK" + CRLF);
 	}
 	
 	@Test
@@ -43,7 +47,7 @@ public class ResponseBuilderTest {
 		String requestLine = "OPTIONS / HTTP/1.1";
 		Request request = new Request("OPTIONS","/","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String response = responseBuilder.buildResponse();
+		String response = responseBuilder.buildResponse(null);
 		assertEquals(response,
 				"HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF);
 	}
@@ -67,12 +71,13 @@ public class ResponseBuilderTest {
 		String requestLine = "GET /test/index HTTP/1.1";
 		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		String response = responseBuilder.buildResponse();
+		AssetManager assetManager = new AssetManager();
+		String response = responseBuilder.buildResponse(assetManager);
 		String responseExpected = "HTTP/1.1 200 OK" + CRLF
 		+"Server: Kristin Server" + CRLF
 		+"Accept-Ranges: bytes" + CRLF
 		+"Content-Type: text/html" + HEADERS_END
-		+"<!doctype html><html><head></head><body>Test</body></html>";
+		+"<!doctype html><html><head></head><body>Test Static</body></html>";
 		assertEquals(response, responseExpected);
 		
 	}
@@ -82,8 +87,8 @@ public class ResponseBuilderTest {
 		String requestLine = "GET /jam HTTP/1.1";
 		Request request = new Request("GET","/jam","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		
-		String responseReceived = responseBuilder.buildResponse();
+		AssetManager assetManager = new AssetManager();
+		String responseReceived = responseBuilder.buildResponse(assetManager);
 		String response = "HTTP/1.1 404 Not Found" + CRLF 
 				+ "Server: Kristin Server" + CRLF 
 				+ "Accept-Ranges: bytes" + CRLF 
@@ -99,7 +104,7 @@ public class ResponseBuilderTest {
 		Request request = new Request("","","",null,null,"",null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		
-		String responseReceived = responseBuilder.buildResponse();
+		String responseReceived = responseBuilder.buildResponse(null);
 		String response = "HTTP/1.1 502 Not Implemented" + CRLF 
 				+ "Server: Kristin Server" + CRLF 
 				+ "Accept-Ranges: bytes" + CRLF 

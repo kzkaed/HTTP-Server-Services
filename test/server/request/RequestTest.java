@@ -14,10 +14,10 @@ public class RequestTest {
 		String method = "";
 		String uri = "";
 		String protocolVersion = "";
-		Hashtable<String,String> headers = null;
+		Hashtable<String,String> headers = new Hashtable<String,String>();
 		String requestLine = "GET / HTTP1.1";	
 		String requestBody = "";
-		Hashtable<String,String> parameters = null;
+		Hashtable<String,String> parameters = new Hashtable<String,String>();
 		
 		
 		Request request = new Request(method,uri,protocolVersion, headers,requestLine,requestBody,parameters);
@@ -25,17 +25,24 @@ public class RequestTest {
 		assertEquals(request.getMethod(), method);
 		assertEquals(request.getProtocolVersion(), protocolVersion);
 		assertEquals(request.getURI(), uri);
-		assertNull(request.getParmeters());
-		assertNull(request.getHeaders());
-		
-	
+		assertNotNull(request.getParmeters());
+		assertNotNull(request.getHeaders());
 		
 	}
 	
+	@Test
+	public void testSetParameter(){
+		Request request = new Request();
+		request.setParameter("howya", "doin");
+		assertEquals(request.getParmeters().get("howya"), "doin");
+	}
 	
-	
-	
-	
+	@Test
+	public void testSetUri(){
+		Request request = new Request();
+		request.setURI("test");
+		assertEquals(request.getURI(), "test");
+	}
 
 }
 

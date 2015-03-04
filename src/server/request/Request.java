@@ -14,6 +14,10 @@ public class Request {
 	private Hashtable<String,String> parameters;
 	private String fullUri;
 	
+	public Request(){
+		this.parameters = new Hashtable<String, String>();
+	}
+	
 	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody, Hashtable<String,String> parameters) {
 		this.method = method;
 		this.uri = uri;
@@ -52,8 +56,16 @@ public class Request {
 		return this.parameters;
 	}
 	
+	public void setParameter(String key, String value){
+		this.parameters.put(key, value);
+	}
+	
 	public Hashtable<String,String> getHeaders(){
 		return this.headers;
+	}
+
+	public void setURI(String uri) {
+		this.uri = uri;		
 	}
 	
 }
