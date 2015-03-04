@@ -30,11 +30,9 @@ public class ResponseBuilder {
 		String response = "";
 		String headers = buildResponseHeaders();
 		String requestMethod = request.getMethod();
-		
-		
+			
 		if (requestMethod.contentEquals("GET")) {
-			Asset asset = manager.getAsset(request);
-					
+			Asset asset = manager.getAsset(request);		
 			String responseBody = asset.render(request);
 
 			if(request.getURI().contentEquals("/jam")){
@@ -48,21 +46,13 @@ public class ResponseBuilder {
 			}
 
 		} else if (requestMethod.contentEquals("POST")) {
-		
 			response = "HTTP/1.1 200 OK" + CRLF;
-		
-		} else if (requestMethod.contentEquals("PUT")) {
-			
+		} else if (requestMethod.contentEquals("PUT")) {	
 			response = "HTTP/1.1 200 OK" + CRLF;
-		
-		} else if (requestMethod.contentEquals("HEAD")) {
-			
+		} else if (requestMethod.contentEquals("HEAD")) {	
 			response = "HTTP/1.1 200 OK" + CRLF;
-		
-		} else if (requestMethod.contentEquals("OPTIONS")) {
-			
-			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT"
-					+ CRLF;
+		} else if (requestMethod.contentEquals("OPTIONS")) {	
+			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF;
 		}else{
 			response = STATUS_502 + headers + CRLF + "502 " + ResponseCodes.getReason("502");
 		}
@@ -79,7 +69,7 @@ public class ResponseBuilder {
 
 	public String buildResponseHeaders() {
 		String headers = "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF + "Content-Type: text/html\r\n";
+				+ "Accept-Ranges: bytes" + CRLF + "Content-Type: text/html" + CRLF;
 		return headers;
 	}
 

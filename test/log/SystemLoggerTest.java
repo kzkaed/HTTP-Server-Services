@@ -5,7 +5,7 @@ import log.mocks.StringLogger;
 
 import org.junit.Test;
 
-public class StringLoggerTest {
+public class SystemLoggerTest {
 
 	
 	@Test

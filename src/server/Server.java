@@ -6,7 +6,6 @@ import log.SystemLogger;
 import log.Logger;
 import routes.AssetManager;
 import server.handler.ClientHandler;
-import server.response.Asset;
 import server.response.DynamicShowParamsAsset;
 import server.response.FileStaticAsset;
 import server.socket.ServerSocketService;
@@ -36,6 +35,7 @@ public class Server {
 	public void start()  {
 		manager.register(new FileStaticAsset());
 		manager.register(new DynamicShowParamsAsset());
+		
 		try{
 			logServerInfomation();
 			
