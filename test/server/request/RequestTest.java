@@ -6,6 +6,8 @@ import java.util.Hashtable;
 
 import org.junit.Test;
 
+import server.request.Request;
+
 public class RequestTest {
 	
 
@@ -43,6 +45,8 @@ public class RequestTest {
 		request.setURI("test");
 		assertEquals(request.getURI(), "test");
 	}
+	
+	
 
 }
 

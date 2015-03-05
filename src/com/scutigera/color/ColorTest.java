@@ -43,7 +43,17 @@ public class ColorTest {
 		request.setParameter("color", "Blue");
 		
 		String html = color.render(request);
-		assertEquals("<!doctype html><html><head></head><body bgcolor=\"Blue\"></body></html>",html);
+		assertEquals("<!doctype html>"
+				+ "<html><head></head>"
+				+ "<body bgcolor=\"Blue\">"
+				+ "<a href=\"/color/aqua\">aqua</a><br>"
+				+ "<a href=\"/color/green\">green</a><br>"
+				+ "<a href=\"/color/red\">red</a><br>"
+				+ "<a href=\"/color/yellow\">yellow</a><br>"
+				+ "<a href=\"/color/black\">black</a><br>"
+				+ "<a href=\"/color/gray\">gray</a><br>"
+				+ "<a href=\"/color/white\">white</a><br>"
+				+ "</body></html>",html);
 	}
 	
 	@Test
@@ -53,7 +63,17 @@ public class ColorTest {
 		request.setURI("/color/Blue");
 		
 		String html = color.render(request);
-		assertEquals("<!doctype html><html><head></head><body bgcolor=\"Blue\"></body></html>",html);
+		assertEquals("<!doctype html>"
+				+ "<html><head></head>"
+				+ "<body bgcolor=\"Blue\">"
+				+ "<a href=\"/color/aqua\">aqua</a><br>"
+				+ "<a href=\"/color/green\">green</a><br>"
+				+ "<a href=\"/color/red\">red</a><br>"
+				+ "<a href=\"/color/yellow\">yellow</a><br>"
+				+ "<a href=\"/color/black\">black</a><br>"
+				+ "<a href=\"/color/gray\">gray</a><br>"
+				+ "<a href=\"/color/white\">white</a><br>"
+				+ "</body></html>",html);
 	}
 	
 }
