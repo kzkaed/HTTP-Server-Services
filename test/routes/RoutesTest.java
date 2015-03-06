@@ -12,7 +12,7 @@ public class RoutesTest {
 	
 	@Test
 	public void test() throws MalformedURLException, UnsupportedEncodingException {
-		Routes route = new Routes("/test/index");
+		Routes route = new Routes("/test/static");
 		String documentPath = route.getRoute();
 		assertEquals(documentPath,"/test/index.html");
 		

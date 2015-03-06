@@ -17,6 +17,9 @@ public class ResponseCodes {
 			put("201", "Created");
 			put("202", "Accepted");
 			put("404", "Not Found");
+			put("405", "Method Not Allowed"); 	//When a request method is received that is known 
+												//by an origin server but not allowed for the 
+												//target resource
 			put("500", "Internal Server Error");
 			put("502", "Not Implemented");
 			

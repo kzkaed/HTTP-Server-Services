@@ -21,7 +21,7 @@ public class RequestParser {
 	}
 	
 	
-	public Request parseRequest() throws UnsupportedEncodingException  {
+	public Request parseRequest() throws IOException  {
 		String requestLine = readRequestLine();
 		
 		if ( requestLine == null ){
@@ -40,12 +40,15 @@ public class RequestParser {
 		}else{
 			parameters =  new Hashtable<String,String>();
 		}
-		
-		
-		String[] allOfRequest = null;
-		Hashtable<String,String> headers = null;
-		String requestBody = null;
-		
+		Hashtable<String,String> headers = new Hashtable<String,String>();
+		String requestBody = "";
+		String[] allOfRequest = readRemainingRequest();
+		if(!allOfRequest[0].isEmpty()){
+			headers= parseHeaders(allOfRequest[0]);
+			if(allOfRequest.length > 1){
+				requestBody = allOfRequest[1];
+			}
+		}
 		return new Request(method, uri, protocolVersion, headers, requestLine, requestBody, parameters);	
 	}
 	
@@ -89,11 +92,27 @@ public class RequestParser {
 		return requestLine;
 	}
 	
-	void parseRequestLine(){	
+	public String[] readRemainingRequest() throws IOException{
+		StringBuilder content = new StringBuilder();
+		while(in.ready()){
+			content.append((char) in.read());
+		}
+		String[] contentTokens = Utilities.retreiveTokens(content.toString(), server.Constants.HEADERS_END);
+		return contentTokens;
+
 	}
 	
-	void parseHeaders(){
-		
+	Hashtable<String,String> parseHeaders(String headers){
+		String[] headerTokens = Utilities.retreiveTokens(headers, Constants.CRLF); 
+		Hashtable<String,String> headerPairs = new Hashtable<String,String>();
+		for(int i = 0;i< headerTokens.length; i++){
+			String headerLine = headerTokens[i];
+			String[] pairs = Utilities.retreiveTokens(headerLine, Constants.COLON);
+			for(int j = 0; j < pairs.length; j= j+ 2){
+				headerPairs.put(pairs[j], pairs[j + 1]);
+			}	
+		}
+		return headerPairs;
 	}
 	void parseBody(){
 		

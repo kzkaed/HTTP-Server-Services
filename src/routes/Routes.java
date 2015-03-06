@@ -13,10 +13,10 @@ public class Routes {
 	String route;
 		
 	
-		if(uri.contentEquals("/test/index")){
+		if(uri.contentEquals("/test/static")){
 			route = "/test/index.html";
 		}else if (uri.contentEquals("/") ){
-			route = "/index.html";
+			route = "directory.html";
 			
 		}else{
 			route = uri;

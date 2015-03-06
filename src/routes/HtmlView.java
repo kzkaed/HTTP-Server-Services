@@ -33,10 +33,15 @@ public class HtmlView {
 		builder.append("<body>");
 		
 		if(params != null ){
-			Set<String> keys = params.keySet();
-			for(String key: keys){
-				builder.append(key+ ":" + params.get(key) + "<br>");
-				
+			if(params.containsKey("variable_1")){
+				builder.append("variable_1 = " + params.get("variable_1"));
+				builder.append("variable_2 = " + params.get("variable_2"));
+			}else{
+				Set<String> keys = params.keySet();
+				for(String key: keys){
+					builder.append(key+ ":" + params.get(key) + "<br>");
+					
+				}
 			}
 			
 		}

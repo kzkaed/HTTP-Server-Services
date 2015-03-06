@@ -52,16 +52,16 @@ public class ClientHandlerTest {
 	
 	@Test
 	public void testLogger() throws IOException{
-		String request = "GET /test.html HTTP/1.1";		
+		String request = "GET /file1 HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		logger = new StringLogger();
 		handler = new ClientHandler(mockSocket, logger, assetManager);
-		String loggedRequest = "GET /test.html HTTP/1.1";
+		String loggedRequest = "GET /file1 HTTP/1.1";
 		String loggedResponse = "HTTP/1.1 200 OK" + CRLF
 				+ "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF
 				+ "Content-Type: text/html" + CRLF + CRLF
-				+"<!doctype html><html><head></head><body>Test Static</body></html>";
+				+"file1 contents";
 		handler.run();
 		assertEquals(loggedRequest, ((StringLogger)logger).logs.get(0));
 		assertEquals(loggedResponse, ((StringLogger)logger).logs.get(1));
@@ -69,7 +69,7 @@ public class ClientHandlerTest {
 	
 	@Test
 	public void testResponseReceived() throws IOException{
-		String request = "GET /test.html HTTP/1.1";		
+		String request = "GET /file1 HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		handler = new ClientHandler(mockSocket, logger, assetManager);
 		
@@ -77,7 +77,7 @@ public class ClientHandlerTest {
 				+ "Server: Kristin Server" + CRLF
 				+ "Accept-Ranges: bytes" + CRLF
 				+ "Content-Type: text/html" + CRLF + CRLF
-				+"<!doctype html><html><head></head><body>Test Static</body></html>";
+				+"file1 contents";
 		handler.run();
 		assertEquals(response, handler.getResponse());
 	}

@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
 import routes.AssetManager;
 import routes.MockAsset;
 import server.request.Request;
@@ -68,8 +70,8 @@ public class ResponseBuilderTest {
 	
 	@Test
 	public void testGetTakesRoute() throws IOException{
-		String requestLine = "GET /test/index HTTP/1.1";
-		Request request = new Request("GET","/test/index","HTTP/1.1",null,null,requestLine,null);
+		String requestLine = "GET /test/static HTTP/1.1";
+		Request request = new Request("GET","/test/static","HTTP/1.1",null,null,requestLine,null);
 		ResponseBuilder responseBuilder = new ResponseBuilder(request);
 		AssetManager assetManager = new AssetManager();
 		String response = responseBuilder.buildResponse(assetManager);
@@ -130,6 +132,17 @@ public class ResponseBuilderTest {
 		assertTrue(responseBuilder.isMethodImplemented());	
 	}
 	
+	@Test
+	public void testBuildResponseHeaderForImages() throws IOException {
+		String get = "/image.jpeg";
+		
+		String requestLine = "GET /image.jpeg HTTP/1.1";
+		Request request = new Request("GET","/image.jpeg","HTTP/1.1",null,null,requestLine,null);
+		ResponseBuilder responseBuilder = new ResponseBuilder(request);
+		String responseHeadersString = responseBuilder.buildResponseHeaders();
+		
+		
+	}
 
 	
 	

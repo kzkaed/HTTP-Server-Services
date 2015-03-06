@@ -18,7 +18,7 @@ public class AssetFactoryTest {
 
 	@Test
 	public void testReturnDynamicAssetFalse() {
-		String uri = "/test/index";
+		String uri = "/test/static";
 		AssetFactory assetFactory = new AssetFactory(uri);
 		Asset asset = assetFactory.getAsset();
 		Asset expectedAsset = new FileStaticAsset();

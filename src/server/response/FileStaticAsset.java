@@ -45,10 +45,9 @@ public class FileStaticAsset implements Asset {
 
 	@Override
 	public boolean canHandle(Request request) {
-		System.out.println(request.getURI());
-		if(request.getURI().contains("test/index")){
+		if(request.getURI().contains("test/static")){
 			return true;
-		}else if (request.getURI().contains("file")){
+		}else if (request.getURI().contains("/static")){
 			return true;
 		}
 		

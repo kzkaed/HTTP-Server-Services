@@ -24,14 +24,14 @@ public class ColorHtml {
 		builder.append("<body bgcolor=\"");
 		builder.append(backgroundColor);
 		builder.append("\">");		
-		for(int i = 0; i < colors.length; i ++){		
+		for(String color : colors){		
 			builder.append("<a href=\"");
 			builder.append("/color");
 			builder.append("/");
-			builder.append(colors[i]);
+			builder.append(color);
 			builder.append("\"");
 			builder.append(">");
-			builder.append(colors[i]);
+			builder.append(color);
 			builder.append("</a>");
 			builder.append("<br>");
 		}

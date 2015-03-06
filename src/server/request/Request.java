@@ -18,6 +18,14 @@ public class Request {
 		this.parameters = new Hashtable<String, String>();
 	}
 	
+	public Request(String method, String uri,Hashtable<String,String> headers, Hashtable<String,String>parameters, String body ){
+		this.method = method;
+		this.uri = uri;
+		this.headers = headers;
+		this.requestBody = body;
+		this.parameters = parameters;
+	}
+	
 	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody, Hashtable<String,String> parameters) {
 		this.method = method;
 		this.uri = uri;
@@ -28,8 +36,8 @@ public class Request {
 		this.parameters = parameters;
 	}	
 	
-	public Request(String fullUri){
-		this.fullUri = fullUri;
+	public Request(String uri){
+		this.uri = uri;
 	}
 	
 	public String getFullUri(){

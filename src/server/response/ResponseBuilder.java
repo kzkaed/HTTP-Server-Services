@@ -32,13 +32,9 @@ public class ResponseBuilder {
 		String requestMethod = request.getMethod();
 			
 		if (requestMethod.contentEquals("GET")) {
-			Asset asset = manager.getAsset(request);		
-			String responseBody = asset.render(request);
-
-			if(request.getURI().contentEquals("/jam")){
-				responseBody = "";
-			}
+			Asset asset = manager.getAsset(request);
 			
+			String responseBody = asset.render(request);	
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";
 			} else {
@@ -69,7 +65,10 @@ public class ResponseBuilder {
 
 	public String buildResponseHeaders() {
 		String headers = "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF + "Content-Type: text/html" + CRLF;
+						+ "Accept-Ranges: bytes" + CRLF 
+						+ "Content-Type: text/html" + CRLF;
+						//+ "Connection: Close" + CRLF;
+	
 		return headers;
 	}
 
