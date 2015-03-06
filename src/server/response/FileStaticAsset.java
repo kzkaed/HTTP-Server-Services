@@ -26,32 +26,33 @@ public class FileStaticAsset implements Asset {
 		Routes route = new Routes(request.getURI());
 		String routedPath = route.getRoute();
 		
+		/*StringBuffer path = new StringBuffer();
+		path.append(absolutePath);
+		path.append(defaultDirectory);
+		path.append(routedPath);*/
+		
 		String path = absolutePath + defaultDirectory + routedPath;
-
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(path));
-			String str;
-			while ((str = in.readLine()) != null) {
-				body += str;
+		if(server.Utilities.doesFileExist(routedPath)){
+			try {
+				BufferedReader in = new BufferedReader(new FileReader(path));
+				String str;
+				while ((str = in.readLine()) != null) {
+					body += str;
+				}
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			in.close();
-		} catch (IOException e) {
-
 		}
-
+		
 		return body;
 	}
 
 
 	@Override
 	public boolean canHandle(Request request) {
-		if(request.getURI().contains("test/static")){
-			return true;
-		}else if (request.getURI().contains("/static")){
-			return true;
-		}
-		
-		return false;		
+		return 
+			request.getURI().contentEquals("/test/static");	
 	}
 	
 }

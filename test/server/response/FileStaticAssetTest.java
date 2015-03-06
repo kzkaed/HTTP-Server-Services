@@ -35,13 +35,22 @@ public class FileStaticAssetTest {
 		assertEquals(content, contentReceived);
 	}
 
-	
 	@Test
 	public void testGetFileContentOnRoutedPath() throws MalformedURLException, UnsupportedEncodingException{	
 		String content = "<!doctype html><html><head></head><body>Test Static</body></html>";
 		Request request = new Request("GET","/test/static","HTTP1/1", null, "GET /test/static HTTP1/1",null,new Hashtable<String,String>());
 		String contentReceived = asset.render(request);
 		
+		assertEquals(content, contentReceived);
+	}
+	
+	@Test
+	public void testDoNotReadFileIfItDoesNotExist() throws MalformedURLException, UnsupportedEncodingException{
+		String content = "";
+		Request request = new Request("GET","/jam","HTTP1/1", null, "GET /jam HTTP1/1",null,new Hashtable<String,String>());
+		String contentReceived = asset.render(request);
+		assertFalse(server.Utilities.doesFileExist("/jam"));
+		assertTrue(server.Utilities.doesFileExist("/file1"));
 		assertEquals(content, contentReceived);
 	}
 	

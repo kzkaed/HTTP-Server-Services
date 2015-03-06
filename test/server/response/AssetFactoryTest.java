@@ -28,10 +28,10 @@ public class AssetFactoryTest {
 	
 	@Test
 	public void testReturnDynamicAssetonStaticAssetTrue() {
-		String uri = "/jam";
+		String uri = "/test/dynamic";
 		AssetFactory assetFactory = new AssetFactory(uri);
 		Asset asset = assetFactory.getAsset();
-		Asset expectedAsset = new DynamicShowParamsAsset();
+		Asset expectedAsset = new DynamicAsset();
 		assertEquals(expectedAsset.getClass(), asset.getClass());
 	}
 }

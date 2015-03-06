@@ -97,9 +97,7 @@ public class RequestParser {
 		while(in.ready()){
 			content.append((char) in.read());
 		}
-		String[] contentTokens = Utilities.retreiveTokens(content.toString(), server.Constants.HEADERS_END);
-		return contentTokens;
-
+		return Utilities.retreiveTokens(content.toString(), server.Constants.HEADERS_END);
 	}
 	
 	Hashtable<String,String> parseHeaders(String headers){

@@ -31,8 +31,7 @@ public class AssetManager {
 			if(asset.canHandle(request))
 				return asset;			
 		}
-		return new FileStaticAsset();
-			
+		return new FileStaticAsset();		
 	}
 
 }

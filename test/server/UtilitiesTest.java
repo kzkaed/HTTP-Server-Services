@@ -11,20 +11,18 @@ public class UtilitiesTest {
 	
 	@Test
 	public void testGETParse() {
-		Utilities util = new Utilities();
 		String request = "GET /public/index.html HTTP1/1";
 		String delimiters = "[ ]+";
-		String[] tokens = util.retreiveTokens(request,delimiters);
+		String[] tokens = Utilities.retreiveTokens(request,delimiters);
 		assertEquals(tokens[1], "/public/index.html");
 	}
 	
 	@Test
-	public void testParseQueryWithManyParameters(){
-		Utilities util = new Utilities();
+	public void testParseQueryWithManyParameters(){		
 		ArrayList<String> list = new ArrayList<String>();
-		String[] tokens = util.retreiveTokens("name=kristin&id=1", "&");
+		String[] tokens = Utilities.retreiveTokens("name=kristin&id=1", "&");
 		for(int i = 0; i < tokens.length; i++){
-			String[] tokens2 = util.retreiveTokens(tokens[i], "=");
+			String[] tokens2 = Utilities.retreiveTokens(tokens[i], "=");
 			for(int j = 0; j < tokens2.length; j++){
 				list.add(tokens2[j]);;
 			}
@@ -35,9 +33,17 @@ public class UtilitiesTest {
 		assertEquals(list.get(0),"name");
 		assertEquals(list.get(1),"kristin");
 		assertEquals(list.get(2),"id");
-		assertEquals(list.get(3),"1");
-		
-		
+		assertEquals(list.get(3),"1");	
+	}
+	
+	@Test
+	public void testFileExistFalse(){
+		assertFalse(Utilities.doesFileExist("/jam"));
+	}
+	
+	@Test
+	public void testDoesFileExistTrue(){
+		assertTrue(Utilities.doesFileExist("/file1"));
 	}
 	
 	

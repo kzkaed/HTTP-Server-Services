@@ -17,7 +17,7 @@ public class DynamicAssetTest {
 	@Test
 	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
 		String uri = "/test/dynamic";
-		DynamicShowParamsAsset asset = new DynamicShowParamsAsset();
+		DynamicAsset asset = new DynamicAsset();
 		Request request = new Request(uri);
 		String html = asset.render(request);
 		

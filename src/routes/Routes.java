@@ -9,20 +9,14 @@ public class Routes {
 	}
 	
 	public String getRoute() {
-		
-	String route;
-		
-	
+		String route;
 		if(uri.contentEquals("/test/static")){
 			route = "/test/index.html";
 		}else if (uri.contentEquals("/") ){
-			route = "directory.html";
-			
+			route = "directory.html";	
 		}else{
 			route = uri;
-			
-		}
-		
+		}	
 		return route;
 	}
 	
