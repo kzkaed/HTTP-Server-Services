@@ -26,15 +26,14 @@ public class FileStaticAsset implements Asset {
 		Routes route = new Routes(request.getURI());
 		String routedPath = route.getRoute();
 		
-		/*StringBuffer path = new StringBuffer();
+		StringBuffer path = new StringBuffer();
 		path.append(absolutePath);
 		path.append(defaultDirectory);
-		path.append(routedPath);*/
+		path.append(routedPath);
 		
-		String path = absolutePath + defaultDirectory + routedPath;
 		if(server.Utilities.doesFileExist(routedPath)){
 			try {
-				BufferedReader in = new BufferedReader(new FileReader(path));
+				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;
 				while ((str = in.readLine()) != null) {
 					body += str;
