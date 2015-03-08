@@ -34,7 +34,9 @@ public final class Constants {
 	public static final String TEST_FILE = "/test.html";
 	
 	public static final String HOST = setHost();
+	
 	private static int PORT_IN_USE; 
+	private static String PUBLIC_DIR_IN_USE;
 	
 
 	private static String setHost(){
@@ -52,6 +54,15 @@ public final class Constants {
 	
 	public static int getPort(){
 		return PORT_IN_USE;
+	}
+
+	public final static void setPublicDirectory(String publicDirectory) {
+		PUBLIC_DIR_IN_USE = publicDirectory;
+		
+	}
+	
+	public static String getPublicDirectory(){
+		return PUBLIC_DIR_IN_USE;
 	}
 	
 	

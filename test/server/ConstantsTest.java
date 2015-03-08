@@ -27,5 +27,12 @@ public class ConstantsTest {
 		} 
 		assertEquals(host, Constants.HOST);
 	}
+	
+	@Test 
+	public void testSetPublicDirectory(){
+		Constants.setPublicDirectory("greekTragedies");
+		assertEquals("greekTragedies", Constants.getPublicDirectory());
+	}
+
 
 }

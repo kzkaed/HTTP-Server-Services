@@ -43,7 +43,6 @@ public class FileStaticAsset implements Asset {
 				e.printStackTrace();
 			}
 		}
-		
 		return body;
 	}
 

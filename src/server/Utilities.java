@@ -1,5 +1,7 @@
 package server;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -45,5 +47,16 @@ public class Utilities {
 		return false;
 	}
 
+	public void writeFile(String fullpath, String content){
+		byte[] bytes = new byte[content.length()];
+		bytes = content.getBytes();
+		try{
+			FileOutputStream fos = new FileOutputStream(fullpath);
+			fos.write(bytes);
+			fos.flush();
+			fos.close();
+		}catch (IOException e){}
+			
+	}
 
 }

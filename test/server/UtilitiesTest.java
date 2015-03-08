@@ -2,8 +2,10 @@ package server;
 
 import static org.junit.Assert.*;
 
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+
 import org.junit.Test;
 
 public class UtilitiesTest {
@@ -47,6 +49,15 @@ public class UtilitiesTest {
 	}
 	
 	
+	@Test
+	public void testfindPathURI() throws URISyntaxException{
+		assertEquals(Utilities.findPathURI("/test"),new URI("file:///test"));
+	}
+	
+	@Test
+	public void testFindPathAbsolute(){
+		assertEquals(Utilities.findPathAbsolute("/test"),"/test");
+	}
 	
 	
 	
