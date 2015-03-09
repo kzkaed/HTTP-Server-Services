@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -51,13 +53,24 @@ public class UtilitiesTest {
 	
 	@Test
 	public void testfindPathURI() throws URISyntaxException{
-		assertEquals(Utilities.findPathURI("/test"),new URI("file:///test"));
+		Path path = Paths.get("");
+		URI uri = path.toUri();
+		assertEquals(Utilities.findServerPathURI(),uri);
 	}
 	
 	@Test
 	public void testFindPathAbsolute(){
-		assertEquals(Utilities.findPathAbsolute("/test"),"/test");
+		Path path = Paths.get("");
+		assertEquals(Utilities.findServerAbsolutePath(),path.toAbsolutePath().toString());
 	}
+	
+	
+	@Test 
+	public void testGetAbsolutePath(){
+		assertEquals(Utilities.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");
+			
+	}
+	
 	
 	
 	

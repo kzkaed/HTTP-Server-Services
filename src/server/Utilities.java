@@ -19,20 +19,28 @@ public class Utilities {
 		return tokens;
 	}
 	
-	public static String findPathAbsolute(String path) {
-		Path currentRelativePath = Paths.get(path);
-		String absolutePath = currentRelativePath.toAbsolutePath().toString();
+	public static String findServerAbsolutePath() {
+		Path path = Paths.get("");
+		String absolutePath = path.toAbsolutePath().toString();
 		return absolutePath;
 	}
 	
-	public static URI findPathURI(String path) {
-		Path currentRelativePath = Paths.get(path);
-		URI pathAsURI = currentRelativePath.toUri();
+	public static URI findServerPathURI() {
+		Path path = Paths.get("");
+		URI pathAsURI = path.toUri();
 		return pathAsURI;
 	}
 	
+	public static String getAbsolutePath(String relativePath){
+		String absolutePath = findServerAbsolutePath();
+		StringBuilder sb = new StringBuilder();
+		sb.append(absolutePath);
+		sb.append(relativePath);
+		return sb.toString();
+	}
+	
 	public static boolean doesFileExist(String filename) {
-		String absolutePath = findPathAbsolute("");
+		String absolutePath = findServerAbsolutePath();
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
 
 		Routes route = new Routes(filename);
@@ -47,16 +55,8 @@ public class Utilities {
 		return false;
 	}
 
-	public void writeFile(String fullpath, String content){
-		byte[] bytes = new byte[content.length()];
-		bytes = content.getBytes();
-		try{
-			FileOutputStream fos = new FileOutputStream(fullpath);
-			fos.write(bytes);
-			fos.flush();
-			fos.close();
-		}catch (IOException e){}
-			
-	}
+
+
+
 
 }

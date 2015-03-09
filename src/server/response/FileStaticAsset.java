@@ -20,7 +20,7 @@ public class FileStaticAsset implements Asset {
 	
 	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException {
 		String body = "";
-		String absolutePath = Utilities.findPathAbsolute("");
+		String absolutePath = Utilities.findServerAbsolutePath();
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
 
 		Routes route = new Routes(request.getURI());
