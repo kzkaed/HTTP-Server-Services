@@ -64,7 +64,7 @@ public class ServerTest {
 	public void testLogServerStatus() throws IOException, URISyntaxException{
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
-		Server server = new Server(mockSSocket,port,document, new AssetManager(), logger);
+		Server server = new Server(mockSSocket,port, new AssetManager(), logger);
 		server.start();
 		assertEquals(((StringLogger)logger).logs.get(0), "Server Starting...");
 	}
@@ -73,7 +73,7 @@ public class ServerTest {
 	public void testServerStart() throws IOException, URISyntaxException {
 		mockSSocket.closed = true;
 		Logger logger = new StringLogger();
-		Server server = new Server(mockSSocket,port,document, new AssetManager(), logger);
+		Server server = new Server(mockSSocket,port, new AssetManager(), logger);
 		server.start();
 		
 		assertEquals(mockSSocket.isClosed(),true);

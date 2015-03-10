@@ -17,6 +17,7 @@ public static void main(String[] args) throws Exception{
 		String portString = context.get("Port");
 		String publicDirectory = context.get("Public Directory");
 		int port = Integer.parseInt(portString);
+		
 		Constants.setPort(port);
 		Constants.setPublicDirectory(publicDirectory);
 		
