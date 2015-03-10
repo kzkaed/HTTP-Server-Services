@@ -39,6 +39,10 @@ public class Response {
 		Connection: close*/
 		return headers;
 	}
+    
+    public String getBody(){
+    	return responseBody;
+    }
   
 
 }

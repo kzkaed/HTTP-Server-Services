@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import server.Utilities;
 import server.request.Request;
+import server.response.Response;
 
 public class DirectoryAssetTest {
 
@@ -46,7 +47,8 @@ public class DirectoryAssetTest {
 		        results.add(file.getName()); 
 		    }
 		}
-		String contentReceived = directoryAsset.render(request);
+		Response response = directoryAsset.render(request);
+		String contentReceived = response.getBody();
 
 	}
 

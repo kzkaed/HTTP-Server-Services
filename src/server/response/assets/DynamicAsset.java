@@ -10,6 +10,7 @@ import routes.HtmlView;
 import server.request.ParametersParser;
 import server.request.ParametersParserURL;
 import server.request.Request;
+import server.response.Response;
 
 public class DynamicAsset implements Asset{
 		
@@ -18,7 +19,7 @@ public class DynamicAsset implements Asset{
 
 	public DynamicAsset ()  {}
 	
-	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException{
+	public Response render(Request request) throws MalformedURLException, UnsupportedEncodingException{
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();
 			html = new HtmlView(parameters);
@@ -45,8 +46,12 @@ public class DynamicAsset implements Asset{
 			html = new HtmlView(request.getURI());
 		}
 		
-		return html.build();
-
+		
+		
+		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
+		Response response = new Response(html.build(),html.build().getBytes() , null);
+						
+		return response;
 		
 	}
 

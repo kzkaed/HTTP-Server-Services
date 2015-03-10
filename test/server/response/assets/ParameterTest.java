@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import server.request.Request;
+import server.response.Response;
 
 public class ParameterTest {
 	private Asset asset;
@@ -37,8 +38,8 @@ public class ParameterTest {
 	
 	@Test
 	public void testRender() throws MalformedURLException, UnsupportedEncodingException {	
-				
-		String contentReceived = asset.render(request);
+		Response response = asset.render(request);		
+		String contentReceived = response.getBody();
 		
 		assertTrue(contentReceived.contains("variable_1 = test1"));
 		assertTrue(contentReceived.contains("variable_2 = test2"));

@@ -18,6 +18,7 @@ public static void main(String[] args) throws Exception{
 		String publicDirectory = context.get("Public Directory");
 		int port = Integer.parseInt(portString);
 		Constants.setPort(port);
+		Constants.setPublicDirectory(publicDirectory);
 		
 		
 		ServerSocket serverSocket = new ServerSocket(port);

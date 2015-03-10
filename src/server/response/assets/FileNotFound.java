@@ -2,7 +2,7 @@ package server.response.assets;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-
+import server.response.*;
 import server.Utilities;
 import server.request.Request;
 
@@ -15,9 +15,9 @@ public class FileNotFound implements Asset{
 	}
 
 	@Override
-	public String render(Request request) throws MalformedURLException,
+	public Response render(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		return "";
+		return new Response("","".getBytes(),null);
 	}
 
 }

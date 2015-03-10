@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import server.request.Request;
+import server.response.Response;
 import server.response.assets.DynamicAsset;
 
 public class DynamicAssetTest {
@@ -20,7 +21,8 @@ public class DynamicAssetTest {
 		String uri = "/test/dynamic";
 		DynamicAsset asset = new DynamicAsset();
 		Request request = new Request(uri);
-		String html = asset.render(request);
+		Response response = asset.render(request);
+		String html = response.getBody();
 		
 		String expect = "<!doctype html><html><head></head><body>test dynamic</body></html>";
 		

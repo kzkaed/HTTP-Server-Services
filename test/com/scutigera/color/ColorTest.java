@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import server.request.Request;
+import server.response.Response;
 
 import com.scutigera.color.Color;
 
@@ -42,7 +43,8 @@ public class ColorTest {
 		Request request = new Request();
 		request.setParameter("color", "Blue");
 		
-		String html = color.render(request);
+		Response response = color.render(request);
+		String html = response.getBody();
 		assertEquals("<!doctype html>"
 				+ "<html><head></head>"
 				+ "<body bgcolor=\"Blue\">"
@@ -61,8 +63,8 @@ public class ColorTest {
 		Color color = new Color();
 		Request request = new Request();
 		request.setURI("/color/Blue");
-		
-		String html = color.render(request);
+		Response response = color.render(request);
+		String html = response.getBody();
 		assertEquals("<!doctype html>"
 				+ "<html><head></head>"
 				+ "<body bgcolor=\"Blue\">"

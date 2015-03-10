@@ -2,6 +2,7 @@ package routes;
 
 import server.request.Request;
 import server.response.assets.Asset;
+import server.response.*;
 
 public class MockAsset implements Asset{
 	
@@ -14,7 +15,7 @@ public class MockAsset implements Asset{
 	public MockAsset() {}
 
 	@Override
-	public String render(Request request){
+	public Response render(Request request){
 		return null;
 	}
 

@@ -8,10 +8,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import routes.Routes;
 import server.Utilities;
 import server.request.Request;
+import server.response.Response;
 
 public class FileStaticAsset implements Asset {
 
@@ -19,11 +21,13 @@ public class FileStaticAsset implements Asset {
 	
 	@Override
 	public boolean canHandle(Request request) {
+		System.out.println("can Handle FileStaticAsset" + Utilities.fileExist(request.getURI()) + request.getURI());
 		return Utilities.fileExist(request.getURI());	
 	}
 	
-	
-	public String render(Request request) throws MalformedURLException, UnsupportedEncodingException {
+	@Override
+	public Response render(Request request) throws MalformedURLException, UnsupportedEncodingException {
+		
 		String body = "";
 		String absolutePath = Utilities.findServerAbsolutePath();
 		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
@@ -36,7 +40,10 @@ public class FileStaticAsset implements Asset {
 		path.append(defaultDirectory);
 		path.append(routedPath);
 		
-		if(server.Utilities.fileExist(routedPath)){
+		System.out.println(Utilities.fileExist(routedPath));
+		System.out.println("routedPath" + routedPath);
+		System.out.println("path" + path.toString());
+		if (Utilities.fileExist(routedPath)){
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;
@@ -48,7 +55,11 @@ public class FileStaticAsset implements Asset {
 				e.printStackTrace();
 			}
 		}
-		return body;
+		
+		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
+		Response response = new Response(body,body.getBytes(), null);
+		System.out.println("file static asset response body" + response.getBody());
+		return response;
 	}
 
 

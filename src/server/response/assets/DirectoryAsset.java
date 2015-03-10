@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import routes.Routes;
 import server.Utilities;
 import server.request.Request;
+import server.response.Response;
 
 public class DirectoryAsset implements Asset {
 
@@ -18,7 +19,7 @@ public class DirectoryAsset implements Asset {
 	}
 
 	@Override
-	public String render(Request request) throws MalformedURLException,
+	public Response render(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		
 		//retrieve Directory Contents as List
@@ -49,7 +50,10 @@ public class DirectoryAsset implements Asset {
 				e.printStackTrace();
 			}
 		}
-		return body;
+		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
+		Response response = new Response(body,body.getBytes() , null);
+				
+		return response;
 	
 	}
 

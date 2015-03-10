@@ -28,18 +28,18 @@ public class ResponseBuilder {
 	}
 
 	public String buildResponse(AssetManager manager) throws IOException {
-		
-		
-		
 		String response = "";
 		String headers = buildResponseHeaders();
 		String requestMethod = request.getMethod();
 			
 		if (requestMethod.contentEquals("GET")) {
 			Asset asset = manager.getAsset(request);
-			String responseBody = asset.render(request);
+			Response responseO = asset.render(request);
 			
-			System.out.println("responseBody"+responseBody);
+			System.out.println("response build "+responseO);
+			
+			String responseBody = responseO.getBody();
+			System.out.println("response body build" + responseBody);
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";
 			} else {

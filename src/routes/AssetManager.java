@@ -25,6 +25,7 @@ public class AssetManager {
 	}
 
 	public Asset getAsset(Request request) {
+		System.out.println("get Asset of" + request.getURI());
 		Iterator<Asset> iterator = assets.iterator();
 		while(iterator.hasNext()) {
 			Asset asset = iterator.next();
@@ -35,7 +36,7 @@ public class AssetManager {
 				
 			
 		}
-		System.out.println("request file static asset " + request.getURI());
+		System.out.println("file static asset with " + request.getURI());
 		return new FileStaticAsset();		
 	}
 
