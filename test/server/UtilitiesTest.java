@@ -42,12 +42,12 @@ public class UtilitiesTest {
 	
 	@Test
 	public void testFileExistFalse(){
-		assertFalse(Utilities.doesFileExist("/jam"));
+		assertFalse(Utilities.fileExist("/jam"));
 	}
 	
 	@Test
 	public void testDoesFileExistTrue(){
-		assertTrue(Utilities.doesFileExist("/file1"));
+		assertTrue(Utilities.fileExist("/file1"));
 	}
 	
 	
@@ -64,15 +64,9 @@ public class UtilitiesTest {
 		assertEquals(Utilities.findServerAbsolutePath(),path.toAbsolutePath().toString());
 	}
 	
-	
 	@Test 
 	public void testGetAbsolutePath(){
-		assertEquals(Utilities.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");
-			
+		assertEquals(Utilities.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");	
 	}
-	
-	
-	
-	
 	
 }

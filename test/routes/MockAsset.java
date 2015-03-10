@@ -1,7 +1,7 @@
 package routes;
 
 import server.request.Request;
-import server.response.Asset;
+import server.response.assets.Asset;
 
 public class MockAsset implements Asset{
 	

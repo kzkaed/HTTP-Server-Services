@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
 import server.request.Request;
-import server.response.Asset;
+import server.response.assets.Asset;
 
 public class Color implements Asset {
 

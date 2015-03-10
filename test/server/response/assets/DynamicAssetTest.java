@@ -1,4 +1,4 @@
-package server.response;
+package server.response.assets;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import server.request.Request;
+import server.response.assets.DynamicAsset;
 
 public class DynamicAssetTest {
 

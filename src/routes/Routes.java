@@ -13,7 +13,7 @@ public class Routes {
 		if(uri.contentEquals("/test/static")){
 			route = "/test/index.html";
 		}else if (uri.contentEquals("/") ){
-			route = "directory.html";	
+			route = "/directory.html";	
 		}else{
 			route = uri;
 		}	

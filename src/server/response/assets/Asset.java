@@ -1,4 +1,4 @@
-package server.response;
+package server.response.assets;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;

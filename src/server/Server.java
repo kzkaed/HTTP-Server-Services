@@ -6,8 +6,8 @@ import log.SystemLogger;
 import log.Logger;
 import routes.AssetManager;
 import server.handler.ClientHandler;
-import server.response.DynamicAsset;
-import server.response.FileStaticAsset;
+import server.response.assets.DynamicAsset;
+import server.response.assets.FileStaticAsset;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
 

@@ -21,7 +21,7 @@ public class ParametersParserURL implements ParametersParser {
 	private int port;
 	
 	private final String HOST = Constants.HOST;
-	private int PORT_IN_USE = Constants.getPort();
+	private int PORT_IN_USE = Constants.PORT_IN_USE;
 	
 	private Hashtable<String,String> parameterPairs;
 

@@ -1,4 +1,4 @@
-package server.response;
+package server.response.assets;
 
 
 import java.io.UnsupportedEncodingException;
@@ -55,8 +55,8 @@ public class DynamicAsset implements Asset{
 			return
 				request.getURI().contentEquals("/") || 
 				request.getURI().contentEquals("/test/dynamic") ||
-				request.getURI().contains("showParams") || 
-				request.getURI().contentEquals("/parameters");
+				request.getURI().contains("showParams"); 
+				
 			
 	}
 

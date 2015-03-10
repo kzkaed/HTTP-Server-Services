@@ -7,6 +7,7 @@ import java.util.List;
 
 import routes.AssetManager;
 import server.request.Request;
+import server.response.assets.Asset;
 
 public class ResponseBuilder {
 
@@ -27,14 +28,18 @@ public class ResponseBuilder {
 	}
 
 	public String buildResponse(AssetManager manager) throws IOException {
+		
+		
+		
 		String response = "";
 		String headers = buildResponseHeaders();
 		String requestMethod = request.getMethod();
 			
 		if (requestMethod.contentEquals("GET")) {
 			Asset asset = manager.getAsset(request);
+			String responseBody = asset.render(request);
 			
-			String responseBody = asset.render(request);	
+			System.out.println("responseBody"+responseBody);
 			if (responseBody.isEmpty()) {
 				response = STATUS_404 + headers + CRLF + "404 Not Found";
 			} else {

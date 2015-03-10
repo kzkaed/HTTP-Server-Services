@@ -14,7 +14,7 @@ public class ConstantsTest {
 	@Test
 	public void testSetPort() {
 		Constants.setPort(5000);
-		assertEquals(5000, Constants.getPort());
+		assertEquals(5000, Constants.PORT_IN_USE);
 	}
 	
 	@Test
@@ -28,11 +28,7 @@ public class ConstantsTest {
 		assertEquals(host, Constants.HOST);
 	}
 	
-	@Test 
-	public void testSetPublicDirectory(){
-		Constants.setPublicDirectory("greekTragedies");
-		assertEquals("greekTragedies", Constants.getPublicDirectory());
-	}
+
 
 
 }

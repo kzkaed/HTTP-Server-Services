@@ -1,7 +1,5 @@
 package server;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -39,20 +37,27 @@ public class Utilities {
 		return sb.toString();
 	}
 	
-	public static boolean doesFileExist(String filename) {
+	public static String constructWebRootDirectory(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("/");
+		sb.append(server.Constants.PUBLIC_DIR_IN_USE);
+		return sb.toString();
+	}
+	
+	public static boolean fileExist(String uri) {
 		String absolutePath = findServerAbsolutePath();
-		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
-
-		Routes route = new Routes(filename);
+		String webrootDirectory = constructWebRootDirectory();
+		
+		Routes route = new Routes(uri);
 		String routedPath = route.getRoute();
-
-		String path = absolutePath + defaultDirectory + routedPath;
-
-		Path pathCheck = Paths.get(path);
-		if (Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS)){
-			return true;
-		}
-		return false;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(absolutePath);
+		sb.append(webrootDirectory);
+		sb.append(routedPath);
+	
+		Path pathCheck = Paths.get(sb.toString());
+		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS);		
 	}
 
 

@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 import server.request.Request;
-import server.response.Asset;
+import server.response.assets.Asset;
 
 public class AssetManagerTest {
 	

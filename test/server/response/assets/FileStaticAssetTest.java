@@ -1,4 +1,4 @@
-package server.response;
+package server.response.assets;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.Constants;
 import server.request.Request;
+import server.response.assets.FileStaticAsset;
 
 public class FileStaticAssetTest {
 
@@ -22,16 +24,21 @@ public class FileStaticAssetTest {
 	
 	@Before
 	public void setUp()  {
-		asset = new FileStaticAsset();		
+		asset = new FileStaticAsset();	
+		Constants.PUBLIC_DIR_IN_USE = "public";
 	}
 	
-		
+	@Test
+	public void canHandleTest(){
+		Request request = new Request("GET","/file1","HTTP1/1", null, "GET /file1 HTTP1/1",null,new Hashtable<String,String>());
+		assertTrue(asset.canHandle(request));
+	}
 	@Test
 	public void testGetContent() throws MalformedURLException, UnsupportedEncodingException {	
 		String content = "file1 contents";
 		Request request = new Request("GET","/file1","HTTP1/1", null, "GET /file1 HTTP1/1",null,new Hashtable<String,String>());
+
 		String contentReceived = asset.render(request);
-		
 		assertEquals(content, contentReceived);
 	}
 
@@ -49,10 +56,11 @@ public class FileStaticAssetTest {
 		String content = "";
 		Request request = new Request("GET","/jam","HTTP1/1", null, "GET /jam HTTP1/1",null,new Hashtable<String,String>());
 		String contentReceived = asset.render(request);
-		assertFalse(server.Utilities.doesFileExist("/jam"));
-		assertTrue(server.Utilities.doesFileExist("/file1"));
+		assertFalse(server.Utilities.fileExist("/jam"));
+
 		assertEquals(content, contentReceived);
 	}
+	
 	
 	
 	

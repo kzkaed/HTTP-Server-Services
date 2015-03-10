@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import server.request.Request;
-import server.response.Asset;
-import server.response.FileStaticAsset;
+import server.response.assets.Asset;
+import server.response.assets.FileStaticAsset;
 
 public class AssetManager {
 	
@@ -28,9 +28,14 @@ public class AssetManager {
 		Iterator<Asset> iterator = assets.iterator();
 		while(iterator.hasNext()) {
 			Asset asset = iterator.next();
-			if(asset.canHandle(request))
-				return asset;			
+			if(asset.canHandle(request)){
+				System.out.println("asset " + asset.getClass());
+				return asset;	
+			}
+				
+			
 		}
+		System.out.println("request file static asset " + request.getURI());
 		return new FileStaticAsset();		
 	}
 
