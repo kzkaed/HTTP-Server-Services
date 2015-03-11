@@ -7,6 +7,8 @@ import server.Utilities;
 import server.request.Request;
 
 public class FileNotFound implements Asset{
+	
+	public FileNotFound(){}
 
 	@Override
 	public boolean canHandle(Request request) {	

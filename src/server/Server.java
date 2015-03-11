@@ -2,11 +2,14 @@ package server;
 
 import java.io.IOException;
 
+import server.response.assets.Parameter;
 import log.SystemLogger;
 import log.Logger;
 import routes.AssetManager;
 import server.handler.ClientHandler;
+import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
+import server.response.assets.FileNotFound;
 import server.response.assets.FileStaticAsset;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
@@ -31,9 +34,11 @@ public class Server {
 	
 	public void start()  {
 		
-		
 		manager.register(new FileStaticAsset());
 		manager.register(new DynamicAsset());
+		manager.register(new DirectoryAsset());
+		manager.register(new Parameter());
+		manager.register(new FileNotFound());
 		
 		try{
 			logServerInfomation();

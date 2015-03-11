@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.Constants;
 import server.Utilities;
 import server.request.Request;
 import server.response.Response;
@@ -24,6 +25,7 @@ public class DirectoryAssetTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		Constants.PUBLIC_DIR_IN_USE = "public";
 		directoryAsset = new DirectoryAsset();
 		request = new Request("GET","/","HTTP1/1", null, "GET / HTTP1/1",null,new Hashtable<String,String>());
 	}
@@ -38,7 +40,7 @@ public class DirectoryAssetTest {
 	}
 	
 	@Test
-	public void testRender() throws MalformedURLException, UnsupportedEncodingException{
+	public void testFilesListed() throws MalformedURLException, UnsupportedEncodingException{
 		String directory = server.Utilities.getAbsolutePath("/public");
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
@@ -49,7 +51,14 @@ public class DirectoryAssetTest {
 		}
 		Response response = directoryAsset.render(request);
 		String contentReceived = response.getBody();
-
+		
+		assertNotNull(results);
+	}
+	
+	@Test
+	public void testRendersView(){
+		
+		
 	}
 
 }

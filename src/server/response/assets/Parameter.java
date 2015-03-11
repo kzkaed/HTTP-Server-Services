@@ -4,20 +4,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Hashtable;
 
-import routes.HtmlView;
 import server.request.Request;
 import server.response.Response;
+import views.HtmlView;
 
 public class Parameter implements Asset {
 	
 	private Hashtable<String,String> parameters;
 	private HtmlView html;
 	
-	Parameter () {}
+	public Parameter () {}
 
 	@Override
 	public boolean canHandle(Request request) {
-		System.out.println("canHandle" + request.getURI());
 		return request.getURI().contentEquals("/parameters");
 	}
 

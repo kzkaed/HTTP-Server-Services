@@ -6,6 +6,7 @@ import java.util.List;
 
 import server.request.Request;
 import server.response.assets.Asset;
+import server.response.assets.FileNotFound;
 import server.response.assets.FileStaticAsset;
 
 public class AssetManager {
@@ -30,13 +31,12 @@ public class AssetManager {
 		while(iterator.hasNext()) {
 			Asset asset = iterator.next();
 			if(asset.canHandle(request)){
-				System.out.println("asset " + asset.getClass());
+				System.out.println("asset: " + asset.getClass());
 				return asset;	
 			}
-				
-			
+	
 		}
-		System.out.println("file static asset with " + request.getURI());
+		
 		return new FileStaticAsset();		
 	}
 

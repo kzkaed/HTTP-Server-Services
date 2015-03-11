@@ -6,11 +6,11 @@ import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.Set;
 
-import routes.HtmlView;
 import server.request.ParametersParser;
 import server.request.ParametersParserURL;
 import server.request.Request;
 import server.response.Response;
+import views.HtmlView;
 
 public class DynamicAsset implements Asset{
 		
@@ -58,7 +58,6 @@ public class DynamicAsset implements Asset{
 	@Override
 	public boolean canHandle(Request request) {
 			return
-				request.getURI().contentEquals("/") || 
 				request.getURI().contentEquals("/test/dynamic") ||
 				request.getURI().contains("showParams"); 
 				

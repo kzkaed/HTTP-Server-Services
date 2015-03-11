@@ -7,11 +7,21 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import server.request.Request;
+import server.response.assets.DirectoryAsset;
 
 public class UtilitiesTest {
 
+
+	@Before
+	public void setUp() throws Exception {
+		Constants.PUBLIC_DIR_IN_USE = "public";
+	}
 	
 	@Test
 	public void testGETParse() {
@@ -48,6 +58,11 @@ public class UtilitiesTest {
 	@Test
 	public void testDoesFileExistTrue(){
 		assertTrue(Utilities.fileExist("/file1"));
+	}
+	
+	@Test
+	public void testDoesRootFileExistFalse(){
+		assertFalse(Utilities.fileExist("/"));
 	}
 	
 	

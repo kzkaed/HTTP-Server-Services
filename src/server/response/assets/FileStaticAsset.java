@@ -21,8 +21,8 @@ public class FileStaticAsset implements Asset {
 	
 	@Override
 	public boolean canHandle(Request request) {
-		System.out.println("can Handle FileStaticAsset" + Utilities.fileExist(request.getURI()) + request.getURI());
-		return Utilities.fileExist(request.getURI());	
+		System.out.println("here"+request.getURI());
+		return Utilities.fileExist(request.getURI()) || request.getURI().contentEquals("/test/static");	
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class FileStaticAsset implements Asset {
 		
 		String body = "";
 		String absolutePath = Utilities.findServerAbsolutePath();
-		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_DEFAULT;
+		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_IN_USE;
 
 		Routes route = new Routes(request.getURI());
 		String routedPath = route.getRoute();
@@ -39,10 +39,7 @@ public class FileStaticAsset implements Asset {
 		path.append(absolutePath);
 		path.append(defaultDirectory);
 		path.append(routedPath);
-		
-		System.out.println(Utilities.fileExist(routedPath));
-		System.out.println("routedPath" + routedPath);
-		System.out.println("path" + path.toString());
+		System.out.println(routedPath);
 		if (Utilities.fileExist(routedPath)){
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
@@ -54,12 +51,8 @@ public class FileStaticAsset implements Asset {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
-		Response response = new Response(body,body.getBytes(), null);
-		System.out.println("file static asset response body" + response.getBody());
-		return response;
+		}	
+		return new Response(body,body.getBytes(), null);
 	}
 
 

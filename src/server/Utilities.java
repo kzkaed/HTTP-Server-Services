@@ -48,16 +48,16 @@ public class Utilities {
 		String absolutePath = findServerAbsolutePath();
 		String webrootDirectory = constructWebRootDirectory();
 		
-		Routes route = new Routes(uri);
-		String routedPath = route.getRoute();
+		//Routes route = new Routes(uri);
+		//String routedPath = route.getRoute();
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(absolutePath);
 		sb.append(webrootDirectory);
-		sb.append(routedPath);
-	
+		sb.append(uri);
+		
 		Path pathCheck = Paths.get(sb.toString());
-		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS);		
+		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS) && Files.isRegularFile(pathCheck, LinkOption.NOFOLLOW_LINKS);		
 	}
 
 

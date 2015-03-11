@@ -21,7 +21,6 @@ public static void main(String[] args) throws Exception{
 		Constants.setPort(port);
 		Constants.setPublicDirectory(publicDirectory);
 		
-		
 		ServerSocket serverSocket = new ServerSocket(port);
 		new Server(new WireServerSocket(serverSocket),port,publicDirectory,manager).start();
 
