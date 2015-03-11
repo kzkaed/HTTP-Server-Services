@@ -38,7 +38,7 @@ public class DirectoryAsset implements Asset {
 		}
 
 		HtmlView html = new HtmlView(results);
-		String body = html.build();
+		String body = html.build("directory");
 			
 		return new Response(body,body.getBytes() , null);
 	
