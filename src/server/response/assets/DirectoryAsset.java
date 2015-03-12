@@ -1,25 +1,23 @@
 package server.response.assets;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import routes.Routes;
-import server.Utilities;
 import server.request.Request;
 import server.response.Response;
 import views.HtmlView;
 
-public class DirectoryAsset implements Asset {
+public class DirectoryAsset extends Get{
 	
 	private static final String CRLF = server.Constants.CRLF;
 
-	public DirectoryAsset(){}
+	public DirectoryAsset(){
+		super();
+	}
 
 	@Override
 	public boolean canHandle(Request request) {
@@ -29,6 +27,7 @@ public class DirectoryAsset implements Asset {
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
+		
 		
 		//FileSystem: Content Retrieval
 		String directory = server.Utilities.getAbsolutePath("/"+server.Constants.PUBLIC_DIR_IN_USE);
@@ -46,9 +45,7 @@ public class DirectoryAsset implements Asset {
 		
 		//BuildResponse
 		byte[] utf8Bytes = body.getBytes("UTF8");
-		String roundTrip = new String(utf8Bytes, "UTF8");
-		System.out.println(utf8Bytes);
-		System.out.println(roundTrip);
+	
 		return new Response(body,utf8Bytes, null, buildResponseHeaders());
 	
 	}

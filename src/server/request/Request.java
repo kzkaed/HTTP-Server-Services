@@ -76,6 +76,10 @@ public class Request {
 		this.uri = uri;		
 	}
 	
+	public void setMethod(String method){
+		this.method = method;
+	}
+	
 }
 
 

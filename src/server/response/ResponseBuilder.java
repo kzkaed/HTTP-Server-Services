@@ -35,10 +35,10 @@ public class ResponseBuilder {
 		if (requestMethod.contentEquals("GET")) {
 			Asset asset = manager.getAsset(request);
 			Response response = asset.execute(request);
-			System.out.println();
-			//String responseBody = response.getBody();	
-			String responseBody = new String(response.getBodyBytes(), "UTF8");
-			System.out.println(responseBody);
+			
+			String responseBody = response.getBody();	
+			//String responseBody = new String(response.getBodyBytes(), "UTF8");
+			
 			if (responseBody.isEmpty()) {
 				responseStr = STATUS_404 + response.getHeaders() + CRLF + "404 Not Found";
 			} else {

@@ -19,8 +19,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 import server.Utilities;
 import server.request.Request;
+import server.response.Response;
 
 public class ImageAssetTest {
 
@@ -71,33 +74,27 @@ public class ImageAssetTest {
 
 	
 	@Test
-	public void imageOut() throws IOException{
+	public void imageToBytes() throws IOException{
 		
 		server.Constants.PUBLIC_DIR_IN_USE = "public";
 		Request request = new Request();
 		request.setURI("/image.jpeg");
-		BufferedImage image = null;
-		File file = new File(Utilities.webrootAbsolutePath() + request.getURI());
 		
-		try {
-			image = ImageIO.read(file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Utilities.webrootAbsolutePath();
+		Path path = Paths.get(Utilities.webrootAbsolutePath()  + request.getURI());
 		
-		assertNotNull(image.getClass());
-		assertEquals(image.getType(),5);
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(image, "jpg", baos);
-		baos.flush();
-		byte[] imageInBytes = baos.toByteArray();
-		baos.close();
-		
+		byte[] imageInBytes = null;
+		String imageString = null;
+		imageInBytes = Files.readAllBytes(path);
+		imageString = Base64.encode(imageInBytes);
 		assertNotNull(imageInBytes);
-		String imageAsString = new String(imageInBytes, "UTF8");
+		assertNotNull(imageString);
 		
+		Response response = imgAsset.execute(request);
+		assertNotNull(response.getBodyBytes());
+		assertNotNull(response.getBody());
 		
 	}
+	
+	
 }

@@ -21,10 +21,6 @@ public class ResponseTest {
 		response = new Response("body","body".getBytes(),headers,headersStr);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void getHeadersTest(){
 		assertEquals(response.getHeaders(),"test");
@@ -36,8 +32,8 @@ public class ResponseTest {
 	}
 	
 	@Test
-	public void getBodyBytesTest(){
-		assertEquals(response.getBodyBytes().toString(),"[B@6267c3bb");
+	public void getBodyBytesTest(){	
+		assertNotNull(response.getBodyBytes().getClass());
 	}
 	
 

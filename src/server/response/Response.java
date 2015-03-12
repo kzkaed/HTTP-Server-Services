@@ -19,28 +19,17 @@ public class Response {
     private String headersStr;
     
     public Response (String responseBody, byte[] body, HashMap<String,String> headers, String headersStr){
-    
     	this.responseBody = responseBody;
     	this.body = body;
     	this.headers = headers;
     	this.headersStr = headersStr;
-    	
     }
-    
     
     public String buildResponseHeaders() {
 		String headers = "Server: Kristin Server" + CRLF
 						+ "Accept-Ranges: bytes" + CRLF 
 						+ "Content-Type: text/html; charset=UTF-8" + CRLF
 						+ "Connection: Close" + CRLF;
-						
-		
-		
-		/*ETag: "3f80f-1b6-3e1cb03b" 
-		Content-Type: text/html; charset=UTF-8 
-		Content-Length: 131 
-		Accept-Ranges: bytes 
-		Connection: close*/
 		return headers;
 	}
     

@@ -21,7 +21,6 @@ public class RequestTest {
 		String requestBody = "";
 		Hashtable<String,String> parameters = new Hashtable<String,String>();
 		
-		
 		Request request = new Request(method,uri,protocolVersion, headers,requestLine,requestBody,parameters);
 		assertEquals(request.getRequestLine(), requestLine);
 		assertEquals(request.getMethod(), method);
@@ -29,7 +28,6 @@ public class RequestTest {
 		assertEquals(request.getURI(), uri);
 		assertNotNull(request.getParmeters());
 		assertNotNull(request.getHeaders());
-		
 	}
 	
 	@Test
@@ -46,6 +44,12 @@ public class RequestTest {
 		assertEquals(request.getURI(), "test");
 	}
 	
+	@Test
+	public void testSetMethod(){
+		Request request = new Request();
+		request.setMethod("GET");
+		assertEquals(request.getMethod(), "GET");
+	}
 	
 
 }

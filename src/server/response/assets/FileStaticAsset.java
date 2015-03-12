@@ -50,8 +50,7 @@ public class FileStaticAsset implements Asset {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;
 				while ((str = in.readLine()) != null) {
-					body += str;//read as byte[]
-					
+					body += str;//read as byte[]	
 				}
 				in.close();
 			} catch (IOException e) {
@@ -59,9 +58,7 @@ public class FileStaticAsset implements Asset {
 			}
 		}	
 		byte[] utf8Bytes = body.getBytes("UTF8");
-		String roundTrip = new String(utf8Bytes, "UTF8");
-	
-		return new Response(roundTrip,utf8Bytes, null, buildResponseHeaders());
+		return new Response(body,utf8Bytes, null, buildResponseHeaders());
 	}
 
 

@@ -14,11 +14,13 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 import server.Utilities;
 import server.request.Request;
 import server.response.Response;
 
-public class ImageAsset implements Asset {
+public class ImageAsset extends Get {
 	
 	private static final String CRLF = server.Constants.CRLF;
 
@@ -33,26 +35,20 @@ public class ImageAsset implements Asset {
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		BufferedImage image = null;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		Utilities.webrootAbsolutePath();
+		Path path = Paths.get(Utilities.webrootAbsolutePath()  + request.getURI());
 		byte[] imageInBytes = null;
-	
-		File file = new File(Utilities.webrootAbsolutePath() + request.getURI());
+		String imageStr = null;
 		try {
-			image = ImageIO.read(file);
-			ImageIO.write(image, "jpg", baos);
-			baos.flush();
-			imageInBytes = baos.toByteArray();
-			baos.close();
+			imageInBytes = Files.readAllBytes(path);
+			imageStr = Base64.encode(imageInBytes);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Path path = Utilities.webrootAbsolutePath() + request.getURI();
-		//byte[] java.nio.file.Files.readAllBytes(Path path)
 		
 		
-		return new Response("image",imageInBytes,null,buildResponseHeaders());
+		return new Response(imageStr,imageInBytes,null,buildResponseHeaders());
 	}
 	
 	public String buildResponseHeaders() {
