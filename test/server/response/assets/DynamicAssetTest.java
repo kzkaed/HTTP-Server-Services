@@ -21,7 +21,7 @@ public class DynamicAssetTest {
 		String uri = "/test/dynamic";
 		DynamicAsset asset = new DynamicAsset();
 		Request request = new Request(uri);
-		Response response = asset.render(request);
+		Response response = asset.execute(request);
 		String html = response.getBody();
 		
 		String expect = "<!doctype html><html><head></head><body>test dynamic</body></html>";

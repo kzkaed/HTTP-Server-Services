@@ -15,7 +15,7 @@ public class MockAsset implements Asset{
 	public MockAsset() {}
 
 	@Override
-	public Response render(Request request){
+	public Response execute(Request request){
 		return null;
 	}
 

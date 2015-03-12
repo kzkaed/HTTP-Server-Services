@@ -16,10 +16,14 @@ public class Response {
     private String statusCode;
     private String statusMessage;
     private HashMap<String, String> headers;
+    private String headersStr;
     
-    public Response (String responseBody, byte[] body, HashMap<String,String> headers){
+    public Response (String responseBody, byte[] body, HashMap<String,String> headers, String headersStr){
     
     	this.responseBody = responseBody;
+    	this.body = body;
+    	this.headers = headers;
+    	this.headersStr = headersStr;
     	
     }
     
@@ -40,9 +44,18 @@ public class Response {
 		return headers;
 	}
     
+    public String getHeaders(){
+    	return headersStr;
+    }
+    
     public String getBody(){
     	return responseBody;
     }
+    
+    public byte[] getBodyBytes(){
+    	return body;
+    }
   
+   
 
 }

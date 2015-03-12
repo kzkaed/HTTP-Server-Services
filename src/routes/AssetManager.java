@@ -26,17 +26,13 @@ public class AssetManager {
 	}
 
 	public Asset getAsset(Request request) {
-		System.out.println("get Asset of" + request.getURI());
 		Iterator<Asset> iterator = assets.iterator();
 		while(iterator.hasNext()) {
 			Asset asset = iterator.next();
 			if(asset.canHandle(request)){
-				System.out.println("asset: " + asset.getClass());
 				return asset;	
-			}
-	
+			}	
 		}
-		
 		return new FileStaticAsset();		
 	}
 

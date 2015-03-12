@@ -15,7 +15,7 @@ public class Color implements Asset {
 	}
 
 	@Override
-	public Response render(Request request) throws MalformedURLException,
+	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		String color = request.getParmeters().get("color");
 		if(color == null){
@@ -25,7 +25,7 @@ public class Color implements Asset {
 		ColorHtml html = new ColorHtml(color);
 		//html.build();
 		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
-		Response response = new Response(html.build(),html.build().getBytes(), null);
+		Response response = new Response(html.build(),html.build().getBytes(), null, null);
 				
 		return response;
 	}

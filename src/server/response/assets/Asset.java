@@ -8,7 +8,7 @@ import server.response.Response;
 
 public interface Asset {
 	public boolean canHandle(Request request);
-	public Response render(Request request) throws MalformedURLException, UnsupportedEncodingException;
+	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException;
 }
 
 

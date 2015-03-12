@@ -3,6 +3,7 @@ package routes;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.junit.After;
@@ -28,7 +29,18 @@ public class HtmlViewTest {
 
 		HtmlView html = new HtmlView(list);
 		String htmlstring = html.build("directory");
-		assertEquals(htmlstring,"<!doctype html><html><head></head><body>an item<br>another item<br></body></html>");
+		assertEquals(htmlstring,"<!doctype html><html><head></head><body>Directory<br><a href=\"an item\">an item</a><br><a href=\"another item\">another item</a><br></body></html>");
+	}
+	
+	@Test
+	public void testHTMLbuildsParameters() {
+		Hashtable<String,String> params= new Hashtable<String,String>();
+		params.put("variable_1", "1");
+		params.put("variable_2", "2");
+
+		HtmlView html = new HtmlView(params);
+		String htmlstring = html.build("parameters");
+		assertEquals(htmlstring,"<!doctype html><html><head></head><body>variable_1 = 1variable_2 = 2</body></html>");
 	}
 
 }

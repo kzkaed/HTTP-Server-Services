@@ -43,7 +43,7 @@ public class ColorTest {
 		Request request = new Request();
 		request.setParameter("color", "Blue");
 		
-		Response response = color.render(request);
+		Response response = color.execute(request);
 		String html = response.getBody();
 		assertEquals("<!doctype html>"
 				+ "<html><head></head>"
@@ -63,7 +63,7 @@ public class ColorTest {
 		Color color = new Color();
 		Request request = new Request();
 		request.setURI("/color/Blue");
-		Response response = color.render(request);
+		Response response = color.execute(request);
 		String html = response.getBody();
 		assertEquals("<!doctype html>"
 				+ "<html><head></head>"

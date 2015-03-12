@@ -19,7 +19,7 @@ public class DynamicAsset implements Asset{
 
 	public DynamicAsset ()  {}
 	
-	public Response render(Request request) throws MalformedURLException, UnsupportedEncodingException{
+	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException{
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();
 			html = new HtmlView(parameters);
@@ -49,7 +49,7 @@ public class DynamicAsset implements Asset{
 		
 		
 		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
-		Response response = new Response(html.build(),html.build().getBytes() , null);
+		Response response = new Response(html.build(),html.build().getBytes() , null, null);
 						
 		return response;
 		

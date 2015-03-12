@@ -11,6 +11,7 @@ import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
 import server.response.assets.FileNotFound;
 import server.response.assets.FileStaticAsset;
+import server.response.assets.ImageAsset;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
 
@@ -39,6 +40,7 @@ public class Server {
 		manager.register(new DirectoryAsset());
 		manager.register(new Parameter());
 		manager.register(new FileNotFound());
+		manager.register(new ImageAsset());
 		
 		try{
 			logServerInfomation();

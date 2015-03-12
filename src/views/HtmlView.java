@@ -76,8 +76,13 @@ public class HtmlView implements ViewFactory{
 		builder.append("</head>");
 		builder.append("<body>");
 		if(htmltype.contentEquals("directory")){
+			builder.append("Directory");
+			builder.append("<br>");
 			for(String file : results){
+				builder.append("<a href=\"");
+				builder.append(file + "\">");
 				builder.append(file);
+				builder.append("</a>");
 				builder.append("<br>");
 			}
 		}else if (htmltype.contentEquals("parameters")){

@@ -28,36 +28,35 @@ public class ResponseBuilder {
 	}
 
 	public String buildResponse(AssetManager manager) throws IOException {
-		String response = "";
+		String responseStr = "";
 		String headers = buildResponseHeaders();
 		String requestMethod = request.getMethod();
 			
 		if (requestMethod.contentEquals("GET")) {
 			Asset asset = manager.getAsset(request);
-			Response responseO = asset.render(request);
-			
-			System.out.println("response build "+responseO);
-			
-			String responseBody = responseO.getBody();
-			System.out.println("response body build" + responseBody);
+			Response response = asset.execute(request);
+			System.out.println();
+			//String responseBody = response.getBody();	
+			String responseBody = new String(response.getBodyBytes(), "UTF8");
+			System.out.println(responseBody);
 			if (responseBody.isEmpty()) {
-				response = STATUS_404 + headers + CRLF + "404 Not Found";
+				responseStr = STATUS_404 + response.getHeaders() + CRLF + "404 Not Found";
 			} else {
-				response = STATUS_200 + headers + CRLF + responseBody;
+				responseStr = STATUS_200 + response.getHeaders() + CRLF + responseBody;
 			}
 
 		} else if (requestMethod.contentEquals("POST")) {
-			response = "HTTP/1.1 200 OK" + CRLF;
+			responseStr = "HTTP/1.1 200 OK" + CRLF;
 		} else if (requestMethod.contentEquals("PUT")) {	
-			response = "HTTP/1.1 200 OK" + CRLF;
+			responseStr = "HTTP/1.1 200 OK" + CRLF;
 		} else if (requestMethod.contentEquals("HEAD")) {	
-			response = "HTTP/1.1 200 OK" + CRLF;
+			responseStr = "HTTP/1.1 200 OK" + CRLF;
 		} else if (requestMethod.contentEquals("OPTIONS")) {	
-			response = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF;
+			responseStr = "HTTP/1.1 200 OK\r\nAllow:GET,HEAD,POST,OPTIONS,PUT" + CRLF;
 		}else{
-			response = STATUS_502 + headers + CRLF + "502 " + ResponseCodes.getReason("502");
+			responseStr = STATUS_502 + headers + CRLF + "502 " + ResponseCodes.getReason("502");
 		}
-		return response;
+		return responseStr;
 	}
 	
 	public boolean isMethodImplemented(){

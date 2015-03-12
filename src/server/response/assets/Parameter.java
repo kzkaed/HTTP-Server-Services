@@ -21,14 +21,14 @@ public class Parameter implements Asset {
 	}
 
 	@Override
-	public Response render(Request request) throws MalformedURLException,
+	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();
 			html = new HtmlView(parameters);
 		}
 		
-		Response response = new Response(html.build(),html.build().getBytes() , null);
+		Response response = new Response(html.build(),html.build().getBytes() , null, null);
 								
 		return response;
 	}

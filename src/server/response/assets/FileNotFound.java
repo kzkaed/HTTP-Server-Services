@@ -17,9 +17,9 @@ public class FileNotFound implements Asset{
 	}
 
 	@Override
-	public Response render(Request request) throws MalformedURLException,
+	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		return new Response("","".getBytes(),null);
+		return new Response("","".getBytes(),null, null);
 	}
 
 }

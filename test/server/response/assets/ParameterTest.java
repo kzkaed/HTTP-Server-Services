@@ -38,7 +38,7 @@ public class ParameterTest {
 	
 	@Test
 	public void testRender() throws MalformedURLException, UnsupportedEncodingException {	
-		Response response = asset.render(request);		
+		Response response = asset.execute(request);		
 		String contentReceived = response.getBody();
 		
 		assertTrue(contentReceived.contains("variable_1 = test1"));

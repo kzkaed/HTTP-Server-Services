@@ -49,10 +49,16 @@ public class DirectoryAssetTest {
 		        results.add(file.getName()); 
 		    }
 		}
-		Response response = directoryAsset.render(request);
+		Response response = directoryAsset.execute(request);
 		String contentReceived = response.getBody();
 		
 		assertNotNull(results);
+		for(int i = 0; i < results.size(); i ++){
+			assertTrue(contentReceived.contains(results.get(i)));
+		}
+		for(String result : results){
+			assertTrue(contentReceived.contains(result));
+		}
 	}
 	
 	@Test

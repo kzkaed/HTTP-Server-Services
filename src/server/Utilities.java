@@ -1,6 +1,8 @@
 package server;
 
+import java.net.FileNameMap;
 import java.net.URI;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -37,29 +39,31 @@ public class Utilities {
 		return sb.toString();
 	}
 	
-	public static String constructWebRootDirectory(){
+	public static String webrootAbsolutePath(){
 		StringBuilder sb = new StringBuilder();
+		sb.append(findServerAbsolutePath());
 		sb.append("/");
 		sb.append(server.Constants.PUBLIC_DIR_IN_USE);
 		return sb.toString();
 	}
 	
 	public static boolean fileExist(String uri) {
-		String absolutePath = findServerAbsolutePath();
-		String webrootDirectory = constructWebRootDirectory();
-		
-		//Routes route = new Routes(uri);
-		//String routedPath = route.getRoute();
-		
 		StringBuilder sb = new StringBuilder();
-		sb.append(absolutePath);
-		sb.append(webrootDirectory);
+		sb.append(Utilities.webrootAbsolutePath());
 		sb.append(uri);
 		
 		Path pathCheck = Paths.get(sb.toString());
 		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS) && Files.isRegularFile(pathCheck, LinkOption.NOFOLLOW_LINKS);		
 	}
 
+	public static boolean isImage(String uri){
+		FileNameMap fileNameMap = URLConnection.getFileNameMap();
+		String type = fileNameMap.getContentTypeFor(uri);
+		if (type ==  null){
+			return false;
+		}
+		return (type.contains("image"));	
+	}
 
 
 
