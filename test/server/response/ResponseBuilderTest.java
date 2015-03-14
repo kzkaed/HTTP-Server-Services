@@ -26,6 +26,8 @@ public class ResponseBuilderTest {
 		assertEquals(statusLine, "HTTP/1.1 200 OK" + CRLF);
 	}
 	
+	
+	
 	@Test
 	public void testPOSTRequestResponse() throws IOException{
 		String requestLine = "POST / HTTP/1.1";

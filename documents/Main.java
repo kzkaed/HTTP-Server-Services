@@ -23,6 +23,7 @@ public class Main {
 		String publicDirectory = context.get("Public Directory");
 		int port = Integer.parseInt(portString);
 		Constants.setPort(port);		
+		Constants.setPublicDirectory(publicDirectory);
 		
 		ServerSocket serverSocket = new ServerSocket(port);
 		new Server(new WireServerSocket(serverSocket),port,publicDirectory, manager).start();
