@@ -1,8 +1,5 @@
 package server.response.assets;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
@@ -11,8 +8,6 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import javax.imageio.ImageIO;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
@@ -46,8 +41,6 @@ public class ImageAsset extends Get {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return new Response(imageStr,imageInBytes,null,buildResponseHeaders());
 	}
 	

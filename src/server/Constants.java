@@ -13,7 +13,7 @@ public final class Constants {
 	
 	public static final String VERSION_PROTOCOL = "HTTP/1.1";
 	public static final String CRLF = "\r\n";
-	public static final String SPACE = "";
+	public static final String SPACE = " ";
 	public static final String SPACE_E = "\\s";
 	public static final String HEADERS_END = CRLF + CRLF;
 	public static final String COLON = ": ";

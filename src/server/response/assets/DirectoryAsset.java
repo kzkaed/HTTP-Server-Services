@@ -24,12 +24,32 @@ public class DirectoryAsset extends Get{
 		return request.getURI().contentEquals("/");	
 	}
 
+
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		
-		
-		//FileSystem: Content Retrieval
+		List<String> results = getDirectoryFileNames();
+		String body = render(results);
+
+		return new Response(body,body.getBytes("UTF8"), null, buildResponseHeaders());
+	}
+	
+	public String buildResponseHeaders() {
+		String headers = "Server: Kristin Server" + CRLF
+						+ "Accept-Ranges: bytes" + CRLF 
+						+ "Content-Type: text/html" + CRLF;
+						//+ "Connection: Close" + CRLF;
+		return headers;
+	}
+	
+	public String render(List<String> results){
+		HtmlView html = new HtmlView(results);
+		return html.build("directory");
+	}
+	
+	
+	public List<String> getDirectoryFileNames(){
 		String directory = server.Utilities.getAbsolutePath("/"+server.Constants.PUBLIC_DIR_IN_USE);
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
@@ -38,25 +58,7 @@ public class DirectoryAsset extends Get{
 		        results.add(file.getName()); 
 		    }
 		}
-
-		//Render/Create View
-		HtmlView html = new HtmlView(results);
-		String body = html.build("directory");
-		
-		//BuildResponse
-		byte[] utf8Bytes = body.getBytes("UTF8");
-	
-		return new Response(body,utf8Bytes, null, buildResponseHeaders());
-	
-	}
-	
-	public String buildResponseHeaders() {
-		String headers = "Server: Kristin Server" + CRLF
-						+ "Accept-Ranges: bytes" + CRLF 
-						+ "Content-Type: text/html" + CRLF;
-						//+ "Connection: Close" + CRLF;
-	
-		return headers;
+		return results;
 	}
 
 }

@@ -10,7 +10,7 @@ import server.request.Request;
 
 public class GetTest {
 
-	Get get;
+	Asset get;
 	@Before
 	public void setUp() throws Exception {
 		get = new Get();
@@ -22,6 +22,11 @@ public class GetTest {
 		Request request = new Request();
 		request.setMethod("GET");
 		assertTrue(get.canHandle(request));
+	}
+	
+	@Test
+	public void testExecuteUnimplemented(){
+		
 	}
 
 }

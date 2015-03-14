@@ -11,12 +11,13 @@ public class Get implements Asset {
 	
 	public Get (){}
 
-	@Override
+	
 	public boolean canHandle(Request request) {
+		System.out.println("GET");
 		return request.getMethod().equals(Methods.GET);
 	}
 
-	@Override
+
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		return null;
