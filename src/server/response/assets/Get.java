@@ -3,7 +3,7 @@ package server.response.assets;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
-import server.constants.Methods;
+import server.constants.Method;
 import server.request.Request;
 import server.response.Response;
 
@@ -11,7 +11,7 @@ public class Get implements Asset {
 	
 	
 	public boolean canHandle(Request request) {
-		return request.getMethod().equals(Methods.GET);
+		return request.getMethod().equals(Method.GET);
 	}
 
 

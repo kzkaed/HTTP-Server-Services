@@ -2,7 +2,7 @@ package server.constants;
 
 
 
-public class Methods {
+public class Method {
 
 	public final static String GET = "GET";
 	public final static String POST = "POST";

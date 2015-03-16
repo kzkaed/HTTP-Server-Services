@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 import routes.Routes;
-import server.constants.Methods;
+import server.constants.Method;
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
@@ -27,7 +27,7 @@ public class GetFileStaticAsset implements Asset {
 	
 	@Override
 	public boolean canHandle(Request request) {
-		return Utility.fileExist(request.getURI()) && !isImage(request.getURI()) && request.getMethod().equals(Methods.GET); 
+		return Utility.fileExist(request.getURI()) && !isImage(request.getURI()) && request.getMethod().equals(Method.GET); 
 	}
 	
 	@Override

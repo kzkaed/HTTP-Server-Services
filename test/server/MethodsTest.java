@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.constants.Methods;
+import server.constants.Method;
 
 public class MethodsTest {
 
@@ -21,26 +21,26 @@ public class MethodsTest {
 
 	@Test
 	public void testGET() {
-		assertEquals(Methods.GET,"GET");
+		assertEquals(Method.GET,"GET");
 	}
 	
 	@Test
 	public void testPOST() {
-		assertEquals(Methods.POST,"POST");
+		assertEquals(Method.POST,"POST");
 	}
 	
 	@Test
 	public void testPUT() {
-		assertEquals(Methods.PUT,"PUT");
+		assertEquals(Method.PUT,"PUT");
 	}
 	
 	@Test
 	public void testOPTIONS() {
-		assertEquals(Methods.OPTIONS,"OPTIONS");
+		assertEquals(Method.OPTIONS,"OPTIONS");
 	}
 	@Test
 	public void testHEAD() {
-		assertEquals(Methods.HEAD,"HEAD");
+		assertEquals(Method.HEAD,"HEAD");
 	}
 
 

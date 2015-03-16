@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
-import server.constants.Methods;
+import server.constants.Method;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
@@ -15,7 +15,7 @@ public class Put implements Asset {
 
 	@Override
 	public boolean canHandle(Request request) {
-		return request.getMethod().equals(Methods.PUT);
+		return request.getMethod().equals(Method.PUT);
 	}
 
 	@Override

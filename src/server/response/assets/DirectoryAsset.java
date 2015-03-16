@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import server.constants.Methods;
+import server.constants.Method;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
@@ -22,7 +22,7 @@ public class DirectoryAsset implements Asset{
 
 	@Override
 	public boolean canHandle(Request request) {
-		return request.getURI().contentEquals("/") && request.getMethod().equals(Methods.GET);	
+		return request.getURI().contentEquals("/") && request.getMethod().equals(Method.GET);	
 	}
 
 
