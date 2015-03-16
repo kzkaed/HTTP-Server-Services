@@ -20,6 +20,11 @@ public final class Context {
 		}
 	}
 	
+	public static void setContext(int port, String publicDirectory){
+		PORT_IN_USE = port;
+		PUBLIC_DIR_IN_USE = publicDirectory;
+	}
+	
 	public final static void setPort(int port){
 		PORT_IN_USE = port;
 	}
@@ -29,5 +34,7 @@ public final class Context {
 		PUBLIC_DIR_IN_USE = publicDirectory;
 		
 	}
+	
+	
 
 }
