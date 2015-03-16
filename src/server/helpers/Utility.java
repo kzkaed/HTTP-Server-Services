@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import routes.Routes;
-import server.constants.Constants;
+import server.constants.Context;
 
 public class Utility {
 	
@@ -44,7 +44,7 @@ public class Utility {
 		StringBuilder sb = new StringBuilder();
 		sb.append(findServerAbsolutePath());
 		sb.append("/");
-		sb.append(server.constants.Constants.PUBLIC_DIR_IN_USE);
+		sb.append(server.constants.Context.PUBLIC_DIR_IN_USE);
 		return sb.toString();
 	}
 	

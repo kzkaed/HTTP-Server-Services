@@ -27,7 +27,7 @@ public class Server {
 	private AssetManager manager;
 	
 	
-	public Server(ServerSocketService service, int port, String publicDirectory, AssetManager manager){
+	public Server(ServerSocketService service, int port, AssetManager manager){
 		this(service, port, manager, new SystemLogger() );
 	}
 	
@@ -40,17 +40,8 @@ public class Server {
 	
 	public void start()  {
 		
-		manager.register(new GetFileStaticAsset());
-		manager.register(new DynamicAsset());
-		manager.register(new DirectoryAsset());
-		manager.register(new Parameter());
-		manager.register(new ImageAsset());
-		manager.register(new TestStatic());
-		manager.register(new Options());
-		manager.register(new Post());
-		manager.register(new Put());
-		
-		
+		registerServerAssets();
+
 		try{
 			logServerInfomation();
 			
@@ -67,6 +58,18 @@ public class Server {
 		}
 		
 	}
+
+	public void registerServerAssets(){
+		manager.register(new GetFileStaticAsset());
+		manager.register(new DynamicAsset());
+		manager.register(new DirectoryAsset());
+		manager.register(new Parameter());
+		manager.register(new ImageAsset());
+		manager.register(new TestStatic());
+		manager.register(new Options());
+		manager.register(new Post());
+		manager.register(new Put());
+	}
 	
 	public void logListening(){
 		logger.log("Listening...");
@@ -75,8 +78,6 @@ public class Server {
 	public void logServerInfomation() {
 		logger.log("Server Starting...");
 	}
-	
-
 
 }
 

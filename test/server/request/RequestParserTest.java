@@ -19,16 +19,18 @@ import org.junit.Test;
 
 
 
-import server.constants.Constants;
+
+
+import server.constants.Constant;
 import server.request.RequestParser;
 
 
 
 
 public class RequestParserTest {
-	String HEADERS_END = Constants.HEADERS_END;
-	String CRLF = Constants.CRLF;
-	String COLON = Constants.COLON;
+	String HEADERS_END = Constant.HEADERS_END;
+	String CRLF = Constant.CRLF;
+	String COLON = Constant.COLON;
 		
 	@Test
 	public void testReadsRequestLine() throws IOException{
@@ -52,7 +54,7 @@ public class RequestParserTest {
 	public void decodeTest() throws UnsupportedEncodingException {
 		String url = "https%3A%2F%2Fmywebsite%2Fdocs%2Fenglish%2Fsite%2Fmybook.do" +
 	               "%3Frequest_type%3D%26type%3Dprivate";
-		String decoded = java.net.URLDecoder.decode(url, server.constants.Constants.UTF_8);
+		String decoded = java.net.URLDecoder.decode(url, server.constants.Constant.UTF_8);
 		assertEquals("https://mywebsite/docs/english/site/mybook.do?request_type=&type=private", decoded);
 	}
 	

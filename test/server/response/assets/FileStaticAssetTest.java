@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.constants.Constants;
+import server.constants.Context;
 import server.request.Request;
 import server.response.Response;
 import server.response.assets.GetFileStaticAsset;
@@ -26,7 +26,7 @@ public class FileStaticAssetTest {
 	@Before
 	public void setUp()  {
 		asset = new GetFileStaticAsset();	
-		Constants.PUBLIC_DIR_IN_USE = "public";
+		Context.PUBLIC_DIR_IN_USE = "public";
 	}
 	
 	@Test

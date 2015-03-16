@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.constants.Constants;
+import server.constants.Context;
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
@@ -25,7 +25,7 @@ public class DirectoryAssetTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		Constants.PUBLIC_DIR_IN_USE = "public";
+		Context.PUBLIC_DIR_IN_USE = "public";
 		directoryAsset = new DirectoryAsset();
 		request = new Request("GET","/","HTTP1/1", null, "GET / HTTP1/1",null,new Hashtable<String,String>());
 	}

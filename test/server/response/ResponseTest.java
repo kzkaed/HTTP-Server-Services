@@ -9,14 +9,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.constants.Constants;
+import server.constants.Constant;
 
 public class ResponseTest {
 	
 	Response response;
-	String HEADERS_END = Constants.HEADERS_END;
-	String CRLF = Constants.CRLF;
-	String COLON = Constants.COLON;
+	String HEADERS_END = Constant.HEADERS_END;
+	String CRLF = Constant.CRLF;
+	String COLON = Constant.COLON;
 	@Before
 	public void setUp() throws Exception {
 		

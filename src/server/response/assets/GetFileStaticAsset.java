@@ -21,7 +21,7 @@ import server.response.ResponseCodes;
 
 public class GetFileStaticAsset implements Asset {
 
-	private static final String CRLF = server.constants.Constants.CRLF;
+	private static final String CRLF = server.constants.Constant.CRLF;
 
 	public GetFileStaticAsset(){};
 	
@@ -43,7 +43,7 @@ public class GetFileStaticAsset implements Asset {
 	public String retrieveFileContent(String routedPath){
 		String body = "";
 		String absolutePath = Utility.findServerAbsolutePath();
-		String defaultDirectory = "/" + server.constants.Constants.PUBLIC_DIR_IN_USE;
+		String defaultDirectory = "/" + server.constants.Context.PUBLIC_DIR_IN_USE;
 
 		StringBuilder path = new StringBuilder();
 		path.append(absolutePath);

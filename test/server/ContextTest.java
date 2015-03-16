@@ -7,14 +7,14 @@ import java.net.UnknownHostException;
 
 import org.junit.Test;
 
-import server.constants.Constants;
+import server.constants.Context;
 
-public class ConstantsTest {
+public class ContextTest {
 
 	@Test
 	public void testSetPort() {
-		Constants.setPort(5000);
-		assertEquals(5000, Constants.PORT_IN_USE);
+		Context.setPort(5000);
+		assertEquals(5000, Context.PORT_IN_USE);
 	}
 	
 	@Test
@@ -25,7 +25,7 @@ public class ConstantsTest {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} 
-		assertEquals(host, Constants.HOST);
+		assertEquals(host, Context.HOST);
 	}
 	
 

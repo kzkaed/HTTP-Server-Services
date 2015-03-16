@@ -12,8 +12,8 @@ import org.junit.Test;
 import server.request.Request;
 
 public class OptionsTest {
-	private final String CRLF = server.constants.Constants.CRLF;
-	private final String HEADERS_END = server.constants.Constants.HEADERS_END;
+	private final String CRLF = server.constants.Constant.CRLF;
+	private final String HEADERS_END = server.constants.Constant.HEADERS_END;
 	private Options options;
 	@Before
 	public void setUp() throws Exception {

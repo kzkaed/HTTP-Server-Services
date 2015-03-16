@@ -53,7 +53,7 @@ public class ServerTest {
 	@Test
 	public void testServerConstructed() throws IOException {
 		
-		Server server = new Server(mockSSocket,port,document, new AssetManager());
+		Server server = new Server(mockSSocket,port, new AssetManager());
 		assertEquals(document, "PUBLIC_DIR");
 		assertEquals(port, 5000);
 		assertEquals(mockSSocket.getClass().getName(), "server.mocks.MockServerSocket");

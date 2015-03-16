@@ -20,7 +20,7 @@ import server.response.ResponseCodes;
 
 public class ImageAsset implements Asset {
 	
-	private static final String CRLF = server.constants.Constants.CRLF;
+	private static final String CRLF = server.constants.Constant.CRLF;
 
 	public ImageAsset(){}
 

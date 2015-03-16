@@ -23,8 +23,9 @@ public class TestStatic extends GetFileStaticAsset implements Asset{
 	
 		
 		Routes route = new Routes(request.getURI());
-		String body = this.retrieveFileContent(route.getRoute());	
-		
+		System.out.println(route.getRoute());
+		String body = retrieveFileContent(route.getRoute());	
+		System.out.println("body" + body);
 		HashMap<String,String> headers = this.determineHeaders("text/html");
 		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}

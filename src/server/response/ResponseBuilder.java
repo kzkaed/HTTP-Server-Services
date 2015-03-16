@@ -12,10 +12,10 @@ import server.response.assets.Asset;
 public class ResponseBuilder {
 
 	
-	private final String CRLF = server.constants.Constants.CRLF;
+	private final String CRLF = server.constants.Constant.CRLF;
 	
-	private final String STATUS_404 = server.constants.Constants.STATUS_404;
-	private final String STATUS_502 = server.constants.Constants.STATUS_502;
+	private final String STATUS_404 = server.constants.Constant.STATUS_404;
+	private final String STATUS_502 = server.constants.Constant.STATUS_502;
 	
 	private final List<String> METHODS_IMPLEMENTED = Arrays.asList("GET","POST","PUT","HEAD","OPTIONS"); 
 	

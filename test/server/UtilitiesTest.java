@@ -12,7 +12,7 @@ import java.util.Hashtable;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.constants.Constants;
+import server.constants.Context;
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.assets.DirectoryAsset;
@@ -22,7 +22,7 @@ public class UtilitiesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Constants.PUBLIC_DIR_IN_USE = "public";
+		Context.PUBLIC_DIR_IN_USE = "public";
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class UtilitiesTest {
 	public void testWebrootAbsolutePath(){
 		Path path = Paths.get("");
 		String thisserversPath = "/Users/kristin-8thlight/repos2/HTTP-Server-Services/public";
-		String webrootConstruction = path.toAbsolutePath() +"/"+ server.constants.Constants.PUBLIC_DIR_IN_USE;
+		String webrootConstruction = path.toAbsolutePath() +"/"+ server.constants.Context.PUBLIC_DIR_IN_USE;
 		assertEquals(Utility.webrootAbsolutePath(),webrootConstruction);
 	}
 }

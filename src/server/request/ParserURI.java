@@ -64,11 +64,11 @@ public class ParserURI implements ParametersParser {
 	public Hashtable<String, String> getParameterPairs() {
 		String delimiter;
 		
-		delimiter = server.constants.Constants.DELIMITER_AMPERSAND;
+		delimiter = server.constants.Constant.DELIMITER_AMPERSAND;
 		String[] queryTokens = Utility.retreiveTokens(query, delimiter);
 		for(int i = 0; i<queryTokens.length; i++){
 			
-			delimiter = server.constants.Constants.DELIMITER_EQUAL;
+			delimiter = server.constants.Constant.DELIMITER_EQUAL;
 			String[] nameValueTokens = Utility.retreiveTokens(queryTokens[i],delimiter );
 			for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 				String parameterName = nameValueTokens[j];

@@ -7,26 +7,34 @@ import java.util.Map;
 import routes.AssetManager;
 import server.ArgsParser;
 import server.Server;
-import server.constants.Constants;
+import server.constants.Context;
 import server.socket.WireServerSocket;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		AssetManager manager = new AssetManager();
-		manager.register(new Color());
+			
+		int port = getPort(args);
+		String publicDirectory = getPublicDirectory(args);
 		
+		Application.setContext(port, publicDirectory);
+		AssetManager manager = Application.registerApplicationAssets(new AssetManager());
+		
+		ServerSocket serverSocket = new ServerSocket(port);
+		new Server(new WireServerSocket(serverSocket), port, manager).start();
+	}
+
+	public static int getPort(String[] args){
 		ArgsParser parser = new ArgsParser();
 		Map<String, String> context = parser.parse(args);
 		String portString = context.get("Port");
-		String publicDirectory = context.get("Public Directory");
-		int port = Integer.parseInt(portString);
-		Constants.setPort(port);
-		Constants.setPublicDirectory(publicDirectory);
-		
-		ServerSocket serverSocket = new ServerSocket(port);
-		new Server(new WireServerSocket(serverSocket),port,publicDirectory, manager).start();
-
+		return Integer.parseInt(portString);
+	}
+	
+	public static String getPublicDirectory(String[] args){
+		ArgsParser parser = new ArgsParser();
+		Map<String, String> context = parser.parse(args);
+		return context.get("Public Directory");
 	}
 
 }

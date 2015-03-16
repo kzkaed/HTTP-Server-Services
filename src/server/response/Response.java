@@ -7,10 +7,10 @@ import server.request.Request;
 	
 public class Response {
     
-	private final String VERSION_PROTOCOL = server.constants.Constants.VERSION_PROTOCOL;
-	private final String CRLF = server.constants.Constants.CRLF;
-	private final String SPACE = server.constants.Constants.SPACE;
-    private final String COLON = server.constants.Constants.COLON;
+	private final String VERSION_PROTOCOL = server.constants.Constant.VERSION_PROTOCOL;
+	private final String CRLF = server.constants.Constant.CRLF;
+	private final String SPACE = server.constants.Constant.SPACE;
+    private final String COLON = server.constants.Constant.COLON;
     
     private String bodyAsString;
     private byte[] body;
