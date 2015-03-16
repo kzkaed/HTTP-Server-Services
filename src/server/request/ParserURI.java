@@ -5,7 +5,8 @@ package server.request;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
-import server.Utilities;
+
+import server.helpers.Utility;
 
 public class ParserURI implements ParametersParser {
 	private URI uri;
@@ -63,12 +64,12 @@ public class ParserURI implements ParametersParser {
 	public Hashtable<String, String> getParameterPairs() {
 		String delimiter;
 		
-		delimiter = server.Constants.DELIMITER_AMPERSAND;
-		String[] queryTokens = Utilities.retreiveTokens(query, delimiter);
+		delimiter = server.constants.Constants.DELIMITER_AMPERSAND;
+		String[] queryTokens = Utility.retreiveTokens(query, delimiter);
 		for(int i = 0; i<queryTokens.length; i++){
 			
-			delimiter = server.Constants.DELIMITER_EQUAL;
-			String[] nameValueTokens = Utilities.retreiveTokens(queryTokens[i],delimiter );
+			delimiter = server.constants.Constants.DELIMITER_EQUAL;
+			String[] nameValueTokens = Utility.retreiveTokens(queryTokens[i],delimiter );
 			for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 				String parameterName = nameValueTokens[j];
 				String parameterValue = nameValueTokens[j+1];

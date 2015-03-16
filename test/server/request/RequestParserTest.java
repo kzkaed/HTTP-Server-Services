@@ -18,8 +18,9 @@ import org.junit.Test;
 
 
 
+
+import server.constants.Constants;
 import server.request.RequestParser;
-import server.Constants;
 
 
 
@@ -51,7 +52,7 @@ public class RequestParserTest {
 	public void decodeTest() throws UnsupportedEncodingException {
 		String url = "https%3A%2F%2Fmywebsite%2Fdocs%2Fenglish%2Fsite%2Fmybook.do" +
 	               "%3Frequest_type%3D%26type%3Dprivate";
-		String decoded = java.net.URLDecoder.decode(url, server.Constants.UTF_8);
+		String decoded = java.net.URLDecoder.decode(url, server.constants.Constants.UTF_8);
 		assertEquals("https://mywebsite/docs/english/site/mybook.do?request_type=&type=private", decoded);
 	}
 	

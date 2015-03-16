@@ -16,6 +16,7 @@ import routes.MockAsset;
 import server.handler.ClientHandler;
 import server.mocks.MockSocket;
 import server.request.Request;
+import server.response.assets.GetFileStaticAsset;
 import log.Logger;
 import log.mocks.StringLogger;
 
@@ -52,34 +53,20 @@ public class ClientHandlerTest {
 	
 	@Test
 	public void testLogger() throws IOException{
-		String request = "GET /file1 HTTP/1.1";		
+		String request = "GET /text-file.txt HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		logger = new StringLogger();
 		handler = new ClientHandler(mockSocket, logger, assetManager);
-		String loggedRequest = "GET /file1 HTTP/1.1";
+		assetManager.register(new GetFileStaticAsset());
+		String loggedRequest = "GET /text-file.txt HTTP/1.1";
 		String loggedResponse = "HTTP/1.1 200 OK" + CRLF
 				+ "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF
 				+ "Content-Type: text/html" + CRLF + CRLF
 				+"file1 contents";
+		
 		handler.run();
 		assertEquals(loggedRequest, ((StringLogger)logger).logs.get(0));
 		assertEquals(loggedResponse, ((StringLogger)logger).logs.get(1));
-	}
-	
-	@Test
-	public void testResponseReceived() throws IOException{
-		String request = "GET /file1 HTTP/1.1";		
-		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		handler = new ClientHandler(mockSocket, logger, assetManager);
-		
-		String response = "HTTP/1.1 200 OK" + CRLF
-				+ "Server: Kristin Server" + CRLF
-				+ "Accept-Ranges: bytes" + CRLF
-				+ "Content-Type: text/html" + CRLF + CRLF
-				+"file1 contents";
-		handler.run();
-		assertEquals(response, handler.getResponse());
 	}
 	
 	@Test

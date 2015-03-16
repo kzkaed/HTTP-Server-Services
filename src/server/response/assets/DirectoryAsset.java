@@ -2,26 +2,27 @@ package server.response.assets;
 
 
 import java.io.File;
-
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import server.constants.Methods;
 import server.request.Request;
 import server.response.Response;
+import server.response.ResponseCodes;
 import views.HtmlView;
 
-public class DirectoryAsset extends Get{
+public class DirectoryAsset implements Asset{
 	
-	private static final String CRLF = server.Constants.CRLF;
+	private static final String CRLF = server.constants.Constants.CRLF;
 
-	public DirectoryAsset(){
-		super();
-	}
+	public DirectoryAsset(){}
 
 	@Override
 	public boolean canHandle(Request request) {
-		return request.getURI().contentEquals("/");	
+		return request.getURI().contentEquals("/") && request.getMethod().equals(Methods.GET);	
 	}
 
 
@@ -32,14 +33,14 @@ public class DirectoryAsset extends Get{
 		List<String> results = getDirectoryFileNames();
 		String body = render(results);
 
-		return new Response(body,body.getBytes("UTF8"), null, buildResponseHeaders());
+		HashMap<String,String> headers = determineHeaders("text/html");
+		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}
 	
-	public String buildResponseHeaders() {
-		String headers = "Server: Kristin Server" + CRLF
-						+ "Accept-Ranges: bytes" + CRLF 
-						+ "Content-Type: text/html" + CRLF;
-						//+ "Connection: Close" + CRLF;
+	public HashMap<String,String> determineHeaders(String type) {
+		HashMap<String, String> headers = new HashMap<String, String>();
+		headers.put("Server", "Kristin Server");
+		headers.put("Content-Type", type);
 		return headers;
 	}
 	
@@ -50,7 +51,7 @@ public class DirectoryAsset extends Get{
 	
 	
 	public List<String> getDirectoryFileNames(){
-		String directory = server.Utilities.getAbsolutePath("/"+server.Constants.PUBLIC_DIR_IN_USE);
+		String directory = server.helpers.Utility.getAbsolutePath("/"+server.constants.Constants.PUBLIC_DIR_IN_USE);
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
 		for (File file : files) {

@@ -12,6 +12,8 @@ import java.util.Hashtable;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.constants.Constants;
+import server.helpers.Utility;
 import server.request.Request;
 import server.response.assets.DirectoryAsset;
 
@@ -27,16 +29,16 @@ public class UtilitiesTest {
 	public void testGETParse() {
 		String request = "GET /public/index.html HTTP1/1";
 		String delimiters = "[ ]+";
-		String[] tokens = Utilities.retreiveTokens(request,delimiters);
+		String[] tokens = Utility.retreiveTokens(request,delimiters);
 		assertEquals(tokens[1], "/public/index.html");
 	}
 	
 	@Test
 	public void testParseQueryWithManyParameters(){		
 		ArrayList<String> list = new ArrayList<String>();
-		String[] tokens = Utilities.retreiveTokens("name=kristin&id=1", "&");
+		String[] tokens = Utility.retreiveTokens("name=kristin&id=1", "&");
 		for(int i = 0; i < tokens.length; i++){
-			String[] tokens2 = Utilities.retreiveTokens(tokens[i], "=");
+			String[] tokens2 = Utility.retreiveTokens(tokens[i], "=");
 			for(int j = 0; j < tokens2.length; j++){
 				list.add(tokens2[j]);;
 			}
@@ -52,17 +54,17 @@ public class UtilitiesTest {
 	
 	@Test
 	public void testFileExistFalse(){
-		assertFalse(Utilities.fileExist("/jam"));
+		assertFalse(Utility.fileExist("/jam"));
 	}
 	
 	@Test
 	public void testDoesFileExistTrue(){
-		assertTrue(Utilities.fileExist("/file1"));
+		assertTrue(Utility.fileExist("/file1"));
 	}
 	
 	@Test
 	public void testDoesRootFileExistFalse(){
-		assertFalse(Utilities.fileExist("/"));
+		assertFalse(Utility.fileExist("/"));
 	}
 	
 	
@@ -70,24 +72,24 @@ public class UtilitiesTest {
 	public void testfindPathURI() throws URISyntaxException{
 		Path path = Paths.get("");
 		URI uri = path.toUri();
-		assertEquals(Utilities.findServerPathURI(),uri);
+		assertEquals(Utility.findServerPathURI(),uri);
 	}
 	
 	@Test
 	public void testFindPathAbsolute(){
 		Path path = Paths.get("");
-		assertEquals(Utilities.findServerAbsolutePath(),path.toAbsolutePath().toString());
+		assertEquals(Utility.findServerAbsolutePath(),path.toAbsolutePath().toString());
 	}
 	
 	@Test 
 	public void testGetAbsolutePath(){
-		assertEquals(Utilities.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");	
+		assertEquals(Utility.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");	
 	}
 	@Test
 	public void testWebrootAbsolutePath(){
 		Path path = Paths.get("");
 		String thisserversPath = "/Users/kristin-8thlight/repos2/HTTP-Server-Services/public";
-		String webrootConstruction = path.toAbsolutePath() +"/"+ server.Constants.PUBLIC_DIR_IN_USE;
-		assertEquals(Utilities.webrootAbsolutePath(),webrootConstruction);
+		String webrootConstruction = path.toAbsolutePath() +"/"+ server.constants.Constants.PUBLIC_DIR_IN_USE;
+		assertEquals(Utility.webrootAbsolutePath(),webrootConstruction);
 	}
 }

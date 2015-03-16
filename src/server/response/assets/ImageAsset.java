@@ -8,22 +8,24 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-import server.Utilities;
+import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
+import server.response.ResponseCodes;
 
-public class ImageAsset extends Get {
+public class ImageAsset implements Asset {
 	
-	private static final String CRLF = server.Constants.CRLF;
+	private static final String CRLF = server.constants.Constants.CRLF;
 
 	public ImageAsset(){}
 
 	@Override
 	public boolean canHandle(Request request) {
-		System.out.println("is image");
 		return isImage(request.getURI());
 	}
 
@@ -31,35 +33,42 @@ public class ImageAsset extends Get {
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		
-		Utilities.webrootAbsolutePath();
-		Path path = Paths.get(Utilities.webrootAbsolutePath()  + request.getURI());
+		Utility.webrootAbsolutePath();
+		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
 		byte[] imageInBytes = null;
 		String imageStr = null;
 		try {
 			imageInBytes = Files.readAllBytes(path);
-			imageStr = Base64.encode(imageInBytes);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Response(imageStr,imageInBytes,null,buildResponseHeaders());
+		
+		HashMap<String,String> headers = determineHeaders(getContentType(request.getURI()));
+		
+		if (imageInBytes != null){
+			return new Response(imageStr,imageInBytes,headers, 200, ResponseCodes.getReason("200"));
+		}else{
+			return new Response(imageStr,imageInBytes,headers, 404, ResponseCodes.getReason("404"));
+		}
 	}
 	
-	public String buildResponseHeaders() {
-		String headers = "Server: Kristin Server" + CRLF
-						+ "Accept-Ranges: bytes" + CRLF 
-						+ "Content-Type: image/jpeg" + CRLF;
-						//+ "Connection: Close" + CRLF;
-	
+	public HashMap<String,String> determineHeaders(String type) {
+		HashMap<String, String> headers = new HashMap<String, String>();
+		headers.put("Server", "Kristin Server");
+		headers.put("Content-Type", type);
 		return headers;
 	}
 	
-	public boolean isImage(String uri){
+	public String getContentType(String uri){
 		FileNameMap fileNameMap = URLConnection.getFileNameMap();
-		String type = fileNameMap.getContentTypeFor(uri);
-		if (type ==  null){
+		return fileNameMap.getContentTypeFor(uri);
+	}
+	
+	public boolean isImage(String uri){	
+		if (getContentType(uri) ==  null){
 			return false;
 		}
-		return (type.contains("image"));	
+		return (getContentType(uri).contains("image"));	
 	}
 
 }

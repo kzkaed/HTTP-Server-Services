@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.nio.charset.*;
 
-import server.Constants;
-import server.Utilities;
+import server.constants.Constants;
+import server.helpers.Utility;
 
 public class RequestParser {
 
@@ -55,7 +55,7 @@ public class RequestParser {
 	
 	private HashMap<String,Object> parseRequestLine(String requestLine)  {
 	
-		String[] requestTokens = Utilities.retreiveTokens(requestLine,server.Constants.DELIMITER_SPACE );
+		String[] requestTokens = Utility.retreiveTokens(requestLine,server.constants.Constants.DELIMITER_SPACE );
 		String requestUri = requestTokens[1];
 		
 		try {
@@ -97,15 +97,15 @@ public class RequestParser {
 		while(in.ready()){
 			content.append((char) in.read());
 		}
-		return Utilities.retreiveTokens(content.toString(), server.Constants.HEADERS_END);
+		return Utility.retreiveTokens(content.toString(), server.constants.Constants.HEADERS_END);
 	}
 	
 	Hashtable<String,String> parseHeaders(String headers){
-		String[] headerTokens = Utilities.retreiveTokens(headers, Constants.CRLF); 
+		String[] headerTokens = Utility.retreiveTokens(headers, Constants.CRLF); 
 		Hashtable<String,String> headerPairs = new Hashtable<String,String>();
 		for(int i = 0;i< headerTokens.length; i++){
 			String headerLine = headerTokens[i];
-			String[] pairs = Utilities.retreiveTokens(headerLine, Constants.COLON);
+			String[] pairs = Utility.retreiveTokens(headerLine, Constants.COLON);
 			for(int j = 0; j < pairs.length; j= j+ 2){
 				headerPairs.put(pairs[j], pairs[j + 1]);
 			}	

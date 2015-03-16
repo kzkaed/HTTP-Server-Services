@@ -2,9 +2,12 @@ package com.scutigera.color;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 import server.request.Request;
+import server.response.ContentType;
 import server.response.Response;
+import server.response.ResponseCodes;
 import server.response.assets.Asset;
 
 public class Color implements Asset {
@@ -23,12 +26,13 @@ public class Color implements Asset {
 			color = uri.replace("/color/", "");
 		}
 		ColorHtml html = new ColorHtml(color);
-		//html.build();
-		//Response (String responseBody, byte[] body, HashMap<String,String> headers){
-		Response response = new Response(html.build(),html.build().getBytes(), null, null);
-				
-		return response;
+		return new Response(html.build(),html.build().getBytes(), determineHeaders(ContentType.TEXT_HTML), 200, ResponseCodes.getReason("200"));
 	}
 
-	
+	public HashMap<String,String> determineHeaders(String type) {
+		HashMap<String, String> headers = new HashMap<String, String>();
+		headers.put("Server", "Kristin Server");
+		headers.put("Content-Type", type);
+		return headers;
+	}
 }

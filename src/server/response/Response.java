@@ -7,26 +7,27 @@ import server.request.Request;
 	
 public class Response {
     
-	private final String VERSION_PROTOCOL = server.Constants.VERSION_PROTOCOL;
-	private final String CRLF = server.Constants.CRLF;
-	private final String SPACE = server.Constants.SPACE;
-    private final String COLON = server.Constants.COLON;
+	private final String VERSION_PROTOCOL = server.constants.Constants.VERSION_PROTOCOL;
+	private final String CRLF = server.constants.Constants.CRLF;
+	private final String SPACE = server.constants.Constants.SPACE;
+    private final String COLON = server.constants.Constants.COLON;
     
     private String bodyAsString;
     private byte[] body;
     private int statusCode;
     private String statusMessage;
     private HashMap<String, String> headers;
-    private String headersStr;
     
-    public Response (String bodyAsString, byte[] body, HashMap<String,String> headers, String headersStr){
+    public Response (String bodyAsString, byte[] body, HashMap<String,String> headers, int statusCode, String statusMessage){
+    
     	this.bodyAsString = bodyAsString;
     	this.body = body;
     	this.headers = headers;
-    	this.headersStr = headersStr;
+    	this.statusCode = statusCode;
+    	this.statusMessage = statusMessage;
     }
-    
-    public String buildResponse() {
+ 
+    public String getStatusLine(){
     	StringBuilder sb = new StringBuilder();
     	sb.append(VERSION_PROTOCOL);
     	sb.append(SPACE);
@@ -34,6 +35,10 @@ public class Response {
     	sb.append(SPACE);
     	sb.append(statusMessage);
     	sb.append(CRLF);
+    	return sb.toString();
+    }
+    public String getHeaders() {
+    	StringBuilder sb = new StringBuilder();
     	for(Map.Entry<String, String> header : headers.entrySet()){
     		sb.append(header.getKey());
     		sb.append(COLON);
@@ -45,21 +50,28 @@ public class Response {
 
 	}
     
-    public String getHeaders(){
-    	return headersStr;
+    public String getResponseAsString(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getStatusLine());
+    	sb.append(getHeaders());
+    	sb.append(getBody());
+    	return sb.toString();
     }
+  
     
     public String getBody(){
     	return bodyAsString;
     }
     
-   public void setBodyBytes(byte[] body){
-	   this.body = body;
-   }
     
     public byte[] getBodyBytes(){
     	return body;
     }
+    
+   public void setBodyBytes(byte[] body){
+	   this.body = body;
+   }
+
     
     public void setResponseStatusCode(int code){
     	this.statusCode = code;

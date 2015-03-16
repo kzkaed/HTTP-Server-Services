@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import routes.AssetManager;
 import server.request.Request;
 import server.request.RequestParser;
+import server.response.Response;
 import server.response.ResponseBuilder;
 import server.response.ResponseSender;
 import server.socket.SocketService;
@@ -20,7 +21,7 @@ public class ClientHandler {
 	private DataOutputStream out;
 	private Logger logger;
 	private Request request;
-	private String response;
+	private Response response;
 	private AssetManager manager;
 	
 
@@ -41,7 +42,7 @@ public class ClientHandler {
 			new ResponseSender(response, out).send();	
 			
 			logger.log(request.getRequestLine());
-			logger.log(response);
+			logger.log(response.getResponseAsString());
 		
 			socket.close();
 		} catch (IOException ioe) {			
@@ -50,7 +51,7 @@ public class ClientHandler {
 		
 	}
 
-	public String getResponse(){
+	public Response getResponse(){
 		return this.response;
 	}
 	

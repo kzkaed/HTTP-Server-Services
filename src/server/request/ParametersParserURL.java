@@ -2,14 +2,11 @@ package server.request;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-
 import java.net.URL;
-
 import java.util.Hashtable;
 
-
-import server.Constants;
-import server.Utilities;
+import server.constants.Constants;
+import server.helpers.Utility;
 
 public class ParametersParserURL implements ParametersParser {
 	private URL url;
@@ -69,13 +66,13 @@ public class ParametersParserURL implements ParametersParser {
 	public Hashtable<String, String> getParameterPairs() {
 		if(query != null){
 			String delimiter;
-			Utilities util = new Utilities();
+			Utility util = new Utility();
 			
-			delimiter = server.Constants.DELIMITER_AMPERSAND;
+			delimiter = server.constants.Constants.DELIMITER_AMPERSAND;
 			String[] queryTokens = util.retreiveTokens(query, delimiter);
 			for(int i = 0; i<queryTokens.length; i++){
 				
-				delimiter = server.Constants.DELIMITER_EQUAL;
+				delimiter = server.constants.Constants.DELIMITER_EQUAL;
 				String[] nameValueTokens = util.retreiveTokens(queryTokens[i],delimiter );
 				for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 					String parameterName = "";

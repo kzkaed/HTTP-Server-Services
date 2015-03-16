@@ -13,61 +13,64 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 import routes.Routes;
-import server.Utilities;
+import server.constants.Methods;
+import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
+import server.response.ResponseCodes;
 
-public class FileStaticAsset implements Asset {
+public class GetFileStaticAsset implements Asset {
 
-	private static final String CRLF = server.Constants.CRLF;
+	private static final String CRLF = server.constants.Constants.CRLF;
 
-
-	public FileStaticAsset(){}
+	public GetFileStaticAsset(){};
 	
 	@Override
 	public boolean canHandle(Request request) {
-		String uri = request.getURI();
-		return Utilities.fileExist(uri) && !isImage(uri);	
+		return Utility.fileExist(request.getURI()) && !isImage(request.getURI()) && request.getMethod().equals(Methods.GET); 
 	}
 	
 	@Override
 	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException {
-		
-		String body = "";
-		String absolutePath = Utilities.findServerAbsolutePath();
-		String defaultDirectory = "/" + server.Constants.PUBLIC_DIR_IN_USE;
 
 		Routes route = new Routes(request.getURI());
-		String routedPath = route.getRoute();
+		String body = retrieveFileContent(route.getRoute());	
 		
+		HashMap<String,String> headers = determineHeaders("text/html");
+		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
+	}
+
+	public String retrieveFileContent(String routedPath){
+		String body = "";
+		String absolutePath = Utility.findServerAbsolutePath();
+		String defaultDirectory = "/" + server.constants.Constants.PUBLIC_DIR_IN_USE;
+
 		StringBuilder path = new StringBuilder();
 		path.append(absolutePath);
 		path.append(defaultDirectory);
 		path.append(routedPath);
 		
-		if (Utilities.fileExist(routedPath)){
+		if (Utility.fileExist(routedPath)){
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;
 				while ((str = in.readLine()) != null) {
-					body += str;//read as byte[]	
+					body += str;	
 				}
 				in.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}	
-		byte[] utf8Bytes = body.getBytes("UTF8");
-		return new Response(body,utf8Bytes, null, buildResponseHeaders());
+		}
+		
+		
+		return body;
 	}
 
-
-	public String buildResponseHeaders() {
-		String headers = "Server: Kristin Server" + CRLF
-						+ "Accept-Ranges: bytes" + CRLF 
-						+ "Content-Type: text/html" + CRLF;
-						//+ "Connection: Close" + CRLF;
-	
+	public HashMap<String,String> determineHeaders(String type) {
+		HashMap<String, String> headers = new HashMap<String, String>();
+		headers.put("Server", "Kristin Server");
+		headers.put("Content-Type", type);
 		return headers;
 	}
 	

@@ -5,13 +5,14 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ResponseSenderTest {
-	private String response;
+	private Response response;
 	private OutputStream out;
 	
 	@Before
@@ -25,11 +26,12 @@ public class ResponseSenderTest {
 
 	@Test
 	public void test() throws IOException {
-		ResponseSender sender = new ResponseSender("test", out);
-		String response = "test";
+		Response response = new Response("test", "test".getBytes(), new HashMap<String,String>(), 200, ResponseCodes.getReason("200"));
+		ResponseSender sender = new ResponseSender(response, out);
+		
 		sender.send();
 		
-		assertEquals(response,out.toString() );	
+		assertEquals(response.getResponseAsString(),out.toString());	
 		
 		
 	}

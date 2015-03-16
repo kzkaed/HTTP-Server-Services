@@ -14,18 +14,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.Constants;
+import server.constants.Constants;
 import server.request.Request;
 import server.response.Response;
-import server.response.assets.FileStaticAsset;
+import server.response.assets.GetFileStaticAsset;
 
 public class FileStaticAssetTest {
 
-	private FileStaticAsset asset;
+	private GetFileStaticAsset asset;
 	
 	@Before
 	public void setUp()  {
-		asset = new FileStaticAsset();	
+		asset = new GetFileStaticAsset();	
 		Constants.PUBLIC_DIR_IN_USE = "public";
 	}
 	
@@ -69,7 +69,7 @@ public class FileStaticAssetTest {
 		Request request = new Request("GET","/jam","HTTP1/1", null, "GET /jam HTTP1/1",null,new Hashtable<String,String>());
 		Response response = asset.execute(request);
 		String contentReceived = response.getBody();
-		assertFalse(server.Utilities.fileExist("/jam"));
+		assertFalse(server.helpers.Utility.fileExist("/jam"));
 
 		assertEquals(content, contentReceived);
 	}

@@ -2,12 +2,12 @@ package server;
 
 import static org.junit.Assert.*;
 
-
 import java.net.InetAddress;
-
 import java.net.UnknownHostException;
 
 import org.junit.Test;
+
+import server.constants.Constants;
 
 public class ConstantsTest {
 

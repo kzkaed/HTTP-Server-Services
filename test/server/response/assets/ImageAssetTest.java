@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-import server.Utilities;
+import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
 
@@ -76,12 +76,12 @@ public class ImageAssetTest {
 	@Test
 	public void imageToBytes() throws IOException{
 		
-		server.Constants.PUBLIC_DIR_IN_USE = "public";
+		server.constants.Constants.PUBLIC_DIR_IN_USE = "public";
 		Request request = new Request();
 		request.setURI("/image.jpeg");
 		
-		Utilities.webrootAbsolutePath();
-		Path path = Paths.get(Utilities.webrootAbsolutePath()  + request.getURI());
+		Utility.webrootAbsolutePath();
+		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
 		
 		byte[] imageInBytes = null;
 		String imageString = null;
@@ -92,7 +92,7 @@ public class ImageAssetTest {
 		
 		Response response = imgAsset.execute(request);
 		assertNotNull(response.getBodyBytes());
-		assertNotNull(response.getBody());
+		assertNull(response.getBody());
 		
 	}
 	

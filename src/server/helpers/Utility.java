@@ -1,4 +1,4 @@
-package server;
+package server.helpers;
 
 import java.net.FileNameMap;
 import java.net.URI;
@@ -9,10 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import routes.Routes;
+import server.constants.Constants;
 
-public class Utilities {
+public class Utility {
 	
-	public Utilities(){}
+	public Utility(){}
 	
 	public static String[] retreiveTokens(String request, String delimiters) {
 		String[] tokens = request.split(delimiters);
@@ -43,13 +44,13 @@ public class Utilities {
 		StringBuilder sb = new StringBuilder();
 		sb.append(findServerAbsolutePath());
 		sb.append("/");
-		sb.append(server.Constants.PUBLIC_DIR_IN_USE);
+		sb.append(server.constants.Constants.PUBLIC_DIR_IN_USE);
 		return sb.toString();
 	}
 	
 	public static boolean fileExist(String uri) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(Utilities.webrootAbsolutePath());
+		sb.append(Utility.webrootAbsolutePath());
 		sb.append(uri);
 		
 		Path pathCheck = Paths.get(sb.toString());

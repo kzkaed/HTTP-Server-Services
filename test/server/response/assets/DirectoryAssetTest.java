@@ -13,8 +13,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.Constants;
-import server.Utilities;
+import server.constants.Constants;
+import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
 
@@ -41,7 +41,7 @@ public class DirectoryAssetTest {
 	
 	@Test
 	public void testFilesListed() throws MalformedURLException, UnsupportedEncodingException{
-		String directory = server.Utilities.getAbsolutePath("/public");
+		String directory = server.helpers.Utility.getAbsolutePath("/public");
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
 		for (File file : files) {

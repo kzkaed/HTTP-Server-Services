@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.Constants;
+import server.constants.Constants;
 
 public class ResponseTest {
 	
@@ -22,13 +22,13 @@ public class ResponseTest {
 		
 		HashMap<String,String> headers = new HashMap<String,String>();
 		headers.put("Server", "Kristin Server");
-		String headersStr = "test";
-		response = new Response("body","body".getBytes(),headers,headersStr);
+		
+		response = new Response("body","body".getBytes(),headers,200,ResponseCodes.getReason("200"));
 	}
 
 	@Test
 	public void getHeadersTest(){
-		assertEquals(response.getHeaders(),"test");
+		assertEquals("Server: Kristin Server" + HEADERS_END, response.getHeaders());
 	}
 	
 	@Test
@@ -42,15 +42,25 @@ public class ResponseTest {
 	}
 	
 	@Test
-	public void testBuildResponseHeader(){
+	public void testBuildResponseStatusLine(){
 		response.setResponseStatusCode(200);
 		response.setResponseStatusMessage("OK");
 		
-		assertEquals(response.buildResponse(),
-				"HTTP/1.1 200 OK" + CRLF
-				+ "Server: Kristin Server" + HEADERS_END);
+		assertEquals(response.getStatusLine(),"HTTP/1.1 200 OK" + CRLF);
 
 	}
+	
+	@Test
+	public void testBuildResponseHeaders(){
+		response.setResponseStatusCode(200);
+		response.setResponseStatusMessage("OK");
+		
+		assertEquals(response.getHeaders(),"Server: Kristin Server" + HEADERS_END);
+
+	}
+	
+	
+
 	
 
 }

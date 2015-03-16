@@ -10,8 +10,13 @@ import server.handler.ClientHandler;
 import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
 import server.response.assets.FileNotFound;
-import server.response.assets.FileStaticAsset;
+import server.response.assets.GetFileStaticAsset;
+import server.response.assets.Get;
 import server.response.assets.ImageAsset;
+import server.response.assets.Options;
+import server.response.assets.Post;
+import server.response.assets.Put;
+import server.response.assets.TestStatic;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
 
@@ -35,12 +40,16 @@ public class Server {
 	
 	public void start()  {
 		
-		manager.register(new FileStaticAsset());
+		manager.register(new GetFileStaticAsset());
 		manager.register(new DynamicAsset());
 		manager.register(new DirectoryAsset());
 		manager.register(new Parameter());
-		manager.register(new FileNotFound());
 		manager.register(new ImageAsset());
+		manager.register(new TestStatic());
+		manager.register(new Options());
+		manager.register(new Post());
+		manager.register(new Put());
+		
 		
 		try{
 			logServerInfomation();

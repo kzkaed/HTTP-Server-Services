@@ -7,7 +7,7 @@ import java.util.List;
 import server.request.Request;
 import server.response.assets.Asset;
 import server.response.assets.FileNotFound;
-import server.response.assets.FileStaticAsset;
+import server.response.assets.GetFileStaticAsset;
 
 public class AssetManager {
 	
@@ -33,7 +33,7 @@ public class AssetManager {
 				return asset;	
 			}	
 		}
-		return new FileStaticAsset();		
+		return new FileNotFound();		
 	}
 
 }
