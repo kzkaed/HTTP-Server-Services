@@ -1,4 +1,4 @@
-package server;
+package server.constant;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import server.constants.Method;
 
-public class MethodsTest {
+public class MethodTest {
 
 	@Before
 	public void setUp() throws Exception {

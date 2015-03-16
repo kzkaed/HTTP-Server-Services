@@ -1,4 +1,4 @@
-package server;
+package server.helpers;
 
 import static org.junit.Assert.*;
 
@@ -12,11 +12,12 @@ import java.util.Hashtable;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.Context;
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.assets.DirectoryAsset;
 
-public class UtilitiesTest {
+public class UtilityTest {
 
 
 	@Before
