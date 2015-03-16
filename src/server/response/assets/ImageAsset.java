@@ -9,10 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
@@ -20,8 +16,6 @@ import server.response.ResponseCodes;
 
 public class ImageAsset implements Asset {
 	
-	private static final String CRLF = server.constants.Constant.CRLF;
-
 	public ImageAsset(){}
 
 	@Override

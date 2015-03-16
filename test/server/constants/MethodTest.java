@@ -1,4 +1,4 @@
-package server.constant;
+package server.constants;
 
 import static org.junit.Assert.*;
 
