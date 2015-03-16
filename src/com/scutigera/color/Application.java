@@ -1,6 +1,6 @@
 package com.scutigera.color;
 import routes.AssetManager;
-import server.constants.Context;
+import server.Context;
 
 
 public class Application {

@@ -43,7 +43,7 @@ public class GetFileStaticAsset implements Asset {
 	public String retrieveFileContent(String routedPath){
 		String body = "";
 		String absolutePath = Utility.findServerAbsolutePath();
-		String defaultDirectory = "/" + server.constants.Context.PUBLIC_DIR_IN_USE;
+		String defaultDirectory = "/" + server.Context.PUBLIC_DIR_IN_USE;
 
 		StringBuilder path = new StringBuilder();
 		path.append(absolutePath);

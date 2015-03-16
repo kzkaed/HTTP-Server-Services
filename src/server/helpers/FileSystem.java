@@ -10,7 +10,7 @@ public class FileSystem {
 	String fileContent(String routedPath){
 	String body = "";
 	String absolutePath = Utility.findServerAbsolutePath();
-	String defaultDirectory = "/" + server.constants.Constants.PUBLIC_DIR_IN_USE;
+	String defaultDirectory = "/" + server.Context.PUBLIC_DIR_IN_USE;
 
 	StringBuilder path = new StringBuilder();
 	path.append(absolutePath);

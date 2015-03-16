@@ -7,8 +7,6 @@ import java.net.UnknownHostException;
 
 import org.junit.Test;
 
-import server.constants.Context;
-
 public class ContextTest {
 
 	@Test

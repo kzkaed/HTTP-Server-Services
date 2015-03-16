@@ -23,7 +23,7 @@ public class TestStaticTest {
 		request = new Request();
 		request.setMethod("GET");
 		request.setURI("/test/static");
-		server.constants.Context.setPublicDirectory("public");
+		server.Context.setPublicDirectory("public");
 		
 	}
 

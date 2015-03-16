@@ -5,8 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
 
+import server.Context;
 import server.constants.Constant;
-import server.constants.Context;
 import server.helpers.Utility;
 
 public class ParametersParserURL implements ParametersParser {

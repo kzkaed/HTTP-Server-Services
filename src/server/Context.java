@@ -1,4 +1,4 @@
-package server.constants;
+package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

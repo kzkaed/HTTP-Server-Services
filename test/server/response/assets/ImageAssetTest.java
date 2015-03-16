@@ -76,7 +76,7 @@ public class ImageAssetTest {
 	@Test
 	public void imageToBytes() throws IOException{
 		
-		server.constants.Context.PUBLIC_DIR_IN_USE = "public";
+		server.Context.PUBLIC_DIR_IN_USE = "public";
 		Request request = new Request();
 		request.setURI("/image.jpeg");
 		

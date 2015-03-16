@@ -18,8 +18,8 @@ public class ApplicationTest {
 	@Test
 	public void testSetContext(){
 		Application.setContext(1234, "scallywag");
-		assertEquals(server.constants.Context.PORT_IN_USE, 1234);
-		assertEquals(server.constants.Context.PUBLIC_DIR_IN_USE, "scallywag");
+		assertEquals(server.Context.PORT_IN_USE, 1234);
+		assertEquals(server.Context.PUBLIC_DIR_IN_USE, "scallywag");
 	}
 
 	@Test

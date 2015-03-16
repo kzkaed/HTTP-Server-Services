@@ -6,8 +6,8 @@ import java.util.Map;
 
 import routes.AssetManager;
 import server.ArgsParser;
+import server.Context;
 import server.Server;
-import server.constants.Context;
 import server.socket.WireServerSocket;
 
 public class Main {
