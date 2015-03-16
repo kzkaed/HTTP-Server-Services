@@ -12,25 +12,37 @@ import org.junit.Test;
 import server.request.Request;
 import server.response.Response;
 import server.response.assets.DynamicAsset;
+import views.HtmlView;
 
 public class DynamicAssetTest {
-
+	private Request request;
+	private Asset dynamicAsset;
+	
+	@Before
+	public void setUp() throws Exception {
+		dynamicAsset = new DynamicAsset();
+		request = new Request();
+		request.setMethod("GET");
+		request.setURI("showParams");
+		request.setParameter("param1", "bachelard's poetics of space");
+	}
 
 	@Test
-	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
-		String uri = "/test/dynamic";
-		DynamicAsset asset = new DynamicAsset();
-		Request request = new Request(uri);
-		Response response = asset.execute(request);
-		String html = response.getBody();
-		
-		String expect = "<!doctype html><html><head></head><body>test dynamic</body></html>";
-		
-		assertEquals(expect,html);
+	public void testCanHandleRoute() {
+		assertTrue(dynamicAsset.canHandle(request));
 	}
 	
+	@Test
+	public void testExecutesRoute() throws MalformedURLException, UnsupportedEncodingException {
+		Response response = dynamicAsset.execute(request);
+		assertEquals("<!doctype html><html><head></head><body>param1:bachelard's poetics of space<br></body></html>", response.getBody());
+	}
 	
-	
-
+	@Test
+	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
+		HtmlView view = ((DynamicAsset) dynamicAsset).render(request);
+		
+		assertEquals("<!doctype html><html><head></head><body>param1:bachelard's poetics of space<br></body></html>", view.build());
+	}
 
 }

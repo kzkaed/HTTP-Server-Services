@@ -22,7 +22,7 @@ public class FileSystem {
 			BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 			String str;
 			while ((str = in.readLine()) != null) {
-				body += str;//read as byte[]	
+				body += str;	
 			}
 			in.close();
 		} catch (IOException e) {

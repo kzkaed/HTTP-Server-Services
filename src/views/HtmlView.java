@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class HtmlView implements ViewFactory{
+public class HtmlView {
 	private StringBuilder builder;
 	private Hashtable<String,String> params = null;
 	private String content = null;
@@ -96,10 +96,5 @@ public class HtmlView implements ViewFactory{
 		return builder.toString();
 	}
 
-	@Override
-	public View create(Content content) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

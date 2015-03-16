@@ -12,8 +12,8 @@ public class Routes {
 		String route;
 		if(uri.contentEquals("/test/static")){
 			route = "/test/index.html";
-		}else if (uri.contentEquals("/") ){
-			route = "/directory.html";	
+		}else if (uri.contentEquals("/other") ){
+			route = "/test.html";	
 		}else{
 			route = uri;
 		}	
