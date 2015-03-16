@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
@@ -30,7 +33,6 @@ public class ImageAsset implements Asset {
 		Utility.webrootAbsolutePath();
 		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
 		byte[] imageInBytes = null;
-		String imageStr = null;
 		try {
 			imageInBytes = Files.readAllBytes(path);
 		} catch (IOException e) {
@@ -40,9 +42,9 @@ public class ImageAsset implements Asset {
 		HashMap<String,String> headers = determineHeaders(getContentType(request.getURI()));
 		
 		if (imageInBytes != null){
-			return new Response(imageStr,imageInBytes,headers, 200, ResponseCodes.getReason("200"));
+			return new Response("image: " + request.getURI(),imageInBytes,headers, 200, ResponseCodes.getReason("200"));
 		}else{
-			return new Response(imageStr,imageInBytes,headers, 404, ResponseCodes.getReason("404"));
+			return new Response("",imageInBytes,headers, 404, ResponseCodes.getReason("404"));
 		}
 	}
 	

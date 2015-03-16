@@ -112,27 +112,5 @@ public class ResponseBuilderTest {
 		assertEquals(response, responseReceived.getResponseAsString());	
 	}*/
 	
-	@Test
-	public void testIfMethodIsNOTImplemented() throws IOException{
-		Request request = new Request("XYZ","","",null,null,"", null);
-		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		
-		assertFalse(responseBuilder.isMethodImplemented());		
-	}
-	
-	@Test
-	public void testIfMethodIsImplemented() throws IOException{
-		Request request = new Request("GET","","",null,null,"",null);
-		ResponseBuilder responseBuilder = new ResponseBuilder(request);
-		
-		assertTrue(responseBuilder.isMethodImplemented());	
-	}
 
-
-	
-	
-	
-	
-	
-	
 }

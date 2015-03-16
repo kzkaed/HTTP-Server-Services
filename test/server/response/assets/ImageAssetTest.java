@@ -2,25 +2,15 @@ package server.response.assets;
 
 import static org.junit.Assert.*;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import javax.imageio.ImageIO;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
@@ -83,16 +73,13 @@ public class ImageAssetTest {
 		Utility.webrootAbsolutePath();
 		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
 		
-		byte[] imageInBytes = null;
-		String imageString = null;
-		imageInBytes = Files.readAllBytes(path);
-		imageString = Base64.encode(imageInBytes);
+		byte[] imageInBytes = Files.readAllBytes(path);
+				
 		assertNotNull(imageInBytes);
-		assertNotNull(imageString);
-		
+
 		Response response = imgAsset.execute(request);
-		assertNotNull(response.getBodyBytes());
-		assertNull(response.getBody());
+		assertArrayEquals(imageInBytes, response.getBodyBytes());
+		assertEquals("image: " + request.getURI(), response.getBody());
 		
 	}
 	

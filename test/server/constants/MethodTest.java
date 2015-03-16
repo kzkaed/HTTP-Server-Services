@@ -2,21 +2,21 @@ package server.constants;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import server.constants.Method;
+import server.request.Request;
+import server.response.ResponseBuilder;
 
 public class MethodTest {
-
+	
 	@Before
 	public void setUp() throws Exception {
 		
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test
@@ -41,6 +41,16 @@ public class MethodTest {
 	@Test
 	public void testHEAD() {
 		assertEquals(Method.HEAD,"HEAD");
+	}
+
+	@Test
+	public void testIfMethodIsNOTImplemented() throws IOException{
+		assertFalse(Method.isMethodImplemented("XYZ"));		
+	}
+	
+	@Test
+	public void testIfMethodIsImplemented() throws IOException{
+		assertTrue(Method.isMethodImplemented("GET"));	
 	}
 
 

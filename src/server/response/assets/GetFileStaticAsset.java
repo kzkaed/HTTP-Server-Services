@@ -21,9 +21,7 @@ import server.response.ResponseCodes;
 
 public class GetFileStaticAsset implements Asset {
 
-	private static final String CRLF = server.constants.Constant.CRLF;
-
-	public GetFileStaticAsset(){};
+	public GetFileStaticAsset(){}
 	
 	@Override
 	public boolean canHandle(Request request) {
