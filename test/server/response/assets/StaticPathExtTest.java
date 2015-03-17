@@ -12,7 +12,7 @@ import org.junit.Test;
 import server.request.Request;
 import server.response.Response;
 
-public class TestStaticTest {
+public class StaticPathExtTest {
 
 	private StaticPathExt testStatic;
 	private Request request;

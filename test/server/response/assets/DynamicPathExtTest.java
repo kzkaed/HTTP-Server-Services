@@ -12,7 +12,7 @@ import org.junit.Test;
 import server.request.Request;
 import server.response.Response;
 
-public class TestDynamicTest {
+public class DynamicPathExtTest {
 	private Request request;
 	private Asset dynamic;
 	

@@ -19,7 +19,7 @@ import server.request.Request;
 import server.response.Response;
 import server.response.assets.StaticAsset;
 
-public class FileStaticAssetTest {
+public class StaticAssetTest {
 
 	private StaticAsset asset;
 	
