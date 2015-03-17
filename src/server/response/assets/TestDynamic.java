@@ -2,12 +2,10 @@ package server.response.assets;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.List;
-
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
-import views.HtmlView;
+
 
 public class TestDynamic extends DynamicAsset implements Asset {
 	
