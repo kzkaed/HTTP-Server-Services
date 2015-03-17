@@ -21,8 +21,8 @@ public class DynamicPathExt extends DynamicAsset implements Asset {
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		this.body = render(request);
-		return new Response(this.body,this.body.getBytes() , determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
+		this.body = retrieveBody(request);
+		return new Response(this.body,this.body.getBytes() , retrieveHeaders("text/html"), 200, ResponseCodes.getReason("200"));
 	}
 
 	

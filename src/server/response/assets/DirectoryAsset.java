@@ -31,20 +31,20 @@ public class DirectoryAsset implements Asset{
 			UnsupportedEncodingException {
 		
 		List<String> results = getDirectoryFileNames();
-		String body = render(results);
-
-		HashMap<String,String> headers = determineHeaders("text/html");
+		String body = retrieveBody(results);
+		HashMap<String,String> headers = retrieveHeaders("text/html");
+		
 		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}
 	
-	public HashMap<String,String> determineHeaders(String type) {
+	public HashMap<String,String> retrieveHeaders(String type) {
 		HashMap<String, String> headers = new HashMap<String, String>();
 		headers.put("Server", "Kristin Server");
 		headers.put("Content-Type", type);
 		return headers;
 	}
 	
-	public String render(List<String> results){
+	public String retrieveBody(List<String> results){
 		HtmlView html = new HtmlView(results);
 		return html.build("directory");
 	}

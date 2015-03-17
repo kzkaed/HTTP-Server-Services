@@ -29,18 +29,18 @@ public class DynamicAsset implements Asset{
 	}
 	
 	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException{
-		body = render(request);
-		return new Response(body, body.getBytes(), determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
+		body = retrieveBody(request);
+		return new Response(body, body.getBytes(), retrieveHeaders("text/html"), 200, ResponseCodes.getReason("200"));
 	}
 
-	public HashMap<String,String> determineHeaders(String type) {
+	public HashMap<String,String> retrieveHeaders(String type) {
 		HashMap<String, String> headers = new HashMap<String, String>();
 		headers.put("Server", "Kristin Server");
 		headers.put("Content-Type", type);
 		return headers;
 	}
 
-	public String render(Request request){
+	public String retrieveBody(Request request){
 		HtmlView html = null;
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();

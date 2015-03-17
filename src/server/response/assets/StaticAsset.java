@@ -6,12 +6,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URLConnection;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
-
 import routes.Routes;
 import server.constants.Method;
 import server.helpers.Utility;
@@ -32,12 +28,14 @@ public class StaticAsset implements Asset {
 	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException {
 
 		Routes route = new Routes(request.getURI());
+		
 		String body = retrieveFileContent(route.getRoute());	
 		
 		HashMap<String,String> headers = determineHeaders("text/html");
 		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}
 
+	
 	public String retrieveFileContent(String routedPath){
 		String body = "";
 		String absolutePath = Utility.findServerAbsolutePath();

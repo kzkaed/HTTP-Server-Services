@@ -40,7 +40,7 @@ public class DirectoryAssetTest {
 	}
 	
 	@Test
-	public void testFilesListed() throws MalformedURLException, UnsupportedEncodingException{
+	public void testFilesListedInBodyForExecute() throws MalformedURLException, UnsupportedEncodingException{
 		String directory = server.helpers.Utility.getAbsolutePath("/public");
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
