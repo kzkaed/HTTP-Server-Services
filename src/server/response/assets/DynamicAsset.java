@@ -18,7 +18,7 @@ import views.HtmlView;
 public class DynamicAsset implements Asset{
 		
 	protected Hashtable<String,String> parameters;
-	protected HtmlView html;
+	protected String body;
 	
 	public DynamicAsset() {}
 	
@@ -29,8 +29,8 @@ public class DynamicAsset implements Asset{
 	}
 	
 	public Response execute(Request request) throws MalformedURLException, UnsupportedEncodingException{
-		HtmlView html = render(request);
-		return new Response(html.build(),html.build().getBytes() , determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
+		body = render(request);
+		return new Response(body, body.getBytes(), determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
 	}
 
 	public HashMap<String,String> determineHeaders(String type) {
@@ -40,16 +40,17 @@ public class DynamicAsset implements Asset{
 		return headers;
 	}
 
-	public HtmlView render(Request request){
+	public String render(Request request){
+		HtmlView html = null;
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();
 			html = new HtmlView(parameters);
-		}else if(request.getURI().contentEquals("/test/dynamic")){
-			html = new HtmlView("test dynamic");
+			
 		}else{
 			html = new HtmlView(request.getURI());
-		}	
-		return html;
+		}
+		return html.build();
+		
 	}
 
 

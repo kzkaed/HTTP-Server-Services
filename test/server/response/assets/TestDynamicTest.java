@@ -20,23 +20,33 @@ public class TestDynamicTest {
 	public void setUp() throws Exception {
 		dynamic = new TestDynamic();
 		request = new Request();
-		request.setMethod("GET");
-		request.setURI("/test/dynamic");
+		
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void testItCanNOThandle(){
+		request.setMethod("GET");
+		request.setURI("/other");
+		assertFalse(dynamic.canHandle(request));
+	}
 
 	@Test
 	public void testCanHandleRoute() {
+		request.setMethod("GET");
+		request.setURI("/test/dynamic");
 		assertTrue(dynamic.canHandle(request));
 	}
 	
 	@Test
 	public void testExecutesRoute() throws MalformedURLException, UnsupportedEncodingException {
+		request.setMethod("GET");
+		request.setURI("/test/dynamic");
 		Response response = dynamic.execute(request);
-		assertEquals("<!doctype html><html><head></head><body>test dynamic</body></html>", response.getBody());
+		assertEquals("<!doctype html><html><head></head><body>/test/dynamic</body></html>", response.getBody());
 	}
 
 }

@@ -23,8 +23,8 @@ public class TestDynamic extends DynamicAsset implements Asset {
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		HtmlView html = render(request);	
-		return new Response(html.build(),html.build().getBytes() , determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
+		this.body = render(request);
+		return new Response(this.body,this.body.getBytes() , determineHeaders("text/html"), 200, ResponseCodes.getReason("200"));
 	}
 
 	

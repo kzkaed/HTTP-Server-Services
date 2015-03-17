@@ -29,6 +29,12 @@ public class HtmlViewTest {
 	}
 	
 	@Test
+	public void testBuildsBasicHtmlStructureWithContent() {
+		html = new HtmlView(new String("some content"));
+		assertEquals(html.build(), "<!doctype html><html><head></head><body>some content</body></html>");
+	}
+	
+	@Test
 	public void testBuildsTemlplateBasedOnDirectoryType(){
 		List<String> results = new ArrayList<String>();
 		results.add("an item");

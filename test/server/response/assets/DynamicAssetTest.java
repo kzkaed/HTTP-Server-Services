@@ -40,9 +40,9 @@ public class DynamicAssetTest {
 	
 	@Test
 	public void testGeneratesHtml() throws MalformedURLException, UnsupportedEncodingException {
-		HtmlView view = ((DynamicAsset) dynamicAsset).render(request);
+		String body = ((DynamicAsset) dynamicAsset).render(request);
 		
-		assertEquals("<!doctype html><html><head></head><body>param1:bachelard's poetics of space<br></body></html>", view.build());
+		assertEquals("<!doctype html><html><head></head><body>param1:bachelard's poetics of space<br></body></html>", body);
 	}
 
 }
