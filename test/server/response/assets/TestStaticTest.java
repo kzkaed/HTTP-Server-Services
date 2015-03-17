@@ -14,12 +14,12 @@ import server.response.Response;
 
 public class TestStaticTest {
 
-	private TestStatic testStatic;
+	private StaticPathExt testStatic;
 	private Request request;
 
 	@Before
 	public void setUp() throws Exception {
-		testStatic = new TestStatic();
+		testStatic = new StaticPathExt();
 		request = new Request();
 		request.setMethod("GET");
 		request.setURI("/test/static");

@@ -10,14 +10,14 @@ import server.handler.ClientHandler;
 import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
 import server.response.assets.FileNotFound;
-import server.response.assets.GetFileStaticAsset;
+import server.response.assets.StaticAsset;
 import server.response.assets.Get;
 import server.response.assets.ImageAsset;
 import server.response.assets.Options;
 import server.response.assets.Post;
 import server.response.assets.Put;
-import server.response.assets.TestDynamic;
-import server.response.assets.TestStatic;
+import server.response.assets.DynamicPathExt;
+import server.response.assets.StaticPathExt;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
 
@@ -61,16 +61,16 @@ public class Server {
 	}
 
 	public void registerServerAssets(){
-		manager.register(new GetFileStaticAsset());
+		manager.register(new StaticAsset());
 		manager.register(new DynamicAsset());
 		manager.register(new DirectoryAsset());
 		manager.register(new Parameter());
 		manager.register(new ImageAsset());
-		manager.register(new TestStatic());
+		manager.register(new StaticPathExt());
 		manager.register(new Options());
 		manager.register(new Post());
 		manager.register(new Put());
-		manager.register(new TestDynamic());
+		manager.register(new DynamicPathExt());
 	}
 	
 	public void logListening(){

@@ -7,9 +7,9 @@ import server.response.Response;
 import server.response.ResponseCodes;
 
 
-public class TestDynamic extends DynamicAsset implements Asset {
+public class DynamicPathExt extends DynamicAsset implements Asset {
 	
-	public TestDynamic(){
+	public DynamicPathExt(){
 		super();
 	}
 

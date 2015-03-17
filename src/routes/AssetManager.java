@@ -7,7 +7,7 @@ import java.util.List;
 import server.request.Request;
 import server.response.assets.Asset;
 import server.response.assets.FileNotFound;
-import server.response.assets.GetFileStaticAsset;
+import server.response.assets.StaticAsset;
 
 public class AssetManager {
 	

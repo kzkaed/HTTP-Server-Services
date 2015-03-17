@@ -12,13 +12,13 @@ import server.request.Request;
 import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
 import server.response.assets.FileNotFound;
-import server.response.assets.GetFileStaticAsset;
+import server.response.assets.StaticAsset;
 import server.response.assets.ImageAsset;
 import server.response.assets.Options;
 import server.response.assets.Parameter;
 import server.response.assets.Post;
 import server.response.assets.Put;
-import server.response.assets.TestStatic;
+import server.response.assets.StaticPathExt;
 
 public class ResponseBuilderTest {
 	
@@ -29,13 +29,13 @@ public class ResponseBuilderTest {
 	@Before
 	public void setUp(){
 		manager = new AssetManager();
-		manager.register(new GetFileStaticAsset());
+		manager.register(new StaticAsset());
 		manager.register(new DynamicAsset());
 		manager.register(new DirectoryAsset());
 		manager.register(new Parameter());
 	
 		manager.register(new ImageAsset());
-		manager.register(new TestStatic());
+		manager.register(new StaticPathExt());
 		manager.register(new Options());
 		manager.register(new Post());
 		manager.register(new Put());

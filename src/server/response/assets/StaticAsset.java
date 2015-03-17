@@ -19,9 +19,9 @@ import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
 
-public class GetFileStaticAsset implements Asset {
+public class StaticAsset implements Asset {
 
-	public GetFileStaticAsset(){}
+	public StaticAsset(){}
 	
 	@Override
 	public boolean canHandle(Request request) {

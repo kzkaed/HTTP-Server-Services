@@ -16,7 +16,7 @@ import routes.MockAsset;
 import server.handler.ClientHandler;
 import server.mocks.MockSocket;
 import server.request.Request;
-import server.response.assets.GetFileStaticAsset;
+import server.response.assets.StaticAsset;
 import log.Logger;
 import log.mocks.StringLogger;
 
@@ -57,7 +57,7 @@ public class ClientHandlerTest {
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		logger = new StringLogger();
 		handler = new ClientHandler(mockSocket, logger, assetManager);
-		assetManager.register(new GetFileStaticAsset());
+		assetManager.register(new StaticAsset());
 		String loggedRequest = "GET /text-file.txt HTTP/1.1";
 		String loggedResponse = "HTTP/1.1 200 OK" + CRLF
 				+ "Server: Kristin Server" + CRLF

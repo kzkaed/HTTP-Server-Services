@@ -17,15 +17,15 @@ import org.junit.Test;
 import server.Context;
 import server.request.Request;
 import server.response.Response;
-import server.response.assets.GetFileStaticAsset;
+import server.response.assets.StaticAsset;
 
 public class FileStaticAssetTest {
 
-	private GetFileStaticAsset asset;
+	private StaticAsset asset;
 	
 	@Before
 	public void setUp()  {
-		asset = new GetFileStaticAsset();	
+		asset = new StaticAsset();	
 		Context.PUBLIC_DIR_IN_USE = "public";
 	}
 	

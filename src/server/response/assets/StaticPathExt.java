@@ -9,7 +9,7 @@ import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
 
-public class TestStatic extends GetFileStaticAsset implements Asset{
+public class StaticPathExt extends StaticAsset implements Asset{
 	
 
 	@Override

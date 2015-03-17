@@ -18,7 +18,7 @@ public class TestDynamicTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		dynamic = new TestDynamic();
+		dynamic = new DynamicPathExt();
 		request = new Request();
 		
 	}
