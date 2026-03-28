@@ -1,2 +1,53 @@
-HTTP Server Services Interfaces
+# HTTP Server Services
 
+A Java HTTP/1.1 server built around a registry pattern. Request handling is composed from interchangeable `Asset` implementations registered with an `AssetManager` — adding a new route or content type means writing a new `Asset`, not modifying the server.
+
+## Architecture
+
+```
+Request → RequestParser → AssetManager → Asset → Response
+```
+
+**Key interfaces:**
+
+- `Asset` — handles a request type (`canHandle` + `execute`)
+- `AssetManager` — registry that finds the first matching asset for a request
+- `View` / `ViewFactory` — renders HTML; injected into assets so rendering is swappable
+- `ParametersParser` — parses query strings and URL-encoded parameters
+
+**Built-in asset handlers:**
+
+| Asset | Handles |
+|---|---|
+| `StaticAsset` | Static files from the public directory |
+| `StaticPathExt` | Static files at `/test/static` path extension |
+| `DirectoryAsset` | Directory listings |
+| `ImageAsset` | Image files (JPEG, PNG, GIF) |
+| `DynamicAsset` | Dynamic routes with query parameters |
+| `DynamicPathExt` | Dynamic routes at `/test/dynamic` path extension |
+| `Parameter` | `/parameters` route — echoes query params |
+| `Options` | HTTP OPTIONS requests |
+| `Post` | HTTP POST requests |
+| `Put` | HTTP PUT requests |
+| `FileNotFound` | 404 fallback |
+
+The `com.scutigera.color` package demonstrates extending the server with a custom `Color` asset registered via `Application`.
+
+## Requirements
+
+- Java
+- [Gradle](https://gradle.org/install/) — install via Homebrew: `brew install gradle`
+
+## Running Tests
+
+```
+gradle test
+```
+
+## Starting the Server
+
+```
+java -cp <classpath> server.Main <public-directory> <port>
+```
+
+Defaults: public directory `public`, port `5000`.
