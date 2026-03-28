@@ -1,24 +1,22 @@
 package routes;
 
+import java.util.Map;
+
 public class Routes {
-	
+
+	private static final Map<String, String> ROUTE_MAP = Map.of(
+		"/test/static", "/test/index.html",
+		"/other", "/test.html"
+	);
+
 	private String uri;
 
 	public Routes (String uri) {
 		this.uri = uri;
 	}
-	
+
 	public String getRoute() {
-		String route;
-		if(uri.contentEquals("/test/static")){
-			route = "/test/index.html";
-		}else if (uri.contentEquals("/other") ){
-			route = "/test.html";	
-		}else{
-			route = uri;
-		}	
-		return route;
+		return ROUTE_MAP.getOrDefault(uri, uri);
 	}
-	
 
 }
