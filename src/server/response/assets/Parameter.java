@@ -3,20 +3,20 @@ package server.response.assets;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import server.request.Request;
 import server.response.ContentType;
 import server.response.Response;
 import server.response.ResponseCodes;
-import views.HtmlView;
+import views.ViewFactory;
 
 public class Parameter implements Asset {
-	
-	private Hashtable<String,String> parameters;
-	private HtmlView html;
-	
-	public Parameter () {}
+
+	private final ViewFactory viewFactory;
+
+	public Parameter(ViewFactory viewFactory) {
+		this.viewFactory = viewFactory;
+	}
 
 	@Override
 	public boolean canHandle(Request request) {
@@ -26,12 +26,8 @@ public class Parameter implements Asset {
 	@Override
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
-		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
-			parameters = request.getParmeters();
-			html = new HtmlView(parameters);
-		}
-						
-		return new Response(html.build(),html.build().getBytes() ,determineHeaders(ContentType.TEXT_HTML), 200, ResponseCodes.getReason("200"));
+		String body = viewFactory.forParameters(request.getParmeters()).build();
+		return new Response(body, body.getBytes(), determineHeaders(ContentType.TEXT_HTML), 200, ResponseCodes.getReason("200"));
 	}
 	
 	public HashMap<String,String> determineHeaders(String type) {

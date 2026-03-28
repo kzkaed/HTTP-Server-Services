@@ -15,9 +15,13 @@ public class RequestParser {
 
 	private BufferedReader in;
 	private ParametersParser subParser;
+	private final String host;
+	private final int port;
 
-	public RequestParser(BufferedReader in) {
+	public RequestParser(BufferedReader in, String host, int port) {
 		this.in = in;
+		this.host = host;
+		this.port = port;
 	}
 	
 	
@@ -59,7 +63,7 @@ public class RequestParser {
 		String requestUri = requestTokens[1];
 		
 		try {
-			subParser = new ParametersParserURL(requestUri);
+			subParser = new ParametersParserURL(requestUri, host, port);
 		} catch (MalformedURLException e) {		
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

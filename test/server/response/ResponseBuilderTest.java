@@ -19,6 +19,7 @@ import server.response.assets.Parameter;
 import server.response.assets.Post;
 import server.response.assets.Put;
 import server.response.assets.StaticPathExt;
+import views.HtmlViewFactory;
 
 public class ResponseBuilderTest {
 	
@@ -29,13 +30,14 @@ public class ResponseBuilderTest {
 	@Before
 	public void setUp(){
 		manager = new AssetManager();
-		manager.register(new StaticAsset());
-		manager.register(new DynamicAsset());
-		manager.register(new DirectoryAsset());
-		manager.register(new Parameter());
-	
-		manager.register(new ImageAsset());
-		manager.register(new StaticPathExt());
+		HtmlViewFactory viewFactory = new HtmlViewFactory();
+		manager.register(new StaticAsset("public"));
+		manager.register(new DynamicAsset(viewFactory));
+		manager.register(new DirectoryAsset("public", viewFactory));
+		manager.register(new Parameter(viewFactory));
+
+		manager.register(new ImageAsset("public"));
+		manager.register(new StaticPathExt("public"));
 		manager.register(new Options());
 		manager.register(new Post());
 		manager.register(new Put());

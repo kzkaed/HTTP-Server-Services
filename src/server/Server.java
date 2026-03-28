@@ -11,7 +11,6 @@ import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
 import server.response.assets.FileNotFound;
 import server.response.assets.StaticAsset;
-import server.response.assets.Get;
 import server.response.assets.ImageAsset;
 import server.response.assets.Options;
 import server.response.assets.Post;
@@ -20,23 +19,29 @@ import server.response.assets.DynamicPathExt;
 import server.response.assets.StaticPathExt;
 import server.socket.ServerSocketService;
 import server.socket.SocketService;
+import views.HtmlViewFactory;
+import views.ViewFactory;
 
 public class Server {
 	public int port;
 	private ServerSocketService service;
 	private Logger logger;
 	private AssetManager manager;
-	
-	
-	public Server(ServerSocketService service, int port, AssetManager manager){
-		this(service, port, manager, new SystemLogger() );
+	private final String publicDir;
+	private final String host;
+
+
+	public Server(ServerSocketService service, int port, AssetManager manager, String publicDir, String host){
+		this(service, port, manager, new SystemLogger(), publicDir, host);
 	}
-	
-	public Server(ServerSocketService service, int port, AssetManager manager, Logger logger){
+
+	public Server(ServerSocketService service, int port, AssetManager manager, Logger logger, String publicDir, String host){
 		this.port = port;
 		this.service = service;
 		this.logger = logger;
-		this.manager = manager;	
+		this.manager = manager;
+		this.publicDir = publicDir;
+		this.host = host;
 	}
 	
 	public void start()  {
@@ -50,7 +55,7 @@ public class Server {
 				logListening();
 				
 				SocketService socket = service.accept();
-				new ClientHandler(socket,logger, manager).run();	
+				new ClientHandler(socket, logger, manager, host, port).run();	
 			}
 			service.close();
 		}catch(IOException ioe){
@@ -61,16 +66,17 @@ public class Server {
 	}
 
 	public void registerServerAssets(){
-		manager.register(new StaticAsset());
-		manager.register(new DynamicAsset());
-		manager.register(new DirectoryAsset());
-		manager.register(new Parameter());
-		manager.register(new ImageAsset());
-		manager.register(new StaticPathExt());
+		ViewFactory viewFactory = new HtmlViewFactory();
+		manager.register(new StaticAsset(publicDir));
+		manager.register(new DynamicAsset(viewFactory));
+		manager.register(new DirectoryAsset(publicDir, viewFactory));
+		manager.register(new Parameter(viewFactory));
+		manager.register(new ImageAsset(publicDir));
+		manager.register(new StaticPathExt(publicDir));
 		manager.register(new Options());
 		manager.register(new Post());
 		manager.register(new Put());
-		manager.register(new DynamicPathExt());
+		manager.register(new DynamicPathExt(viewFactory));
 	}
 	
 	public void logListening(){

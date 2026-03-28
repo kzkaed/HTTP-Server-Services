@@ -20,10 +20,6 @@ public class ResponseSenderTest {
 		out = new ByteArrayOutputStream();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void test() throws IOException {
 		Response response = new Response("test", "test".getBytes(), new HashMap<String,String>(), 200, ResponseCodes.getReason("200"));

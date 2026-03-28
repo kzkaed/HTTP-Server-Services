@@ -5,22 +5,21 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Set;
 
-import server.request.ParametersParser;
-import server.request.ParametersParserURL;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
-import views.HtmlView;
+import views.ViewFactory;
 
 public class DynamicAsset implements Asset{
-		
+
 	protected Hashtable<String,String> parameters;
 	protected String body;
-	
-	public DynamicAsset() {}
+	private final ViewFactory viewFactory;
+
+	public DynamicAsset(ViewFactory viewFactory) {
+		this.viewFactory = viewFactory;
+	}
 	
 	@Override
 	public boolean canHandle(Request request) {
@@ -41,16 +40,11 @@ public class DynamicAsset implements Asset{
 	}
 
 	public String retrieveBody(Request request){
-		HtmlView html = null;
 		if (request.getParmeters() != null && !request.getParmeters().isEmpty()){
 			parameters = request.getParmeters();
-			html = new HtmlView(parameters);
-			
-		}else{
-			html = new HtmlView(request.getURI());
+			return viewFactory.forParameters(parameters).build();
 		}
-		return html.build();
-		
+		return viewFactory.forContent(request.getURI()).build();
 	}
 
 

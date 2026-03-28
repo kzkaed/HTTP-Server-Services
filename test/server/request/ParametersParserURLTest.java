@@ -14,7 +14,7 @@ public class ParametersParserURLTest {
 	@Test
 	public void testGetPairsAndDecodes() throws MalformedURLException, UnsupportedEncodingException{
 		
-		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");
+		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2", "localhost", 0);
 		Hashtable<String,String> pairs = paramsParser.getParameterPairs();
 		assertEquals(pairs.get("name"),"kristin");	
 		assertEquals(pairs.get("id"),"1");
@@ -23,20 +23,20 @@ public class ParametersParserURLTest {
 	
 	@Test 
 	public void testQuery() throws MalformedURLException, UnsupportedEncodingException{
-		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");
+		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2", "localhost", 0);
 		String query = paramsParser.getQuery();
 		assertEquals(query,"name=kristin&id=1&this=that+A%26B%3DC");
 	}
 
 	@Test
 	public void testGetFilename() throws MalformedURLException, UnsupportedEncodingException{
-		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2");
+		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2", "localhost", 0);
 		assertEquals(paramsParser.getFilename(),"/test?name=kristin&id=1&this=that+A%26B%3DC");
 	}
 	
 	@Test
 	public void testGetPath() throws MalformedURLException, UnsupportedEncodingException{
-		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1#paragraph2");
+		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1#paragraph2", "localhost", 0);
 		assertEquals("/test",paramsParser.getPath());
 	}
 

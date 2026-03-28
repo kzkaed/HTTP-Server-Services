@@ -81,10 +81,6 @@ public class UtilityTest {
 		assertEquals(Utility.findServerAbsolutePath(),path.toAbsolutePath().toString());
 	}
 	
-	@Test 
-	public void testGetAbsolutePath(){
-		assertEquals(Utility.getAbsolutePath("/test/log.txt"),"/Users/kristin-8thlight/repos2/HTTP-Server-Services/test/log.txt");	
-	}
 	@Test
 	public void testWebrootAbsolutePath(){
 		Path path = Paths.get("");

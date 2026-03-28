@@ -23,20 +23,23 @@ public class ClientHandler {
 	private Request request;
 	private Response response;
 	private AssetManager manager;
-	
+	private final String host;
+	private final int port;
 
-	public ClientHandler(SocketService socket, Logger logger, AssetManager manager) throws IOException {
+	public ClientHandler(SocketService socket, Logger logger, AssetManager manager, String host, int port) throws IOException {
 		this.manager = manager;
 		this.socket = socket;
 		this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		this.out = new DataOutputStream(socket.getOutputStream());
 		this.logger = logger;
+		this.host = host;
+		this.port = port;
 	}
 
 	public void run() {
-		
-		try {	
-			request = new RequestParser(in).parseRequest();
+
+		try {
+			request = new RequestParser(in, host, port).parseRequest();
 			
 			response = new ResponseBuilder(request).buildResponse(manager);
 			new ResponseSender(response, out).send();	

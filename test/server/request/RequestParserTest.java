@@ -37,7 +37,7 @@ public class RequestParserTest {
 		String request = "GET /test/index HTTP1/1";
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		Request resultRequest = parser.parseRequest();
 		
 		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index HTTP1/1",null,null);
@@ -65,7 +65,7 @@ public class RequestParserTest {
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		
 		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index?id=1&test=true#REF HTTP1/1",null,null);
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		Request resultRequest = parser.parseRequest();
 		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
 		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
@@ -82,7 +82,7 @@ public class RequestParserTest {
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		
 		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index?name=kristin%20kaeding HTTP1/1",null,null);
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		Request resultRequest = parser.parseRequest();
 		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
 		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
@@ -100,7 +100,7 @@ public class RequestParserTest {
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		
 		Request expectRequest = new Request("GET","/test/index","HTTP1/1", null, "GET /test/index?name=kristin%20kaeding&this=that%20A%2BB%3DC HTTP1/1",null,null);
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		Request resultRequest = parser.parseRequest();
 		assertEquals(resultRequest.getMethod(),expectRequest.getMethod());
 		assertEquals(resultRequest.getProtocolVersion(),expectRequest.getProtocolVersion());
@@ -127,7 +127,7 @@ public class RequestParserTest {
 		
 		ByteArrayInputStream inStream = new ByteArrayInputStream(restOfRequest.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		
 		String[] resultHeaders = parser.readRemainingRequest();
 		String headers = "Host: scutigera.com" + CRLF 
@@ -155,7 +155,7 @@ public class RequestParserTest {
 		
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-		RequestParser parser = new RequestParser(in);
+		RequestParser parser = new RequestParser(in, "localhost", 0);
 		Hashtable<String,String> headersPairs = parser.parseHeaders(headers);
 		assertEquals(headersPairs.get("User-Agent"),"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:36.0) Gecko/20100101 Firefox/36.0");
 		assertEquals(headersPairs.get("Host"),"scutigera.com");

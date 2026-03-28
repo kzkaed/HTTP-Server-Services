@@ -10,7 +10,10 @@ import server.response.Response;
 import server.response.ResponseCodes;
 
 public class StaticPathExt extends StaticAsset implements Asset{
-	
+
+	public StaticPathExt(String publicDir) {
+		super(publicDir);
+	}
 
 	@Override
 	public boolean canHandle(Request request) {

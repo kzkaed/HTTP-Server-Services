@@ -52,9 +52,18 @@ public class Utility {
 		StringBuilder sb = new StringBuilder();
 		sb.append(Utility.webrootAbsolutePath());
 		sb.append(uri);
-		
+
 		Path pathCheck = Paths.get(sb.toString());
-		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS) && Files.isRegularFile(pathCheck, LinkOption.NOFOLLOW_LINKS);		
+		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS) && Files.isRegularFile(pathCheck, LinkOption.NOFOLLOW_LINKS);
+	}
+
+	public static String webrootAbsolutePath(String publicDir) {
+		return findServerAbsolutePath() + "/" + publicDir;
+	}
+
+	public static boolean fileExist(String uri, String publicDir) {
+		Path pathCheck = Paths.get(webrootAbsolutePath(publicDir) + uri);
+		return Files.exists(pathCheck, LinkOption.NOFOLLOW_LINKS) && Files.isRegularFile(pathCheck, LinkOption.NOFOLLOW_LINKS);
 	}
 
 	public static boolean isImage(String uri){

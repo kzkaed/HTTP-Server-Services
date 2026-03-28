@@ -17,11 +17,15 @@ import server.response.ResponseCodes;
 
 public class StaticAsset implements Asset {
 
-	public StaticAsset(){}
-	
+	private final String publicDir;
+
+	public StaticAsset(String publicDir) {
+		this.publicDir = publicDir;
+	}
+
 	@Override
 	public boolean canHandle(Request request) {
-		return Utility.fileExist(request.getURI()) && !isImage(request.getURI()) && request.getMethod().equals(Method.GET); 
+		return Utility.fileExist(request.getURI(), publicDir) && !isImage(request.getURI()) && request.getMethod().equals(Method.GET);
 	}
 	
 	@Override
@@ -39,14 +43,14 @@ public class StaticAsset implements Asset {
 	public String retrieveFileContent(String routedPath){
 		String body = "";
 		String absolutePath = Utility.findServerAbsolutePath();
-		String defaultDirectory = "/" + server.Context.PUBLIC_DIR_IN_USE;
+		String defaultDirectory = "/" + publicDir;
 
 		StringBuilder path = new StringBuilder();
 		path.append(absolutePath);
 		path.append(defaultDirectory);
 		path.append(routedPath);
-		
-		if (Utility.fileExist(routedPath)){
+
+		if (Utility.fileExist(routedPath, publicDir)){
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;

@@ -5,27 +5,23 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
 
-import server.Context;
 import server.constants.Constant;
 import server.helpers.Utility;
 
 public class ParametersParserURL implements ParametersParser {
 	private URL url;
-	private String requestUri; 
+	private String requestUri;
 	private String protocol;
 	private String query;
 	private String path;
 	private String filename;
 	private int port;
-	
-	private final String HOST = Context.HOST;
-	private int PORT_IN_USE = Context.PORT_IN_USE;
-	
+
 	private Hashtable<String,String> parameterPairs;
 
-	public ParametersParserURL(String requestUri) throws MalformedURLException, UnsupportedEncodingException{
+	public ParametersParserURL(String requestUri, String host, int port) throws MalformedURLException, UnsupportedEncodingException{
 		this.requestUri = requestUri;
-		this.url = new URL( "http://" + HOST + PORT_IN_USE + requestUri );
+		this.url = new URL("http://" + host + port + requestUri);
 		this.protocol = url.getProtocol();
 		this.path = url.getPath();
 		this.filename = url.getFile();

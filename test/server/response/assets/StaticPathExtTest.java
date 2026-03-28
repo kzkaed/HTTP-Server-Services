@@ -19,12 +19,10 @@ public class StaticPathExtTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testStatic = new StaticPathExt();
+		testStatic = new StaticPathExt("public");
 		request = new Request();
 		request.setMethod("GET");
 		request.setURI("/test/static");
-		server.Context.setPublicDirectory("public");
-		
 	}
 
 	@Test

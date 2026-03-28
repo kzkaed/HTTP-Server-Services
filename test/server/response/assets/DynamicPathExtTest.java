@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import server.request.Request;
 import server.response.Response;
+import views.HtmlViewFactory;
 
 public class DynamicPathExtTest {
 	private Request request;
@@ -18,15 +19,11 @@ public class DynamicPathExtTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		dynamic = new DynamicPathExt();
+		dynamic = new DynamicPathExt(new HtmlViewFactory());
 		request = new Request();
 		
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-	
 	@Test
 	public void testItCanNOThandle(){
 		request.setMethod("GET");

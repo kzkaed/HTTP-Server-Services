@@ -20,7 +20,7 @@ public class ImageAssetTest {
 	private ImageAsset imgAsset;
 	@Before
 	public void setUp() throws Exception {
-		imgAsset = new ImageAsset();
+		imgAsset = new ImageAsset("public");
 	}
 
 	@After
@@ -65,13 +65,10 @@ public class ImageAssetTest {
 	
 	@Test
 	public void imageToBytes() throws IOException{
-		
-		server.Context.PUBLIC_DIR_IN_USE = "public";
 		Request request = new Request();
 		request.setURI("/image.jpeg");
-		
-		Utility.webrootAbsolutePath();
-		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
+
+		Path path = Paths.get(Utility.webrootAbsolutePath("public") + request.getURI());
 		
 		byte[] imageInBytes = Files.readAllBytes(path);
 				
