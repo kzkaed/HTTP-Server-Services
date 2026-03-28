@@ -35,7 +35,7 @@ The `com.scutigera.color` package demonstrates extending the server with a custo
 
 ## Requirements
 
-- Java
+- Java 25+ — install via Homebrew: `brew install openjdk`
 - [Gradle](https://gradle.org/install/) — install via Homebrew: `brew install gradle`
 
 ## Running Tests
@@ -47,7 +47,16 @@ gradle test
 ## Starting the Server
 
 ```
-java -cp <classpath> server.Main <public-directory> <port>
+gradle build -x test
+java -cp build/classes/java/main server.Main <port> <public-directory>
 ```
 
-Defaults: public directory `public`, port `5000`.
+Defaults: port `5000`, public directory `public`.
+
+Example:
+
+```
+java -cp build/classes/java/main server.Main 9090
+```
+
+Then visit http://localhost:9090/

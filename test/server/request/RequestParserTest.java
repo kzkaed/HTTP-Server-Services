@@ -114,6 +114,18 @@ public class RequestParserTest {
 	}
 	
 	@Test
+	public void testRequestWithoutQueryHasEmptyParameters() throws IOException {
+		String request = "GET /test/index HTTP1/1";
+		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
+		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+		RequestParser parser = new RequestParser(in, "localhost", 0);
+		Request resultRequest = parser.parseRequest();
+
+		assertNotNull(resultRequest.getParmeters());
+		assertTrue(resultRequest.getParmeters().isEmpty());
+	}
+
+	@Test
 	public void testReadsTheRemainingRequestifAny() throws IOException {
 		//String request = "GET / HTTP1/1";
 		

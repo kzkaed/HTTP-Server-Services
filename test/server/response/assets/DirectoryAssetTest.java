@@ -43,7 +43,7 @@ public class DirectoryAssetTest {
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
 		for (File file : files) {
-		    if (file.isFile()) {
+		    if (file.isFile() && !file.isHidden()) {
 		        results.add(file.getName()); 
 		    }
 		}

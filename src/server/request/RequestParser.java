@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.nio.charset.*;
 
 import server.constants.Constant;
 
@@ -31,18 +29,12 @@ public class RequestParser {
 			return new Request( "" ,"" ,"" ,null ,"" ,null,null );
 		}
 
-		HashMap<String,Object> requestLineTokens = parseRequestLine(requestLine);
+		ParsedRequestLine parsed = parseRequestLine(requestLine);
 
-		String method = requestLineTokens.get("method").toString();
-		String uri = requestLineTokens.get("uri").toString();
-		String protocolVersion = requestLineTokens.get("protocolVersion").toString();
-
-		Hashtable<String,String> parameters;
-		if(requestLineTokens.containsKey("parameters")){
-			parameters =  (Hashtable<String, String>) requestLineTokens.get("parameters");	
-		}else{
-			parameters =  new Hashtable<String,String>();
-		}
+		String method = parsed.method;
+		String uri = parsed.uri;
+		String protocolVersion = parsed.protocolVersion;
+		Hashtable<String,String> parameters = parsed.parameters;
 		Hashtable<String,String> headers = new Hashtable<String,String>();
 		String requestBody = "";
 		String[] allOfRequest = readRemainingRequest();
@@ -56,32 +48,29 @@ public class RequestParser {
 	}
 	
 	
-	private HashMap<String,Object> parseRequestLine(String requestLine)  {
-	
+	private ParsedRequestLine parseRequestLine(String requestLine)  {
+
 		String[] requestTokens = requestLine.split(server.constants.Constant.DELIMITER_SPACE);
 		String requestUri = requestTokens[1];
-		
+
 		try {
 			subParser = new ParametersParserURL(requestUri, host, port);
-		} catch (MalformedURLException e) {		
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		String uriPath = subParser.getPath();
 		String query = subParser.getQuery();
-		
-		HashMap<String,Object>requestLineTokens = new HashMap<String,Object>();
-		requestLineTokens.put("method", requestTokens[0]);
-		requestLineTokens.put("uri", uriPath);
-		requestLineTokens.put("protocolVersion", requestTokens[2]);
-		
+
+		Hashtable<String,String> parameters;
 		if (query != null){
-			requestLineTokens.put("query", query );
-			requestLineTokens.put("parameters", (Hashtable<String,String>)subParser.getParameterPairs());
+			parameters = subParser.getParameterPairs();
+		} else {
+			parameters = new Hashtable<String,String>();
 		}
-		
-		return requestLineTokens;	
+
+		return new ParsedRequestLine(requestTokens[0], uriPath, requestTokens[2], parameters);
 	}
 
 
