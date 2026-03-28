@@ -1,4 +1,4 @@
-# HTTP Server Services
+# Web Server Services
 
 A Java HTTP/1.1 server built around a registry pattern. Request handling is composed from interchangeable `Asset` implementations registered with an `AssetManager` — adding a new route or content type means writing a new `Asset`, not modifying the server.
 
