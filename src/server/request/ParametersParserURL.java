@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.Hashtable;
 
 import server.constants.Constant;
-import server.helpers.Utility;
 
 public class ParametersParserURL implements ParametersParser {
 	private URL url;
@@ -62,15 +61,9 @@ public class ParametersParserURL implements ParametersParser {
 	@Override
 	public Hashtable<String, String> getParameterPairs() {
 		if(query != null){
-			String delimiter;
-			Utility util = new Utility();
-			
-			delimiter = server.constants.Constant.DELIMITER_AMPERSAND;
-			String[] queryTokens = util.retreiveTokens(query, delimiter);
+			String[] queryTokens = query.split(server.constants.Constant.DELIMITER_AMPERSAND);
 			for(int i = 0; i<queryTokens.length; i++){
-				
-				delimiter = server.constants.Constant.DELIMITER_EQUAL;
-				String[] nameValueTokens = util.retreiveTokens(queryTokens[i],delimiter );
+				String[] nameValueTokens = queryTokens[i].split(server.constants.Constant.DELIMITER_EQUAL);
 				for(int j = 0; j < nameValueTokens.length; j = j + 2 ){
 					String parameterName = "";
 					String parameterValue = "";

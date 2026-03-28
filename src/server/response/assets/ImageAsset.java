@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import server.helpers.Utility;
+import server.helpers.FileLocator;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
@@ -32,7 +32,7 @@ public class ImageAsset implements Asset {
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		
-		Path path = Paths.get(Utility.webrootAbsolutePath(publicDir) + request.getURI());
+		Path path = Paths.get(FileLocator.webrootAbsolutePath(publicDir) + request.getURI());
 		byte[] imageInBytes = null;
 		try {
 			imageInBytes = Files.readAllBytes(path);

@@ -54,7 +54,7 @@ public class DirectoryAsset implements Asset{
 	
 	
 	public List<String> getDirectoryFileNames(){
-		String directory = server.helpers.Utility.getAbsolutePath("/" + publicDir);
+		String directory = server.helpers.FileLocator.getAbsolutePath("/" + publicDir);
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
 		for (File file : files) {

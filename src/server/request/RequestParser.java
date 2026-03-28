@@ -9,7 +9,6 @@ import java.util.Hashtable;
 import java.nio.charset.*;
 
 import server.constants.Constant;
-import server.helpers.Utility;
 
 public class RequestParser {
 
@@ -59,7 +58,7 @@ public class RequestParser {
 	
 	private HashMap<String,Object> parseRequestLine(String requestLine)  {
 	
-		String[] requestTokens = Utility.retreiveTokens(requestLine,server.constants.Constant.DELIMITER_SPACE );
+		String[] requestTokens = requestLine.split(server.constants.Constant.DELIMITER_SPACE);
 		String requestUri = requestTokens[1];
 		
 		try {
@@ -101,15 +100,15 @@ public class RequestParser {
 		while(in.ready()){
 			content.append((char) in.read());
 		}
-		return Utility.retreiveTokens(content.toString(), server.constants.Constant.HEADERS_END);
+		return content.toString().split(server.constants.Constant.HEADERS_END);
 	}
 	
 	Hashtable<String,String> parseHeaders(String headers){
-		String[] headerTokens = Utility.retreiveTokens(headers, Constant.CRLF); 
+		String[] headerTokens = headers.split(Constant.CRLF);
 		Hashtable<String,String> headerPairs = new Hashtable<String,String>();
 		for(int i = 0;i< headerTokens.length; i++){
 			String headerLine = headerTokens[i];
-			String[] pairs = Utility.retreiveTokens(headerLine, Constant.COLON);
+			String[] pairs = headerLine.split(Constant.COLON);
 			for(int j = 0; j < pairs.length; j= j+ 2){
 				headerPairs.put(pairs[j], pairs[j + 1]);
 			}	

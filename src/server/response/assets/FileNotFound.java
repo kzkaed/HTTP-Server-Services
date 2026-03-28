@@ -4,7 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
-import server.helpers.Utility;
+import server.Context;
+import server.helpers.FileLocator;
 import server.response.*;
 import server.request.Request;
 
@@ -14,7 +15,7 @@ public class FileNotFound implements Asset{
 	
 	@Override
 	public boolean canHandle(Request request) {	
-		return !Utility.fileExist(request.getURI());
+		return !FileLocator.fileExist(request.getURI(), Context.PUBLIC_DIR_IN_USE);
 	}
 
 	@Override
