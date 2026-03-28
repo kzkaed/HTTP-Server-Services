@@ -15,6 +15,7 @@ build/
 .settings/
 .metadata
 *.launch
+.vscode/
 
 # Java
 *.class
