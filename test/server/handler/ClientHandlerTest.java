@@ -89,7 +89,7 @@ public class ClientHandlerTest {
 			String loggedRequest = "GET /text-file.txt HTTP/1.1";
 			String loggedResponse = "HTTP/1.1 200 OK" + CRLF
 					+ "Server: Kristin Server" + CRLF
-					+ "Content-Type: text/html" + CRLF + CRLF
+					+ "Content-Type: text/plain" + CRLF + CRLF
 					+"file1 contents";
 
 			handler.run();

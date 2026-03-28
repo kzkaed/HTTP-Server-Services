@@ -12,6 +12,7 @@ import routes.Routes;
 import server.constants.Method;
 import server.helpers.FileLocator;
 import server.request.Request;
+import server.response.ContentType;
 import server.response.Response;
 import server.response.ResponseCodes;
 
@@ -35,7 +36,7 @@ public class StaticAsset implements Asset {
 		
 		String body = retrieveFileContent(route.getRoute());	
 		
-		HashMap<String,String> headers = determineHeaders("text/html");
+		HashMap<String,String> headers = determineHeaders(ContentType.forPath(route.getRoute()));
 		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}
 

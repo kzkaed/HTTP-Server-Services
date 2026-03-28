@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import server.helpers.FileLocator;
 import server.request.Request;
+import server.response.ContentType;
 import server.response.Response;
 import server.response.ResponseCodes;
 
@@ -40,7 +41,7 @@ public class ImageAsset implements Asset {
 			e.printStackTrace();
 		}
 		
-		HashMap<String,String> headers = determineHeaders(getContentType(request.getURI()));
+		HashMap<String,String> headers = determineHeaders(ContentType.forPath(request.getURI()));
 		
 		if (imageInBytes != null){
 			return new Response("image: " + request.getURI(),imageInBytes,headers, 200, ResponseCodes.getReason("200"));
