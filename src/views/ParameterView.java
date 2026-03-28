@@ -1,13 +1,13 @@
 package views;
 
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 public class ParameterView implements View {
 
-	private final Hashtable<String, String> params;
+	private final Map<String, String> params;
 
-	public ParameterView(Hashtable<String, String> params) {
+	public ParameterView(Map<String, String> params) {
 		this.params = params;
 	}
 

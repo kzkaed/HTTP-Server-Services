@@ -1,12 +1,12 @@
 package server.request;
 
-import java.util.Hashtable;
+import java.util.Map;
 
 public interface ParametersParser {
-	
+
 	public String getPath();
 	public String getQuery();
 	public String getFilename();
-	public Hashtable<String,String> getParameterPairs();
+	public Map<String,String> getParameterPairs();
 
 }

@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import server.constants.Constant;
 
@@ -34,8 +35,8 @@ public class RequestParser {
 		String method = parsed.method;
 		String uri = parsed.uri;
 		String protocolVersion = parsed.protocolVersion;
-		Hashtable<String,String> parameters = parsed.parameters;
-		Hashtable<String,String> headers = new Hashtable<String,String>();
+		Map<String,String> parameters = parsed.parameters;
+		Map<String,String> headers = new HashMap<>();
 		String requestBody = "";
 		String[] allOfRequest = readRemainingRequest();
 		if(!allOfRequest[0].isEmpty()){
@@ -63,11 +64,11 @@ public class RequestParser {
 		String uriPath = subParser.getPath();
 		String query = subParser.getQuery();
 
-		Hashtable<String,String> parameters;
+		Map<String,String> parameters;
 		if (query != null){
 			parameters = subParser.getParameterPairs();
 		} else {
-			parameters = new Hashtable<String,String>();
+			parameters = new HashMap<>();
 		}
 
 		return new ParsedRequestLine(requestTokens[0], uriPath, requestTokens[2], parameters);
@@ -92,9 +93,9 @@ public class RequestParser {
 		return content.toString().split(server.constants.Constant.HEADERS_END);
 	}
 	
-	Hashtable<String,String> parseHeaders(String headers){
+	Map<String,String> parseHeaders(String headers){
 		String[] headerTokens = headers.split(Constant.CRLF);
-		Hashtable<String,String> headerPairs = new Hashtable<String,String>();
+		Map<String,String> headerPairs = new HashMap<>();
 		for(int i = 0;i< headerTokens.length; i++){
 			String headerLine = headerTokens[i];
 			String[] pairs = headerLine.split(Constant.COLON);

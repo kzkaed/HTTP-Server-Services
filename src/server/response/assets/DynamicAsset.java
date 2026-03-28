@@ -4,7 +4,7 @@ package server.response.assets;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.Map;
 
 import server.request.Request;
 import server.response.Response;
@@ -13,7 +13,7 @@ import views.ViewFactory;
 
 public class DynamicAsset implements Asset{
 
-	protected Hashtable<String,String> parameters;
+	protected Map<String,String> parameters;
 	protected String body;
 	private final ViewFactory viewFactory;
 

@@ -2,7 +2,8 @@ package server.request;
 
 import static org.junit.Assert.*;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -16,10 +17,10 @@ public class RequestTest {
 		String method = "";
 		String uri = "";
 		String protocolVersion = "";
-		Hashtable<String,String> headers = new Hashtable<String,String>();
+		Map<String,String> headers = new HashMap<>();
 		String requestLine = "GET / HTTP1.1";	
 		String requestBody = "";
-		Hashtable<String,String> parameters = new Hashtable<String,String>();
+		Map<String,String> parameters = new HashMap<>();
 		
 		Request request = new Request(method,uri,protocolVersion, headers,requestLine,requestBody,parameters);
 		assertEquals(request.getRequestLine(), requestLine);

@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,8 +22,8 @@ public class ColorTest {
 	public void testCanHandle() throws Exception {
 		Color color = new Color();
 		Request request = new Request("GET","/color","HTTP1/1", 
-				new Hashtable<String,String>(), "GET /color?color=red HTTP1/1",
-				null,new Hashtable<String,String>());
+				new HashMap<>(), "GET /color?color=red HTTP1/1",
+				null,new HashMap<>());
 		
 		assertTrue(color.canHandle(request));
 	}
@@ -31,8 +32,8 @@ public class ColorTest {
 	public void testCanNotHandle() throws Exception {
 		Color color = new Color();
 		Request request = new Request("GET","/hello","HTTP1/1", 
-				new Hashtable<String,String>(), "GET /hello HTTP1/1",null,
-				new Hashtable<String,String>());
+				new HashMap<>(), "GET /hello HTTP1/1",null,
+				new HashMap<>());
 		
 		assertFalse(color.canHandle(request));
 	}

@@ -1,7 +1,7 @@
 package views;
 
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public class HtmlViewFactory implements ViewFactory {
 
@@ -11,7 +11,7 @@ public class HtmlViewFactory implements ViewFactory {
 	}
 
 	@Override
-	public View forParameters(Hashtable<String,String> params) {
+	public View forParameters(Map<String,String> params) {
 		return new ParameterView(params);
 	}
 

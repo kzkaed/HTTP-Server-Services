@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ParametersParserURLTest {
 	public void testGetPairsAndDecodes() throws MalformedURLException, UnsupportedEncodingException{
 		
 		ParametersParser paramsParser = new ParametersParserURL("/test?name=kristin&id=1&this=that+A%26B%3DC#paragraph2", "localhost", 0);
-		Hashtable<String,String> pairs = paramsParser.getParameterPairs();
+		Map<String,String> pairs = paramsParser.getParameterPairs();
 		assertEquals(pairs.get("name"),"kristin");	
 		assertEquals(pairs.get("id"),"1");
 		assertEquals(pairs.get("this"),"that A&B=C");
