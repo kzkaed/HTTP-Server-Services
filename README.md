@@ -51,9 +51,9 @@ gradle build -x test
 java -cp build/classes/java/main server.Main <port> <public-directory>
 ```
 
-Defaults: port `5000`, public directory `public`.
+Defaults: port `8080`, public directory `public`.
 
-Example:
+Example — start on port 9090 instead of the default:
 
 ```
 java -cp build/classes/java/main server.Main 9090

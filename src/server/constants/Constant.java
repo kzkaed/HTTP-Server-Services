@@ -2,7 +2,7 @@ package server.constants;
 
 public final class Constant {
 
-	public static final String PORT_DEFAULT = "5000";
+	public static final String PORT_DEFAULT = "8080";
 	public static final String PUBLIC_DIR_DEFAULT = "public";
 	public static final String UTF_8 = java.nio.charset.StandardCharsets.UTF_8.name();
 	public static final String VERSION_PROTOCOL = "HTTP/1.1";
