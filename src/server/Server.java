@@ -45,24 +45,37 @@ public class Server {
 	}
 	
 	public void start()  {
-		
+
 		registerServerAssets();
 
 		try{
 			logServerInfomation();
-			
-			while(!service.isClosed()){ 
+
+			while(!service.isClosed()){
 				logListening();
-				
+
 				SocketService socket = service.accept();
-				new ClientHandler(socket, logger, manager, host, port).run();	
+				new ClientHandler(socket, logger, manager, host, port).run();
 			}
-			service.close();
 		}catch(IOException ioe){
-			logger.error(ioe.getStackTrace().toString());
-			System.exit(1);
+			try {
+				if(!service.isClosed()){
+					logger.error(ioe.getStackTrace().toString());
+				}
+			} catch (IOException e) {
+				logger.error(ioe.getStackTrace().toString());
+			}
 		}
-		
+
+	}
+
+	public void stop() {
+		try {
+			logger.log("Server Shutting Down...");
+			service.close();
+		} catch (IOException ioe) {
+			logger.error(ioe.getStackTrace().toString());
+		}
 	}
 
 	public void registerServerAssets(){
@@ -80,7 +93,7 @@ public class Server {
 	}
 	
 	public void logListening(){
-		logger.log("Listening...");
+		logger.log("Listening... on port " + port);
 	}
 	
 	public void logServerInfomation() {

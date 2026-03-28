@@ -9,18 +9,21 @@ import server.socket.WireServerSocket;
 
 public class Main {
 
-public static void main(String[] args) throws Exception{		
+public static void main(String[] args) throws Exception{
 		int port = getPort(args);
 		String publicDirectory = getPublicDirectory(args);
-		
+
 		Context.setContext(port, publicDirectory);
-		
+
 		AssetManager manager = new AssetManager();
 		ServerSocket serverSocket = new ServerSocket(port);
-		
-		new Server(new WireServerSocket(serverSocket), port, manager, publicDirectory, Context.HOST).start();
-	}
 
+		Server server = new Server(new WireServerSocket(serverSocket), port, manager, publicDirectory, Context.HOST);
+
+		Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+
+		server.start();
+	}
 
 	public static int getPort(String[] args){
 		ArgsParser parser = new ArgsParser();

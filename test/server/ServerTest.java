@@ -81,6 +81,17 @@ public class ServerTest {
 	
 	
 	@Test
+	public void testServerStop() throws IOException {
+		mockSSocket.closed = false;
+		Logger logger = new StringLogger();
+		Server server = new Server(mockSSocket, port, new AssetManager(), logger, document, "localhost");
+		server.stop();
+
+		assertTrue(mockSSocket.isClosed());
+		assertEquals("Server Shutting Down...", ((StringLogger)logger).logs.get(0));
+	}
+
+	@Test
 	public void testAdditionalLogging() throws MalformedURLException, URISyntaxException, UnknownHostException {
 		
 		String host = InetAddress.getLoopbackAddress().getHostName().toString();
