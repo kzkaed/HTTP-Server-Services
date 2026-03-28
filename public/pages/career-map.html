@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BS Economics — Full Career Map</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f9f8f5;
+    color: #1a1a18;
+    padding: 2rem 1rem;
+    line-height: 1.5;
+  }
+  h1 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #5f5e5a; margin-bottom: 1.5rem; }
+  .map-wrap { max-width: 860px; margin: 0 auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #5f5e5a; cursor: pointer; padding: 3px 9px; border-radius: 20px; border: 0.5px solid #d3d1c7; transition: background 0.15s; }
+  .leg-item:hover, .leg-item.active { background: #f1efe8; border-color: #b4b2a9; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .families { display: flex; flex-direction: column; gap: 10px; }
+  .family-card { border: 0.5px solid #d3d1c7; border-radius: 12px; overflow: hidden; background: #fff; }
+  .family-card.hidden { display: none; }
+  .family-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; user-select: none; }
+  .family-header:hover { background: #f9f8f5; }
+  .fam-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .fam-title { font-size: 13px; font-weight: 500; color: #1a1a18; flex: 1; }
+  .fam-tag { font-size: 11px; color: #888780; padding: 2px 7px; border-radius: 10px; border: 0.5px solid #d3d1c7; }
+  .chevron { font-size: 11px; color: #888780; transition: transform 0.2s; margin-left: 4px; }
+  .chevron.open { transform: rotate(90deg); }
+  .family-body { display: none; padding: 0 14px 14px; }
+  .family-body.open { display: block; }
+  .tabs { display: flex; gap: 0; border: 0.5px solid #d3d1c7; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .tab { flex: 1; font-size: 11px; padding: 6px 4px; text-align: center; cursor: pointer; color: #5f5e5a; background: transparent; border: none; border-right: 0.5px solid #d3d1c7; transition: background 0.15s; }
+  .tab:last-child { border-right: none; }
+  .tab:hover { background: #f1efe8; }
+  .tab.active { background: #f1efe8; color: #1a1a18; font-weight: 500; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .path-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .path-label { font-size: 10px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+  .path-steps { display: flex; flex-direction: column; gap: 3px; }
+  .step { font-size: 11px; color: #5f5e5a; padding: 4px 7px; border-radius: 5px; border: 0.5px solid #d3d1c7; background: #f9f8f5; line-height: 1.4; }
+  .skills-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .skill-pill { font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 0.5px solid #d3d1c7; color: #5f5e5a; }
+  .section-label { font-size: 10px; font-weight: 500; color: #888780; margin: 8px 0 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .divider { border: none; border-top: 0.5px solid #d3d1c7; margin: 8px 0; }
+  .econ-edge { padding: 7px 10px; border-radius: 7px; border: 0.5px dashed #b4b2a9; font-size: 11px; color: #5f5e5a; line-height: 1.6; }
+  .jobs-grid { display: flex; flex-direction: column; gap: 8px; }
+  .job-card { border: 0.5px solid #d3d1c7; border-radius: 8px; overflow: hidden; }
+  .job-card-header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; background: #f9f8f5; }
+  .job-card-header:hover { background: #f1efe8; }
+  .job-title-text { font-size: 12px; font-weight: 500; color: #1a1a18; flex: 1; }
+  .job-level { font-size: 10px; padding: 2px 6px; border-radius: 8px; border: 0.5px solid #d3d1c7; color: #888780; }
+  .job-comp { font-size: 11px; color: #5f5e5a; margin-left: auto; white-space: nowrap; }
+  .job-chev { font-size: 10px; color: #888780; transition: transform 0.15s; margin-left: 6px; }
+  .job-chev.open { transform: rotate(90deg); }
+  .job-card-body { display: none; padding: 8px 10px; border-top: 0.5px solid #d3d1c7; font-size: 11px; color: #5f5e5a; line-height: 1.6; }
+  .job-card-body.open { display: block; }
+  .job-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .job-meta-item { font-size: 10px; padding: 2px 7px; border-radius: 8px; background: #f1efe8; border: 0.5px solid #d3d1c7; color: #5f5e5a; }
+  .path-note { font-size: 11px; color: #5f5e5a; margin-top: 4px; }
+  @media (max-width: 600px) {
+    .path-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="map-wrap">
+  <h1>BS Economics — Full Career Map</h1>
+  <p class="subtitle">7 career families · click any family to expand · job cards show descriptions, requirements, comp, and path</p>
+  <div class="legend" id="legend"></div>
+  <div class="families" id="families"></div>
+</div>
+
+<script>
+const FAMILIES = [
+  {
+    id:'finance', label:'Finance & Banking', color:'#185FA5', tag:'High floor, high ceiling',
+    paths:[
+      {label:'Investment banking',steps:['Analyst (2–3 yrs)','Associate (MBA or promote)','VP → MD track','Coverage or product group lead']},
+      {label:'Asset management',steps:['Research analyst','Portfolio associate','PM or quant researcher','CIO / partner track']},
+      {label:'Risk & corporate',steps:['Credit / market risk analyst','FP&A at corp','Treasury / capital markets','CFO pipeline']}
+    ],
+    skills:['Financial modeling','Excel / Python','Bloomberg / FactSet','CFA (optional)','Regulatory fluency'],
+    edge:'Unit economics, discounted cash flows, and incentive design come naturally. You understand why capital markets price things the way they do — not just that they do.',
+    jobs:[
+      {title:'Financial analyst',level:'Entry–Mid',comp:'$65K–$110K',desc:'Builds financial models, analyzes company performance, and supports investment or business decisions. Found across banks, corporations, and consulting firms. Day-to-day is heavy Excel, earnings calls, and deck prep.',req:['Excel / financial modeling','Accounting basics','Data visualization'],path:'Analyst → Senior analyst → Manager → Director'},
+      {title:'Investment banker',level:'Entry–Senior',comp:'$120K–$400K+ (incl. bonus)',desc:'Advises corporations on M&A, capital raises, and restructurings. Notorious for brutal hours early on, but the exit opportunities (PE, hedge funds, corp dev) are unmatched. Economics grads are common here.',req:['Financial modeling','Deal structuring','Pitching / client presence'],path:'Analyst → Associate (MBA) → VP → MD'},
+      {title:'Credit analyst',level:'Entry–Mid',comp:'$70K–$130K',desc:'Assesses the creditworthiness of borrowers — companies, municipalities, or individuals. Highly analytical, focused on cash flow, debt covenants, and downside scenarios. Strong economics fit.',req:['Credit analysis','Financial statements','Risk frameworks'],path:'Analyst → Senior analyst → Credit officer'},
+      {title:'Trader',level:'Entry–Senior',comp:'$100K–$500K+',desc:'Executes and manages positions in equities, fixed income, derivatives, or commodities. Quant-adjacent at major firms — increasingly requires programming. High variance in outcomes.',req:['Market microstructure','Risk management','Python / statistics'],path:'Junior trader → Trader → Senior trader → PM'},
+      {title:'Portfolio manager',level:'Senior',comp:'$200K–$2M+',desc:'Runs an investment portfolio — making buy/sell decisions, managing risk, and communicating with LPs or stakeholders. Takes 10+ years to reach. The capstone of asset management.',req:['Investment thesis development','Portfolio construction','Risk attribution'],path:'Research analyst → PM associate → PM'},
+      {title:'Risk analyst',level:'Entry–Mid',comp:'$70K–$130K',desc:'Identifies, measures, and monitors financial, operational, or market risks. Found at banks, asset managers, and regulators. Strong econometrics background is a genuine advantage here.',req:['Quantitative risk models','Regulatory frameworks','Stress testing'],path:'Analyst → Senior risk analyst → Risk manager → CRO'},
+      {title:'FP&A manager',level:'Mid–Senior',comp:'$90K–$160K',desc:'Financial planning & analysis — owns budgeting, forecasting, and variance analysis for a business unit or company. Acts as the CFO\'s analytical engine. Strong economics fit for the modeling and storytelling.',req:['Financial modeling','Business partnership','Forecasting'],path:'FP&A analyst → Manager → Sr. Manager → CFO pipeline'}
+    ]
+  },
+  {
+    id:'consulting', label:'Consulting', color:'#534AB7', tag:'Best network builder',
+    paths:[
+      {label:'MBB / Big 4',steps:['Analyst / associate','Engagement manager','Principal','Partner or exit to industry']},
+      {label:'Boutique / strategy',steps:['Analyst role','Project lead','Senior advisor','Firm equity or out']},
+      {label:'Economic consulting',steps:['Research associate','Consultant (litigation/policy)','Senior consultant','Director / expert witness']}
+    ],
+    skills:['Slide decks (Pyramid principle)','Structured problem solving','Client presence','Quantitative modeling','Excel, SQL basics'],
+    edge:'Economists think in models — hypotheses, variables, causal mechanisms. That structure maps directly onto case-based consulting methodology.',
+    jobs:[
+      {title:'Strategy consultant',level:'Entry–Senior',comp:'$100K–$350K+',desc:'Solves ambiguous business problems for senior clients — market entry, org design, growth strategy, cost reduction. The quintessential "keeps all doors open" first job. You learn to structure thinking and communicate under pressure.',req:['Structured problem solving','Slide storytelling','Client management'],path:'Analyst → Consultant → Manager → Partner'},
+      {title:'Economic consultant',level:'Entry–Senior',comp:'$80K–$300K+',desc:'Applies economic analysis to litigation, regulatory proceedings, and policy disputes. Common employers: Compass Lexecon, NERA, Analysis Group. You may serve as an expert witness or support one. Strong econometrics is the core skill.',req:['Econometrics','Causal inference','Expert report writing'],path:'Research associate → Consultant → Senior consultant → Director'},
+      {title:'Policy analyst',level:'Entry–Mid',comp:'$60K–$120K',desc:'Evaluates the economic impact of proposed policies — tax changes, regulations, trade rules. Found at think tanks, consulting firms, and government. Writing and quantitative rigor both matter.',req:['Policy research','Cost-benefit analysis','Regulatory knowledge'],path:'Analyst → Senior analyst → Associate director → Director'},
+      {title:'Operations consultant',level:'Mid',comp:'$100K–$200K',desc:'Improves how businesses run — supply chains, process design, organizational structure. More implementation-heavy than strategy. Strong fit for economics grads who like systems thinking.',req:['Process analysis','Change management','Data modeling'],path:'Consultant → Senior consultant → Manager → Director'},
+      {title:'Management consultant',level:'Entry–Senior',comp:'$90K–$300K',desc:'Broad category covering strategy, ops, technology, HR, and finance advisory. The generalist version of consulting. Entry point for MBAs and undergrads alike. Best viewed as a 2–3 year credential before specializing.',req:['Problem structuring','Communication','Basic modeling'],path:'Analyst → Associate → Manager → Senior manager → Partner'}
+    ]
+  },
+  {
+    id:'tech', label:'Tech & Data', color:'#0F6E56', tag:'Highest growth optionality',
+    paths:[
+      {label:'Data & analytics',steps:['Data analyst','Business intelligence analyst','Senior analyst / data scientist','Analytics lead or manager']},
+      {label:'Product & strategy',steps:['Associate PM or biz ops','Product manager','Senior PM / group PM','Director of product']},
+      {label:'Quant / ML research',steps:['Quant researcher (needs stats/ML)','Research scientist','Senior researcher','Principal or staff researcher']}
+    ],
+    skills:['Python / SQL (essential)','Statistics & A/B testing','Data visualization','Product intuition','ML basics (for quant track)'],
+    edge:'A/B testing, causal inference, and experiment design are core economics training. You can distinguish correlation from causation in product data — most PMs cannot.',
+    jobs:[
+      {title:'Data analyst',level:'Entry–Mid',comp:'$75K–$130K',desc:'Transforms raw data into insights that drive decisions — dashboards, reports, ad-hoc analyses, and experiment readouts. Python and SQL are the core tools. The most accessible entry point into tech for economics grads.',req:['SQL','Python or R','Data visualization (Tableau, Looker)'],path:'Analyst → Senior analyst → Lead analyst → Analytics manager'},
+      {title:'Business analyst',level:'Entry–Mid',comp:'$70K–$120K',desc:'Sits at the intersection of business and technology — translating business needs into data requirements, processes, or product features. Often a stepping stone into PM or strategy roles.',req:['Requirements gathering','SQL','Process documentation'],path:'BA → Senior BA → Product owner or PM track'},
+      {title:'Product manager',level:'Mid–Senior',comp:'$130K–$250K',desc:'Defines what gets built and why. Owns the roadmap, works with engineering and design, and is ultimately accountable for product outcomes. Economics grads have an edge in pricing, market sizing, and experiment interpretation.',req:['Product strategy','Experiment design','Stakeholder communication'],path:'APM → PM → Senior PM → Group PM → Director'},
+      {title:'Quant analyst',level:'Mid–Senior',comp:'$150K–$400K+',desc:'Builds mathematical models to inform trading strategies, risk management, or product decisions. Found at hedge funds, banks, and increasingly in tech. Requires strong math/stats — often a master\'s or PhD.',req:['Statistics / probability','Python / R / MATLAB','Financial mathematics'],path:'Junior quant → Quant → Senior quant → PM or research lead'},
+      {title:'Data scientist',level:'Mid–Senior',comp:'$120K–$220K',desc:'Applies statistical modeling and ML to solve business problems — churn prediction, recommendation systems, pricing models, fraud detection. The upgrade from data analyst that requires stronger ML skills.',req:['Machine learning','Python (scikit-learn, PyTorch)','Experiment design'],path:'Data analyst → Data scientist → Senior DS → Principal DS or manager'},
+      {title:'Growth analyst',level:'Entry–Mid',comp:'$80K–$140K',desc:'Focuses on user acquisition, activation, retention, and revenue — the growth funnel. Heavy A/B testing, cohort analysis, and funnel optimization. Economics training in causal inference maps directly here.',req:['Funnel analytics','A/B testing','SQL / Python'],path:'Growth analyst → Senior analyst → Growth PM or head of growth'},
+      {title:'Strategy & ops',level:'Mid',comp:'$100K–$180K',desc:'The "internal consulting" function at tech companies — tackling cross-functional problems that do not fit neatly into any one team. Strong pipeline into senior leadership and GM roles. Highly accessible for economics grads.',req:['Structured problem solving','Data analysis','Stakeholder management'],path:'S&O analyst → Manager → Director → VP / GM'},
+      {title:'Principal / staff researcher',level:'Senior',comp:'$300K–$580K+ (total comp)',desc:'The top of the individual contributor research track at major tech labs. Sets the research agenda, defines what questions are worth asking, and translates findings into product or policy impact. Requires a PhD at almost all major employers. At Meta FAIR, total comp ranges $305K–$581K; at Microsoft Research, principal-level total comp is typically $312K–$479K. The economics angle that fits best: causal inference, experiment design, and measurement.',req:['PhD (almost universal)','Independent research program','Publications / patents','ML / statistics depth'],path:'Research scientist → Senior RS → Staff RS → Principal RS → Distinguished scientist'}
+    ]
+  },
+  {
+    id:'entrepreneurship', label:'Entrepreneurship', color:'#993C1D', tag:'Highest variance path',
+    paths:[
+      {label:'Work first, then found',steps:['Consulting / finance 3–5 yrs','Early-stage startup ops role','Build domain + network','Raise or bootstrap']},
+      {label:'Sector-native',steps:['Join fintech / marketplace co.','Learn the market from inside','Identify the gap','Spin out or found adjacent']},
+      {label:'Straight in',steps:['Find technical co-founder','Target a lived problem','Accelerator (YC, Techstars)','Raise pre-seed']}
+    ],
+    skills:['Sales (the hardest one)','Python / no-code tools','Unit economics fluency','Storytelling to investors','Domain depth in one vertical'],
+    edge:'Pricing discipline, market sizing rigor, and incentive design. You understand why customers defect, not just that they do. Most founders learn this the hard way.',
+    jobs:[
+      {title:'Founder / CEO',level:'All levels',comp:'$0 → uncapped',desc:'Owns the company — vision, capital, team, culture, and ultimately outcomes. The economics degree helps with pricing, fundraising narrative, and unit economics discipline. Sales is the skill most analytical founders lack and most need.',req:['Sales','Fundraising','Domain expertise','Resilience'],path:'Idea → Pre-seed → Seed → Series A → Scale or exit'},
+      {title:'COO at startup',level:'Mid–Senior',comp:'$130K–$250K + equity',desc:'Runs the operational backbone of an early-stage company — hiring, finance, process, and cross-functional coordination. Often the founder\'s right hand. Strong fit for economics grads who want startup exposure without the full founder risk.',req:['Operations','Financial planning','Team building'],path:'S&O or consulting → Startup COO → Founder or CEO'},
+      {title:'Head of growth',level:'Mid',comp:'$120K–$200K + equity',desc:'Owns user and revenue growth — acquisition channels, conversion, retention, and monetization. Data-heavy, experiment-heavy. One of the most accessible senior roles at startups for economics-trained analysts.',req:['Growth modeling','A/B testing','Channel strategy'],path:'Growth analyst → Growth PM → Head of growth → VP Growth'},
+      {title:'Biz dev lead',level:'Mid',comp:'$100K–$180K + equity',desc:'Builds partnerships, distribution deals, and revenue relationships that engineering cannot build. Often the bridge between a product and the market. Underrated entry point into startup leadership.',req:['Negotiation','Market mapping','Relationship building'],path:'BD analyst → BD manager → VP Partnerships → COO'},
+      {title:'Venture-backed operator',level:'Mid–Senior',comp:'$120K–$220K + equity',desc:'Senior individual contributor or functional lead at a VC-backed company. Not the founder, but owns a critical function — finance, product, marketing, or ops. Strong optionality: learn the game, build equity, then found.',req:['Functional depth','Startup pace','Equity negotiation'],path:'Operator → Founder or GP at VC firm'}
+    ]
+  },
+  {
+    id:'policy', label:'Government & Policy', color:'#3B6D11', tag:'Most durable, lower pay',
+    paths:[
+      {label:'Federal / state govt',steps:['Economist / policy analyst role','Senior economist','Deputy director','Director or SES level']},
+      {label:'Think tanks & NGOs',steps:['Research assistant','Policy analyst','Senior fellow','Director of research']},
+      {label:'Legislative / exec',steps:['Hill staffer (econ committee)','Policy advisor','Chief of staff / deputy','Elected or appointed']}
+    ],
+    skills:['Applied econometrics (Stata/R)','Policy writing','Budget analysis','Regulatory process','Stakeholder communication'],
+    edge:'Most policy debates are ultimately about incentives, tradeoffs, and second-order effects. An economics lens cuts through ideological noise to the mechanism.',
+    jobs:[
+      {title:'Economist (BLS, CBO, Fed)',level:'Entry–Senior',comp:'$75K–$180K (govt pay scale)',desc:'Conducts economic research and analysis to inform government policy or public reporting. The Federal Reserve, Bureau of Labor Statistics, and Congressional Budget Office are the most prestigious placements. A PhD is required at senior levels; a master\'s gets you in at entry.',req:['Econometrics','Data analysis (Stata/R)','Policy writing'],path:'Economist I → Senior economist → Branch chief → Division director'},
+      {title:'Policy analyst',level:'Entry–Mid',comp:'$55K–$110K',desc:'Researches, evaluates, and communicates the impact of existing or proposed policies. Found across every level of government and at think tanks. Strong writing and quantitative skills both matter — the combination is rare.',req:['Research design','Cost-benefit analysis','Regulatory analysis'],path:'Research assistant → Policy analyst → Senior analyst → Director'},
+      {title:'Budget analyst',level:'Entry–Mid',comp:'$60K–$120K',desc:'Evaluates budget proposals, monitors spending, and advises on resource allocation. Found at OMB, CBO, state budget offices, and in congressional appropriations. Highly stable career with strong public sector pension.',req:['Budget modeling','Policy analysis','Government accounting'],path:'Budget analyst → Senior analyst → Budget officer → Deputy director'},
+      {title:'Urban planner',level:'Mid',comp:'$65K–$120K',desc:'Shapes how cities develop — land use, transportation, housing, and economic development policy. Economics background helps with housing market analysis, cost-benefit of infrastructure, and incentive design for development.',req:['GIS / spatial analysis','Zoning and land use law','Community engagement'],path:'Planner → Senior planner → Planning director → City manager'},
+      {title:'Legislative aide',level:'Entry',comp:'$45K–$80K',desc:'Supports elected officials with research, constituent communication, and policy development. A critical entry point into the legislative pipeline — many senior policymakers, lobbyists, and elected officials started here.',req:['Policy research','Writing','Political judgment'],path:'Legislative aide → Policy advisor → Chief of staff → Elected / appointed'},
+      {title:'Regulatory affairs',level:'Mid–Senior',comp:'$90K–$170K',desc:'Navigates the regulatory environment for companies or agencies — compliance strategy, rulemaking comments, and government relations. Found in pharma, finance, energy, and tech. Strong economics fit for cost-benefit and market impact analysis.',req:['Regulatory frameworks','Industry knowledge','Government relations'],path:'Regulatory analyst → Manager → Director → VP Regulatory affairs'}
+    ]
+  },
+  {
+    id:'academia', label:'Academia & Research', color:'#854F0B', tag:'Requires PhD',
+    paths:[
+      {label:'Academic track',steps:['PhD economics (5–6 yrs)','Postdoc or visiting position','Assistant professor','Tenure track → tenured']},
+      {label:'Research institutions',steps:['Pre-doc / RA after undergrad','PhD or direct hire (Fed, IMF)','Research economist','Senior researcher / fellow']},
+      {label:'Applied research',steps:['MA in econ or public policy','Research analyst at think tank','Economist at private firm','Principal researcher']}
+    ],
+    skills:['Econometrics (R, Stata, Python)','Academic writing','Research design','Grant writing','Peer review process'],
+    edge:'The questions that matter most — inequality, market design, behavioral nudges, climate economics — need rigorous people willing to pursue slow, careful answers.',
+    jobs:[
+      {title:'Assistant / associate professor',level:'Senior',comp:'$90K–$200K (varies by school)',desc:'Teaches courses, conducts original research, and publishes in peer-reviewed journals. The "tenure track" — spend 5–7 years as assistant professor building a research record, then go up for tenure. Top economics departments at R1 universities are highly competitive; teaching-focused schools are more accessible.',req:['PhD in economics','Publication record','Teaching experience'],path:'PhD → Postdoc → Asst professor → Associate → Full professor'},
+      {title:'Research economist (Fed, IMF)',level:'Mid–Senior',comp:'$120K–$250K',desc:'Conducts economic research inside major institutions — the Federal Reserve system, IMF, World Bank, and similar. More applied than academia; less brutal than banking. Requires a PhD for senior roles; pre-doc positions exist for undergrads wanting to build toward this.',req:['PhD (senior levels)','Econometrics','Macroeconomics or microeconomics depth'],path:'Pre-doc RA → PhD → Research economist → Senior economist → Division head'},
+      {title:'Think tank fellow',level:'Mid–Senior',comp:'$80K–$180K',desc:'Produces policy-relevant research at organizations like Brookings, AEI, Urban Institute, Cato, or EPI. More public-facing than academia — you write op-eds, testify to Congress, and brief journalists. Ideology matters for placement.',req:['Policy research','Public writing','Domain expertise'],path:'Research assistant → Policy analyst → Fellow → Senior fellow → Director'},
+      {title:'Pre-doc RA',level:'Entry',comp:'$50K–$75K (stipend)',desc:'A 1–2 year research assistant position working directly for an economics professor, typically before a PhD. The single most valuable thing an economics undergrad can do if serious about academia or research. Builds skills, a recommendation letter from a top researcher, and a realistic picture of whether research is right for you.',req:['Strong GPA','Econometrics','Programming (R, Stata, Python)'],path:'Pre-doc → PhD program → Academic or research career'},
+      {title:'Applied researcher at tech co.',level:'Mid–Senior',comp:'$180K–$350K',desc:'Conducts economics or social science research inside a tech company — Meta\'s economists studying marketplace behavior, Airbnb\'s research team, Uber\'s pricing researchers. More applied than academia, better paid, and increasingly prestigious. The principal/staff track is the senior destination here.',req:['Causal inference','Experiment design','Domain knowledge (labor, platforms, markets)'],path:'PhD → Research scientist → Senior RS → Principal researcher'}
+    ]
+  },
+  {
+    id:'nonprofit', label:'Nonprofit & International', color:'#993556', tag:'Mission-driven, competitive',
+    paths:[
+      {label:'International orgs',steps:['Young professional program (World Bank, IMF, UN)','Economist / analyst','Senior economist','Director / division chief']},
+      {label:'Development sector',steps:['Program analyst at NGO','MEL (monitoring, eval)','Country director','VP of programs']},
+      {label:'Social sector strategy',steps:['Analyst at social impact firm','Manager','Partner or senior director','Executive director']}
+    ],
+    skills:['Econometrics / impact eval','Program design','Grants & fundraising','Cross-cultural communication','Development economics (J-PAL, RCTs)'],
+    edge:'Development economics, RCT design, and impact evaluation are all economic tools. You can measure whether an intervention actually works — the rarest skill in the sector.',
+    jobs:[
+      {title:'Development economist',level:'Mid–Senior',comp:'$90K–$200K (intl orgs higher)',desc:'Designs, evaluates, and advises on economic development programs in low- and middle-income countries. Strong quantitative skills — especially RCTs and quasi-experimental methods — are the differentiator. J-PAL and IPA are the most prestigious entry points for research-focused roles.',req:['Development economics','Impact evaluation (RCTs)','Field research experience'],path:'Research assistant → Junior economist → Economist → Senior economist → Director'},
+      {title:'Program analyst',level:'Entry–Mid',comp:'$55K–$95K',desc:'Supports the design, implementation, and monitoring of programs at NGOs or foundations. Entry-level at organizations like USAID, Gates Foundation, Ford Foundation. More operational than research-focused; strong writing and project management matter.',req:['Program management','Monitoring & evaluation','Grant writing'],path:'Program assistant → Analyst → Program officer → Director'},
+      {title:'Impact evaluator',level:'Mid',comp:'$80K–$140K',desc:'Designs and runs rigorous evaluations of social programs — does this intervention actually work? Uses RCTs, difference-in-differences, regression discontinuity, and other causal inference methods. This is economics applied directly to social good.',req:['Causal inference','Stata / R','Field research'],path:'RA → Evaluation analyst → Senior evaluator → Director of learning & impact'},
+      {title:'Policy associate (World Bank, IMF)',level:'Entry–Mid',comp:'$80K–$160K (intl benefits)',desc:'Conducts research and analysis in support of policy work at major multilateral institutions. Extremely competitive. World Bank Young Professionals Program and IMF Economist Program are the structured entry paths — both highly selective and require a strong economics background.',req:['Economics research','International development knowledge','Language skills (French, Spanish, Arabic helpful)'],path:'YPP / economist program → Economist → Senior economist → Lead economist → Division chief'},
+      {title:'Social impact consultant',level:'Mid',comp:'$90K–$180K',desc:'Strategy consulting applied to the social sector — foundations, NGOs, governments, and impact investors. Firms like FSG, Bridgespan, and Dalberg. Strong analytical skills, but also requires ability to work across cultures and sectors.',req:['Strategy consulting skills','Social sector knowledge','Stakeholder facilitation'],path:'Analyst → Consultant → Manager → Partner / senior director'}
+    ]
+  }
+];
+
+const legendEl = document.getElementById('legend');
+const familiesEl = document.getElementById('families');
+let activeFilters = new Set(FAMILIES.map(f => f.id));
+
+function buildLegend() {
+  legendEl.innerHTML = '';
+  FAMILIES.forEach(f => {
+    const li = document.createElement('div');
+    li.className = 'leg-item' + (activeFilters.has(f.id) ? ' active' : '');
+    li.innerHTML = `<span class="leg-dot" style="background:${f.color}"></span>${f.label}`;
+    li.onclick = () => {
+      if (activeFilters.has(f.id)) { if (activeFilters.size > 1) activeFilters.delete(f.id); }
+      else activeFilters.add(f.id);
+      buildFamilies();
+      buildLegend();
+    };
+    legendEl.appendChild(li);
+  });
+}
+
+function buildFamilies() {
+  familiesEl.innerHTML = '';
+  FAMILIES.forEach(f => {
+    if (!activeFilters.has(f.id)) return;
+    const card = document.createElement('div');
+    card.className = 'family-card';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'family-header';
+    hdr.innerHTML = `<span class="fam-dot" style="background:${f.color}"></span><span class="fam-title">${f.label}</span><span class="fam-tag">${f.tag}</span><span class="chevron" id="chev-${f.id}">›</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'family-body';
+
+    const tabs = ['Paths', 'Jobs & roles', 'Skills & edge'];
+    let tabsHTML = `<div class="tabs">`;
+    tabs.forEach((t, i) => { tabsHTML += `<button class="tab${i === 0 ? ' active' : ''}" onclick="switchTab('${f.id}',${i})" id="tab-${f.id}-${i}">${t}</button>`; });
+    tabsHTML += `</div>`;
+
+    let pathHTML = `<div class="tab-panel active" id="panel-${f.id}-0"><div class="path-grid">`;
+    f.paths.forEach(p => {
+      pathHTML += `<div class="path-col"><div class="path-label">${p.label}</div><div class="path-steps">`;
+      p.steps.forEach((s, i) => { pathHTML += `<div class="step">${i + 1}. ${s}</div>`; });
+      pathHTML += `</div></div>`;
+    });
+    pathHTML += `</div></div>`;
+
+    let jobsHTML = `<div class="tab-panel" id="panel-${f.id}-1"><div class="jobs-grid">`;
+    f.jobs.forEach((j, ji) => {
+      const jid = `${f.id}-${ji}`;
+      jobsHTML += `<div class="job-card" id="jcard-${jid}">
+        <div class="job-card-header" onclick="toggleJob('${jid}')">
+          <span class="job-title-text">${j.title}</span>
+          <span class="job-level">${j.level}</span>
+          <span class="job-comp">${j.comp}</span>
+          <span class="job-chev" id="jchev-${jid}">›</span>
+        </div>
+        <div class="job-card-body" id="jbody-${jid}">
+          <div style="margin-bottom:6px">${j.desc}</div>
+          <div style="font-size:10px;font-weight:500;color:#888780;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em">Key requirements</div>
+          <div class="job-meta">${j.req.map(r => `<span class="job-meta-item">${r}</span>`).join('')}</div>
+          <div style="font-size:10px;font-weight:500;color:#888780;margin:7px 0 3px;text-transform:uppercase;letter-spacing:0.04em">Typical path</div>
+          <div class="path-note">${j.path}</div>
+        </div>
+      </div>`;
+    });
+    jobsHTML += `</div></div>`;
+
+    const skillsHTML = `<div class="tab-panel" id="panel-${f.id}-2">
+      <div class="section-label">Skills to build</div>
+      <div class="skills-row">${f.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}</div>
+      <div class="divider"></div>
+      <div class="section-label">The economics edge</div>
+      <div class="econ-edge">${f.edge}</div>
+    </div>`;
+
+    body.innerHTML = tabsHTML + pathHTML + jobsHTML + skillsHTML;
+
+    hdr.onclick = () => {
+      const wasOpen = body.classList.contains('open');
+      document.querySelectorAll('.family-body.open').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.chevron.open').forEach(c => c.classList.remove('open'));
+      if (!wasOpen) {
+        body.classList.add('open');
+        document.getElementById('chev-' + f.id).classList.add('open');
+      }
+    };
+
+    card.appendChild(hdr);
+    card.appendChild(body);
+    familiesEl.appendChild(card);
+  });
+}
+
+function switchTab(fid, idx) {
+  for (let i = 0; i < 3; i++) {
+    const t = document.getElementById(`tab-${fid}-${i}`);
+    const p = document.getElementById(`panel-${fid}-${i}`);
+    if (t && p) { t.classList.toggle('active', i === idx); p.classList.toggle('active', i === idx); }
+  }
+}
+
+function toggleJob(jid) {
+  const body = document.getElementById('jbody-' + jid);
+  const chev = document.getElementById('jchev-' + jid);
+  if (!body || !chev) return;
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+buildLegend();
+buildFamilies();
+setTimeout(() => { const first = document.querySelector('.family-header'); if (first) first.click(); }, 50);
+</script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 package server;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import server.response.assets.Parameter;
 import log.SystemLogger;
@@ -29,6 +32,7 @@ public class Server {
 	private AssetManager manager;
 	private final String publicDir;
 	private final String host;
+	private final ExecutorService threadPool;
 
 
 	public Server(ServerSocketService service, int port, AssetManager manager, String publicDir, String host){
@@ -42,27 +46,47 @@ public class Server {
 		this.manager = manager;
 		this.publicDir = publicDir;
 		this.host = host;
+		this.threadPool = Executors.newFixedThreadPool(10);
 	}
 	
 	public void start()  {
-		
+
 		registerServerAssets();
 
 		try{
 			logServerInfomation();
-			
-			while(!service.isClosed()){ 
+
+			while(!service.isClosed()){
 				logListening();
-				
+
 				SocketService socket = service.accept();
-				new ClientHandler(socket, logger, manager, host, port).run();	
+				threadPool.execute(new ClientHandler(socket, logger, manager, host, port));
 			}
-			service.close();
 		}catch(IOException ioe){
-			logger.error(ioe.getStackTrace().toString());
-			System.exit(1);
+			try {
+				if(!service.isClosed()){
+					logger.error(ioe.getStackTrace().toString());
+				}
+			} catch (IOException e) {
+				logger.error(ioe.getStackTrace().toString());
+			}
 		}
-		
+
+	}
+
+	public void stop() {
+		try {
+			logger.log("Server Shutting Down...");
+			service.close();
+			threadPool.shutdown();
+			if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+				threadPool.shutdownNow();
+			}
+		} catch (IOException ioe) {
+			logger.error(ioe.getStackTrace().toString());
+		} catch (InterruptedException ie) {
+			threadPool.shutdownNow();
+		}
 	}
 
 	public void registerServerAssets(){
@@ -80,7 +104,7 @@ public class Server {
 	}
 	
 	public void logListening(){
-		logger.log("Listening...");
+		logger.log("Listening... on port " + port);
 	}
 	
 	public void logServerInfomation() {
