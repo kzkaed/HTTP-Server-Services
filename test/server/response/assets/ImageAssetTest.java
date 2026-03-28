@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import server.helpers.Utility;
+import server.helpers.FileLocator;
 import server.request.Request;
 import server.response.Response;
 
@@ -68,7 +68,7 @@ public class ImageAssetTest {
 		Request request = new Request();
 		request.setURI("/image.jpeg");
 
-		Path path = Paths.get(Utility.webrootAbsolutePath("public") + request.getURI());
+		Path path = Paths.get(FileLocator.webrootAbsolutePath("public") + request.getURI());
 		
 		byte[] imageInBytes = Files.readAllBytes(path);
 				

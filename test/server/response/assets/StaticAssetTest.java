@@ -67,7 +67,7 @@ public class StaticAssetTest {
 		Request request = new Request("GET","/jam","HTTP1/1", null, "GET /jam HTTP1/1",null,new Hashtable<String,String>());
 		Response response = asset.execute(request);
 		String contentReceived = response.getBody();
-		assertFalse(server.helpers.Utility.fileExist("/jam", "public"));
+		assertFalse(server.helpers.FileLocator.fileExist("/jam", "public"));
 
 		assertEquals(content, contentReceived);
 	}

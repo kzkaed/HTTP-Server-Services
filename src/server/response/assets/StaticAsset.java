@@ -10,7 +10,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import routes.Routes;
 import server.constants.Method;
-import server.helpers.Utility;
+import server.helpers.FileLocator;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
@@ -25,7 +25,7 @@ public class StaticAsset implements Asset {
 
 	@Override
 	public boolean canHandle(Request request) {
-		return Utility.fileExist(request.getURI(), publicDir) && !isImage(request.getURI()) && request.getMethod().equals(Method.GET);
+		return FileLocator.fileExist(request.getURI(), publicDir) && !isImage(request.getURI()) && request.getMethod().equals(Method.GET);
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class StaticAsset implements Asset {
 	
 	public String retrieveFileContent(String routedPath){
 		String body = "";
-		String absolutePath = Utility.findServerAbsolutePath();
+		String absolutePath = FileLocator.findServerAbsolutePath();
 		String defaultDirectory = "/" + publicDir;
 
 		StringBuilder path = new StringBuilder();
@@ -50,7 +50,7 @@ public class StaticAsset implements Asset {
 		path.append(defaultDirectory);
 		path.append(routedPath);
 
-		if (Utility.fileExist(routedPath, publicDir)){
+		if (FileLocator.fileExist(routedPath, publicDir)){
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
 				String str;
