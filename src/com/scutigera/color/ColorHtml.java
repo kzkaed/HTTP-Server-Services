@@ -8,12 +8,10 @@ public class ColorHtml {
 	public ColorHtml(){
 		builder = new StringBuilder();		
 	}
-
 	
 	public ColorHtml(String backgroundColor){
 		builder = new StringBuilder();
-		this.backgroundColor = backgroundColor;	
-		
+		this.backgroundColor = backgroundColor;		
 	}
 	
 	public String build(){

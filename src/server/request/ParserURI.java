@@ -78,5 +78,4 @@ public class ParserURI implements ParametersParser {
 		return parameterPairs;
 	}
 	
-
 }

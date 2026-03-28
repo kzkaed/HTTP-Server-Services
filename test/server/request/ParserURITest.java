@@ -4,13 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ParserURITest {
-
 	
 	@Test
 	public void testParsesQuery() throws URISyntaxException {
