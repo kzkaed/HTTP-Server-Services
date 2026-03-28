@@ -13,7 +13,7 @@ public class ArgsParser {
 		context.put("Public Directory", PUBLIC_DIR);
 		
 		if(args.length > 0 )
-			context.put("Public Directory", args[0]);
+			context.put("Port", args[0]);
 		if(args.length > 1)
 			context.put("Public Directory", args[1]);
 		return context;

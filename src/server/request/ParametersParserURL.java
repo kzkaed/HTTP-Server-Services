@@ -2,6 +2,8 @@ package server.request;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Hashtable;
 
@@ -20,7 +22,11 @@ public class ParametersParserURL implements ParametersParser {
 
 	public ParametersParserURL(String requestUri, String host, int port) throws MalformedURLException, UnsupportedEncodingException{
 		this.requestUri = requestUri;
-		this.url = new URL("http://" + host + port + requestUri);
+		try {
+			this.url = new URI("http://" + host + port + requestUri).toURL();
+		} catch (URISyntaxException e) {
+			throw new MalformedURLException(e.getMessage());
+		}
 		this.protocol = url.getProtocol();
 		this.path = url.getPath();
 		this.filename = url.getFile();

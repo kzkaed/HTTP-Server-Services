@@ -39,7 +39,9 @@ public class RequestParser {
 
 		Hashtable<String,String> parameters;
 		if(requestLineTokens.containsKey("parameters")){
-			parameters =  (Hashtable<String, String>) requestLineTokens.get("parameters");	
+			@SuppressWarnings("unchecked")
+			Hashtable<String, String> p = (Hashtable<String, String>) requestLineTokens.get("parameters");
+			parameters = p;
 		}else{
 			parameters =  new Hashtable<String,String>();
 		}
@@ -78,7 +80,7 @@ public class RequestParser {
 		
 		if (query != null){
 			requestLineTokens.put("query", query );
-			requestLineTokens.put("parameters", (Hashtable<String,String>)subParser.getParameterPairs());
+			requestLineTokens.put("parameters", subParser.getParameterPairs());
 		}
 		
 		return requestLineTokens;	
