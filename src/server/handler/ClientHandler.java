@@ -15,7 +15,7 @@ import server.socket.SocketService;
 import log.Logger;
 
 
-public class ClientHandler {
+public class ClientHandler implements Runnable {
 	protected SocketService socket;
 	private BufferedReader in;
 	private DataOutputStream out;
