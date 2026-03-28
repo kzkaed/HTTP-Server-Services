@@ -1,7 +1,8 @@
 package server.request;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import server.constants.Constant;
 
@@ -32,8 +33,8 @@ public class ParametersParserRegex implements ParametersParser {
 	}
 
 	@Override
-	public Hashtable<String, String> getParameterPairs() {
-		Hashtable<String,String> parameterPairs = new Hashtable<String,String>();
+	public Map<String, String> getParameterPairs() {
+		Map<String,String> parameterPairs = new HashMap<>();
 		String[] queryTokens = getQuery().split(server.constants.Constant.DELIMITER_AMPERSAND);
 
 		for(int i = 0; i<queryTokens.length; i++){

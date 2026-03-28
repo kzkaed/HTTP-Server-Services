@@ -1,12 +1,12 @@
 package views;
 
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public interface ViewFactory {
 
 	View forDirectory(List<String> files);
-	View forParameters(Hashtable<String,String> params);
+	View forParameters(Map<String,String> params);
 	View forContent(String content);
 
 }

@@ -11,7 +11,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -168,7 +169,7 @@ public class RequestParserTest {
 		ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
 		BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
 		RequestParser parser = new RequestParser(in, "localhost", 0);
-		Hashtable<String,String> headersPairs = parser.parseHeaders(headers);
+		Map<String,String> headersPairs = parser.parseHeaders(headers);
 		assertEquals(headersPairs.get("User-Agent"),"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:36.0) Gecko/20100101 Firefox/36.0");
 		assertEquals(headersPairs.get("Host"),"scutigera.com");
 		assertEquals(headersPairs.get("Accept"),"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

@@ -4,44 +4,32 @@ package server.request;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ParserURI implements ParametersParser {
 	private URI uri;
-	private String requestUri; 
-	private String protocol;
 	private String query;
-	private String reference;
 	private String path;
 	private String filename;
-	private int port;
-	private String authority;
-	private Hashtable<String,String> parameterPairs;
-	private String[] queryTokens;
+	private Map<String,String> parameterPairs;
 	
 	
 	public ParserURI(String requestUri) throws URISyntaxException{
 		this.uri = new URI(requestUri);
-		this.protocol = uri.getSchemeSpecificPart();
-		this.authority = uri.getAuthority();
-		this.port = uri.getPort();
 		this.path = uri.getPath();
 		this.filename = uri.getFragment();
 		this.query = uri.getQuery();
-		this.parameterPairs = new Hashtable<String,String>();
+		this.parameterPairs = new HashMap<>();
 	}
-	
+
 	public ParserURI(URI uri) {
 		this.uri = uri;
-		this.protocol = uri.getSchemeSpecificPart();
-		this.authority = uri.getAuthority();
-		this.port = uri.getPort();
 		this.path = uri.getPath();
 		this.filename = uri.getFragment();
 		this.query = uri.getQuery();
-		this.parameterPairs = new Hashtable<String,String>();
-		
+		this.parameterPairs = new HashMap<>();
 	}
 
 	@Override
@@ -60,7 +48,7 @@ public class ParserURI implements ParametersParser {
 	}
 
 	@Override
-	public Hashtable<String, String> getParameterPairs() {
+	public Map<String, String> getParameterPairs() {
 		String delimiter;
 		
 		delimiter = server.constants.Constant.DELIMITER_AMPERSAND;
@@ -78,5 +66,4 @@ public class ParserURI implements ParametersParser {
 		return parameterPairs;
 	}
 	
-
 }

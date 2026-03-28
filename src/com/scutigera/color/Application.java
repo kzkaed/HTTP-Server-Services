@@ -13,9 +13,5 @@ public class Application {
 	public static AssetManager registerApplicationAssets(AssetManager manager){
 		manager.register(new Color());	
 		return manager;
-	}
-	
-	
-	
-	
+	}	
 }

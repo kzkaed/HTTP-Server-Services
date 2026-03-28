@@ -5,7 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import server.constants.Constant;
 
@@ -18,7 +19,7 @@ public class ParametersParserURL implements ParametersParser {
 	private String filename;
 	private int port;
 
-	private Hashtable<String,String> parameterPairs;
+	private Map<String,String> parameterPairs;
 
 	public ParametersParserURL(String requestUri, String host, int port) throws MalformedURLException, UnsupportedEncodingException{
 		this.requestUri = requestUri;
@@ -31,7 +32,7 @@ public class ParametersParserURL implements ParametersParser {
 		this.path = url.getPath();
 		this.filename = url.getFile();
 		this.query = url.getQuery();
-		this.parameterPairs = new Hashtable<String,String>();
+		this.parameterPairs = new HashMap<>();
 	}
 	
 	
@@ -65,7 +66,7 @@ public class ParametersParserURL implements ParametersParser {
 	}
 		
 	@Override
-	public Hashtable<String, String> getParameterPairs() {
+	public Map<String, String> getParameterPairs() {
 		if(query != null){
 			String[] queryTokens = query.split(server.constants.Constant.DELIMITER_AMPERSAND);
 			for(int i = 0; i<queryTokens.length; i++){

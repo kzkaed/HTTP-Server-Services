@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class ParameterTest {
 	public void setUp() throws Exception {
 		
 		asset = new Parameter(new HtmlViewFactory());
-		Hashtable<String,String> params = new Hashtable<String,String>();
+		Map<String,String> params = new HashMap<>();
 		params.put("variable_1","test1");
 		params.put("variable_2", "test2");
 		request = new Request("GET","/parameters","HTTP1/1", null, "GET /parameters?variable_1=test1&variable_2=test2 HTTP1/1",null,params);

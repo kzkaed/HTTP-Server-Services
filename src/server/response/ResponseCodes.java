@@ -1,12 +1,13 @@
 package server.response;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ResponseCodes {
-	
+
 	//Status Code and Reason Phrase
 
-	private static final Hashtable<String,String> HttpResponses = new Hashtable<String, String>() {
+	private static final Map<String,String> HttpResponses = new HashMap<>() {
 	
 
 		

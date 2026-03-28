@@ -6,7 +6,8 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import org.junit.After;
@@ -25,7 +26,7 @@ public class DirectoryAssetTest {
 	@Before
 	public void setUp() throws Exception {
 		directoryAsset = new DirectoryAsset("public", new views.HtmlViewFactory());
-		request = new Request("GET","/","HTTP1/1", null, "GET / HTTP1/1",null,new Hashtable<String,String>());
+		request = new Request("GET","/","HTTP1/1", null, "GET / HTTP1/1",null,new HashMap<>());
 	}
 
 	@After

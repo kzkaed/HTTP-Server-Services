@@ -1,24 +1,24 @@
 package server.request;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Request {
-	
 
 	private String method;
 	private String uri;
 	private String protocolVersion;
-	private Hashtable<String,String> headers;
+	private Map<String,String> headers;
 	private String requestLine;
 	private String requestBody;
-	private Hashtable<String,String> parameters;
+	private Map<String,String> parameters;
 	private String fullUri;
-	
+
 	public Request(){
-		this.parameters = new Hashtable<String, String>();
+		this.parameters = new HashMap<>();
 	}
-	
-	public Request(String method, String uri,Hashtable<String,String> headers, Hashtable<String,String>parameters, String body ){
+
+	public Request(String method, String uri,Map<String,String> headers, Map<String,String>parameters, String body ){
 		this.method = method;
 		this.uri = uri;
 		this.headers = headers;
@@ -26,7 +26,7 @@ public class Request {
 		this.parameters = parameters;
 	}
 	
-	public Request(String method,String uri, String protocolVersion, Hashtable<String,String> headers, String requestLine, String requestBody, Hashtable<String,String> parameters) {
+	public Request(String method,String uri, String protocolVersion, Map<String,String> headers, String requestLine, String requestBody, Map<String,String> parameters) {
 		this.method = method;
 		this.uri = uri;
 		this.protocolVersion = protocolVersion;
@@ -60,15 +60,15 @@ public class Request {
 		return this.requestLine;
 	}
 	
-	public Hashtable<String,String> getParmeters(){
+	public Map<String,String> getParmeters(){
 		return this.parameters;
 	}
-	
+
 	public void setParameter(String key, String value){
 		this.parameters.put(key, value);
 	}
-	
-	public Hashtable<String,String> getHeaders(){
+
+	public Map<String,String> getHeaders(){
 		return this.headers;
 	}
 
