@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import routes.Routes;
 import server.request.Request;
+import server.response.ContentType;
 import server.response.Response;
 import server.response.ResponseCodes;
 
@@ -27,7 +28,7 @@ public class StaticPathExt extends StaticAsset implements Asset{
 		
 		Routes route = new Routes(request.getURI());
 		String body = retrieveFileContent(route.getRoute());	
-		HashMap<String,String> headers = this.determineHeaders("text/html");
+		HashMap<String,String> headers = this.determineHeaders(ContentType.forPath(route.getRoute()));
 		return new Response(body,body.getBytes("UTF8"), headers, 200, ResponseCodes.getReason("200"));
 	}
 }
