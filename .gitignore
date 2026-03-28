@@ -1,4 +1,7 @@
 /documents/
+gradlew
+gradlew.bat
+/gradle/
 /bin/
 .jar
 .DS_Store
