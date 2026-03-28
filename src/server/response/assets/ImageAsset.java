@@ -10,16 +10,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 import server.helpers.Utility;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
 
 public class ImageAsset implements Asset {
-	
-	public ImageAsset(){}
+
+	private final String publicDir;
+
+	public ImageAsset(String publicDir) {
+		this.publicDir = publicDir;
+	}
 
 	@Override
 	public boolean canHandle(Request request) {
@@ -30,8 +32,7 @@ public class ImageAsset implements Asset {
 	public Response execute(Request request) throws MalformedURLException,
 			UnsupportedEncodingException {
 		
-		Utility.webrootAbsolutePath();
-		Path path = Paths.get(Utility.webrootAbsolutePath()  + request.getURI());
+		Path path = Paths.get(Utility.webrootAbsolutePath(publicDir) + request.getURI());
 		byte[] imageInBytes = null;
 		try {
 			imageInBytes = Files.readAllBytes(path);

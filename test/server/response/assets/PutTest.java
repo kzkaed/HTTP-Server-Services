@@ -22,10 +22,6 @@ public class PutTest {
 		request = new Request();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testCanHandlePutRequest() {
 		request.setMethod("PUT");

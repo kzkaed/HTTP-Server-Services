@@ -2,11 +2,14 @@ package server.response.assets;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import server.request.Request;
+import server.response.Response;
 
 public class GetTest {
 
@@ -18,15 +21,18 @@ public class GetTest {
 
 	@Test
 	public void testReturnsTrueIfGetMethod() {
-		
 		Request request = new Request();
 		request.setMethod("GET");
 		assertTrue(get.canHandle(request));
 	}
-	
+
 	@Test
-	public void testExecuteUnimplemented(){
-		
+	public void testExecuteReturns200() throws MalformedURLException, UnsupportedEncodingException {
+		Request request = new Request();
+		request.setMethod("GET");
+		Response response = get.execute(request);
+		assertNotNull(response);
+		assertEquals("HTTP/1.1 200 OK\r\n", response.getStatusLine());
 	}
 
 }

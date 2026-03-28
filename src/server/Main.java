@@ -18,7 +18,7 @@ public static void main(String[] args) throws Exception{
 		AssetManager manager = new AssetManager();
 		ServerSocket serverSocket = new ServerSocket(port);
 		
-		new Server(new WireServerSocket(serverSocket), port, manager).start();
+		new Server(new WireServerSocket(serverSocket), port, manager, publicDirectory, Context.HOST).start();
 	}
 
 

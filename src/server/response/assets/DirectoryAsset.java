@@ -12,13 +12,17 @@ import server.constants.Method;
 import server.request.Request;
 import server.response.Response;
 import server.response.ResponseCodes;
-import views.HtmlView;
+import views.ViewFactory;
 
 public class DirectoryAsset implements Asset{
-	
-	private static final String CRLF = server.constants.Constant.CRLF;
 
-	public DirectoryAsset(){}
+	private final String publicDir;
+	private final ViewFactory viewFactory;
+
+	public DirectoryAsset(String publicDir, ViewFactory viewFactory) {
+		this.publicDir = publicDir;
+		this.viewFactory = viewFactory;
+	}
 
 	@Override
 	public boolean canHandle(Request request) {
@@ -45,13 +49,12 @@ public class DirectoryAsset implements Asset{
 	}
 	
 	public String retrieveBody(List<String> results){
-		HtmlView html = new HtmlView(results);
-		return html.build("directory");
+		return viewFactory.forDirectory(results).build();
 	}
 	
 	
 	public List<String> getDirectoryFileNames(){
-		String directory = server.helpers.Utility.getAbsolutePath("/"+server.Context.PUBLIC_DIR_IN_USE);
+		String directory = server.helpers.Utility.getAbsolutePath("/" + publicDir);
 		File[] files = new File(directory).listFiles();
 		List<String> results = new ArrayList<String>();
 		for (File file : files) {

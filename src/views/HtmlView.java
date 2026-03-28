@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class HtmlView {
+public class HtmlView implements View {
 	private StringBuilder builder;
 	private Hashtable<String,String> params = null;
 	private String content = null;
@@ -32,67 +32,41 @@ public class HtmlView {
 		this.results = results;
 	}
 
+	@Override
 	public String build(){
 		builder.append("<!doctype html>");
 		builder.append("<html>");
 		builder.append("<head>");
 		builder.append("</head>");
 		builder.append("<body>");
-		
-		if(params != null ){
-			if(params.containsKey("variable_1")){
+
+		if (params != null) {
+			if (params.containsKey("variable_1")) {
 				builder.append("variable_1 = " + params.get("variable_1"));
 				builder.append("variable_2 = " + params.get("variable_2"));
-			}else{
+			} else {
 				Set<String> keys = params.keySet();
-				for(String key: keys){
-					builder.append(key+ ":" + params.get(key) + "<br>");
+				for (String key : keys) {
+					builder.append(key + ":" + params.get(key) + "<br>");
 				}
 			}
-			
-		}
-		else if(content == null){
-			builder.append("");
-		}else if (results != null){
-			for(String file : results){
-				builder.append(file);
-				builder.append("<br>");
-			}
-			
-		}else{
-			builder.append(content);
-		}
-		
-		builder.append("</body>");
-		builder.append("</html>");
-		
-		return builder.toString();
-	}
-	
-	public String build(String htmltype){
-		builder.append("<!doctype html>");
-		builder.append("<html>");
-		builder.append("<head>");
-		builder.append("</head>");
-		builder.append("<body>");
-		if(htmltype.contentEquals("directory")){
+		} else if (results != null) {
 			builder.append("Directory");
 			builder.append("<br>");
-			for(String file : results){
+			for (String file : results) {
 				builder.append("<a href=\"");
 				builder.append(file + "\">");
 				builder.append(file);
 				builder.append("</a>");
 				builder.append("<br>");
 			}
-		}else if (htmltype.contentEquals("parameters")){
-			if(params.containsKey("variable_1")){
-				builder.append("variable_1 = " + params.get("variable_1"));
-				builder.append("variable_2 = " + params.get("variable_2"));
-			}
+		} else if (content != null) {
+			builder.append(content);
 		}
+
 		builder.append("</body>");
 		builder.append("</html>");
+
 		return builder.toString();
 	}
 

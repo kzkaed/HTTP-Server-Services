@@ -21,7 +21,7 @@ public class Main {
 		AssetManager manager = Application.registerApplicationAssets(new AssetManager());
 		
 		ServerSocket serverSocket = new ServerSocket(port);
-		new Server(new WireServerSocket(serverSocket), port, manager).start();
+		new Server(new WireServerSocket(serverSocket), port, manager, publicDirectory, Context.HOST).start();
 	}
 
 	public static int getPort(String[] args){

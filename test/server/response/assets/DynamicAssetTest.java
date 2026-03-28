@@ -12,7 +12,7 @@ import org.junit.Test;
 import server.request.Request;
 import server.response.Response;
 import server.response.assets.DynamicAsset;
-import views.HtmlView;
+import views.HtmlViewFactory;
 
 public class DynamicAssetTest {
 	private Request request;
@@ -20,7 +20,7 @@ public class DynamicAssetTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		dynamicAsset = new DynamicAsset();
+		dynamicAsset = new DynamicAsset(new HtmlViewFactory());
 		request = new Request();
 		request.setMethod("GET");
 		request.setURI("showParams");

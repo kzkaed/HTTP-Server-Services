@@ -28,7 +28,7 @@ public class HtmlViewTest {
 		list.add("another item");
 
 		HtmlView html = new HtmlView(list);
-		String htmlstring = html.build("directory");
+		String htmlstring = html.build();
 		assertEquals(htmlstring,"<!doctype html><html><head></head><body>Directory<br><a href=\"an item\">an item</a><br><a href=\"another item\">another item</a><br></body></html>");
 	}
 	
@@ -39,7 +39,7 @@ public class HtmlViewTest {
 		params.put("variable_2", "2");
 
 		HtmlView html = new HtmlView(params);
-		String htmlstring = html.build("parameters");
+		String htmlstring = html.build();
 		assertEquals(htmlstring,"<!doctype html><html><head></head><body>variable_1 = 1variable_2 = 2</body></html>");
 	}
 

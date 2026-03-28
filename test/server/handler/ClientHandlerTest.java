@@ -45,7 +45,7 @@ public class ClientHandlerTest {
 		String request = "GET /test.html HTTP/1.1";
 		String statusLine = "HTTP/1.1 200 OK" + CRLF;		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
-		handler = new ClientHandler(mockSocket, logger, assetManager);
+		handler = new ClientHandler(mockSocket, logger, assetManager, "localhost", 5000);
 		handler.run();
 		assertEquals(mockSocket.getOutputMock(), statusLine);	
 	}
@@ -56,8 +56,8 @@ public class ClientHandlerTest {
 		String request = "GET /text-file.txt HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,request.getBytes());
 		logger = new StringLogger();
-		handler = new ClientHandler(mockSocket, logger, assetManager);
-		assetManager.register(new StaticAsset());
+		handler = new ClientHandler(mockSocket, logger, assetManager, "localhost", 5000);
+		assetManager.register(new StaticAsset("public"));
 		String loggedRequest = "GET /text-file.txt HTTP/1.1";
 		String loggedResponse = "HTTP/1.1 200 OK" + CRLF
 				+ "Server: Kristin Server" + CRLF
@@ -73,7 +73,7 @@ public class ClientHandlerTest {
 	public void testRequestParsed() throws IOException{
 		String requestLine = "GET /test.html HTTP/1.1";		
 		mockSocket = new MockSocket("localhost",5000,requestLine.getBytes());
-		handler = new ClientHandler(mockSocket, logger, assetManager);
+		handler = new ClientHandler(mockSocket, logger, assetManager, "localhost", 5000);
 	
 		Request request = new Request("GET", "/test.html","HTTP/1.1",null,"GET /test.html HTTP/1.1",null,null);
 		

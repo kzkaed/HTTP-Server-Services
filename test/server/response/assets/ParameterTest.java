@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import server.request.Request;
 import server.response.Response;
+import views.HtmlViewFactory;
 
 public class ParameterTest {
 	private Asset asset;
@@ -20,15 +21,11 @@ public class ParameterTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		asset = new Parameter();
+		asset = new Parameter(new HtmlViewFactory());
 		Hashtable<String,String> params = new Hashtable<String,String>();
 		params.put("variable_1","test1");
 		params.put("variable_2", "test2");
 		request = new Request("GET","/parameters","HTTP1/1", null, "GET /parameters?variable_1=test1&variable_2=test2 HTTP1/1",null,params);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test

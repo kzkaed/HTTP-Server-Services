@@ -17,10 +17,6 @@ public class WireServerSocketTest {
 		serverSocket = new ServerSocket(1357);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testPortIsSetForServerSocketService() throws IOException {
 		service = new WireServerSocket(serverSocket);

@@ -14,7 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.Context;
 import server.request.Request;
 import server.response.Response;
 import server.response.assets.StaticAsset;
@@ -25,8 +24,7 @@ public class StaticAssetTest {
 	
 	@Before
 	public void setUp()  {
-		asset = new StaticAsset();	
-		Context.PUBLIC_DIR_IN_USE = "public";
+		asset = new StaticAsset("public");
 	}
 	
 	@Test
@@ -69,7 +67,7 @@ public class StaticAssetTest {
 		Request request = new Request("GET","/jam","HTTP1/1", null, "GET /jam HTTP1/1",null,new Hashtable<String,String>());
 		Response response = asset.execute(request);
 		String contentReceived = response.getBody();
-		assertFalse(server.helpers.Utility.fileExist("/jam"));
+		assertFalse(server.helpers.Utility.fileExist("/jam", "public"));
 
 		assertEquals(content, contentReceived);
 	}

@@ -20,10 +20,6 @@ public class OptionsTest {
 		options = new Options();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testCanHandleRequest() {
 		String requestLine = "OPTIONS / HTTP/1.1";
