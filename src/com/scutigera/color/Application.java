@@ -5,6 +5,9 @@ import server.Context;
 
 public class Application {
 
+	private Application() {
+	}
+
 	public static void setContext(int port, String publicDirectory){
 		Context.setPort(port);
 		Context.setPublicDirectory(publicDirectory);

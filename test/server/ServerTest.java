@@ -115,6 +115,34 @@ public class ServerTest {
 			assertEquals("Server Shutting Down...", ((StringLogger)logger).logs.get(0),
 					"first log message should indicate server is shutting down");
 		}
+
+		@Test
+		@DisplayName("restores interrupted state when shutdown is interrupted")
+		void restores_interrupted_state_when_shutdown_is_interrupted() {
+			mockSSocket.closed = false;
+			Logger logger = new StringLogger();
+			Server server = new Server(mockSSocket, port, new AssetManager(), logger, document, "localhost");
+			Thread.currentThread().interrupt();
+			server.stop();
+
+			assertTrue(Thread.interrupted(), "thread interrupted flag should be restored after InterruptedException");
+		}
+
+		@Test
+		@DisplayName("logs error when stop encounters an IOException")
+		void logs_error_when_stop_encounters_an_io_exception() throws IOException {
+			MockServerSocket failSocket = new MockServerSocket(port) {
+				@Override
+				public void close() throws IOException {
+					throw new IOException("test close failure");
+				}
+			};
+			StringLogger logger = new StringLogger();
+			Server server = new Server(failSocket, port, new AssetManager(), logger, document, "localhost");
+			server.stop();
+
+			assertFalse(logger.errors.isEmpty(), "should log an error when IOException occurs during stop");
+		}
 	}
 
 	@Nested
