@@ -3,6 +3,7 @@ package server.response.assets;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import log.SystemLogger;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.MalformedURLException;
@@ -60,7 +61,7 @@ public class StaticAsset implements Asset {
 				}
 				in.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				SystemLogger.getInstance().error("Failed to read file " + path + ": " + e.getMessage());
 			}
 		}
 		

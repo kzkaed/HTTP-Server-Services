@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import log.SystemLogger;
 import server.constants.Constant;
 
 public class RequestParser {
@@ -56,10 +57,8 @@ public class RequestParser {
 
 		try {
 			subParser = new ParametersParserURL(requestUri, host, port);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		} catch (MalformedURLException | UnsupportedEncodingException e) {
+			SystemLogger.getInstance().error("Failed to parse request URI: " + e.getMessage());
 		}
 		String uriPath = subParser.getPath();
 		String query = subParser.getQuery();

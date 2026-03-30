@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import log.SystemLogger;
 import server.constants.Constant;
 
 public class ParametersParserRegex implements ParametersParser {
@@ -43,7 +44,7 @@ public class ParametersParserRegex implements ParametersParser {
 					try {
 						parameterPairs.put( decode(nameValueTokens[j]), decode(nameValueTokens[j + 1]));
 					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
+						SystemLogger.getInstance().error("Failed to decode parameter: " + e.getMessage());
 					}
 				}
 		}

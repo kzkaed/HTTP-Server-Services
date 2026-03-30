@@ -1,6 +1,20 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'org.sonarqube' version '7.2.3.7755'
+}
+
+sonar {
+    properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'kzkaed'
+        property 'sonar.projectKey', 'kzkaed'
+        property 'sonar.projectName', 'Web Server'
+        property 'sonar.sources', 'src'
+        property 'sonar.tests', 'test'
+        property 'sonar.java.binaries', "${buildDir}/classes/java/main"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
 }
 
 sourceSets {
@@ -30,6 +44,48 @@ repositories {
 jacocoTestReport {
     reports {
         csv.required = true
+        xml.required = true
+    }
+    doLast {
+        def csvFile = file("${buildDir}/reports/jacoco/test/jacocoTestReport.csv")
+        if (csvFile.exists()) {
+            def lines = csvFile.readLines()
+            def totalMissed = 0
+            def totalCovered = 0
+            def rows = []
+            lines.drop(1).each { line ->
+                def cols = line.split(',')
+                def cls = cols[2]
+                def instrMissed = cols[3] as int
+                def instrCovered = cols[4] as int
+                def brMissed = cols[5] as int
+                def brCovered = cols[6] as int
+                totalMissed += brMissed
+                totalCovered += brCovered
+                def instrTotal = instrMissed + instrCovered
+                def brTotal = brMissed + brCovered
+                def instrPct = instrTotal > 0 ? ((instrCovered / instrTotal) * 100).round(1) : 100.0
+                def brPct = brTotal > 0 ? ((brCovered / brTotal) * 100).round(1) : 100.0
+                rows << [name: cls, instrPct: instrPct, brPct: brPct, brMissed: brMissed, instrMissed: instrMissed]
+            }
+            def gaps = rows.findAll { it.instrPct < 100 || it.brPct < 100 }
+                          .sort { a, b -> a.instrPct <=> b.instrPct }
+            def full = rows.findAll { it.instrPct == 100 && it.brPct == 100 }
+                          .sort { it.name }
+            def total = totalMissed + totalCovered
+            def pct = total > 0 ? ((totalCovered / total) * 100).round(1) : 0
+            println ''
+            if (gaps) {
+                println '  Gaps (weakest first):'
+                gaps.each {
+                    printf '    %-30s  instr %5.1f%%  branch %5.1f%%\n', it.name, it.instrPct, it.brPct
+                }
+            }
+            if (full) {
+                println "  Full coverage: ${full.collect { it.name }.join(', ')}"
+            }
+            println "\n--- Test Coverage: ${pct}% (${totalCovered}/${total} branches) ---\n"
+        }
     }
 }
 

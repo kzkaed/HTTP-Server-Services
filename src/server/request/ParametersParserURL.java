@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import log.SystemLogger;
 import server.constants.Constant;
 
 public class ParametersParserURL implements ParametersParser {
@@ -78,7 +79,7 @@ public class ParametersParserURL implements ParametersParser {
 						parameterName = decode(nameValueTokens[j]);
 						parameterValue = decode(nameValueTokens[j+1]);
 					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
+						SystemLogger.getInstance().error("Failed to decode parameter: " + e.getMessage());
 					}
 					parameterPairs.put( parameterName, parameterValue);
 				}

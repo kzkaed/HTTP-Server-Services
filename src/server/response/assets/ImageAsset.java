@@ -1,6 +1,7 @@
 package server.response.assets;
 
 import java.io.IOException;
+import log.SystemLogger;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
 import java.net.MalformedURLException;
@@ -38,7 +39,7 @@ public class ImageAsset implements Asset {
 		try {
 			imageInBytes = Files.readAllBytes(path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			SystemLogger.getInstance().error("Failed to read image " + path + ": " + e.getMessage());
 		}
 		
 		HashMap<String,String> headers = determineHeaders(ContentType.forPath(request.getURI()));

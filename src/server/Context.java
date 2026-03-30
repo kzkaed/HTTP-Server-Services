@@ -2,6 +2,7 @@ package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import log.SystemLogger;
 
 public final class Context {
 
@@ -15,7 +16,7 @@ public final class Context {
 		try {
 			return InetAddress.getLocalHost().getHostName().toString();
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			SystemLogger.getInstance().error("Failed to resolve hostname: " + e.getMessage());
 			return "Host not set";
 		}
 	}

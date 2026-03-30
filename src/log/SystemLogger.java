@@ -4,15 +4,21 @@ import server.socket.ServerSocketService;
 
 public class SystemLogger implements Logger{
 
+	private static final SystemLogger INSTANCE = new SystemLogger();
+
+	public static SystemLogger getInstance() {
+		return INSTANCE;
+	}
+
 	@Override
 	public void log(String message) {
-		System.out.println(message);		
+		System.out.println(message);
 	}
 
 	@Override
 	public void error(String message) {
 		System.err.println(message);
-		
+
 	}
 	
 	public void displayServerStatus(ServerSocketService serverSocket, int port, String document){
