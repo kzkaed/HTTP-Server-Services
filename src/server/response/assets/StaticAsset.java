@@ -53,13 +53,11 @@ public class StaticAsset implements Asset {
 		path.append(routedPath);
 
 		if (FileLocator.fileExist(routedPath, publicDir)){
-			try {
-				BufferedReader in = new BufferedReader(new FileReader(path.toString()));
+			try (BufferedReader in = new BufferedReader(new FileReader(path.toString()))) {
 				String str;
 				while ((str = in.readLine()) != null) {
-					body += str;	
+					body += str;
 				}
-				in.close();
 			} catch (IOException e) {
 				SystemLogger.getInstance().error("Failed to read file " + path + ": " + e.getMessage());
 			}

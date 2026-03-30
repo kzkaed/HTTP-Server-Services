@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +13,6 @@ import routes.AssetManager;
 import server.handler.ClientHandler;
 import server.response.assets.DirectoryAsset;
 import server.response.assets.DynamicAsset;
-import server.response.assets.FileNotFound;
 import server.response.assets.StaticAsset;
 import server.response.assets.ImageAsset;
 import server.response.assets.Options;
@@ -26,7 +26,7 @@ import views.HtmlViewFactory;
 import views.ViewFactory;
 
 public class Server {
-	public int port;
+	private int port;
 	private ServerSocketService service;
 	private Logger logger;
 	private AssetManager manager;
@@ -65,10 +65,10 @@ public class Server {
 		}catch(IOException ioe){
 			try {
 				if(!service.isClosed()){
-					logger.error(ioe.getStackTrace().toString());
+					logger.error(Arrays.toString(ioe.getStackTrace()));
 				}
 			} catch (IOException e) {
-				logger.error(ioe.getStackTrace().toString());
+				logger.error(Arrays.toString(ioe.getStackTrace()));
 			}
 		}
 
@@ -83,9 +83,10 @@ public class Server {
 				threadPool.shutdownNow();
 			}
 		} catch (IOException ioe) {
-			logger.error(ioe.getStackTrace().toString());
+			logger.error(Arrays.toString(ioe.getStackTrace()));
 		} catch (InterruptedException ie) {
 			threadPool.shutdownNow();
+			Thread.currentThread().interrupt();
 		}
 	}
 

@@ -3,6 +3,7 @@ package server.handler;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.io.InputStreamReader;
 
 import routes.AssetManager;
@@ -49,7 +50,7 @@ public class ClientHandler implements Runnable {
 		
 			socket.close();
 		} catch (IOException ioe) {			
-			System.err.println(ioe.getStackTrace());
+			System.err.println(Arrays.toString(ioe.getStackTrace()));
 		}
 		
 	}

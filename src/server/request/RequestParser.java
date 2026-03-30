@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,7 +80,7 @@ public class RequestParser {
 		try {
 			requestLine = in.readLine();
 		} catch (IOException e) {
-			System.err.println("readRequestLine error" + e.getStackTrace());
+			System.err.println("readRequestLine error" + Arrays.toString(e.getStackTrace()));
 		}
 		return requestLine;
 	}
