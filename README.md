@@ -1,7 +1,7 @@
 # Web Server (HTTP)
 
 [![Build](https://github.com/kzkaed/Web-Server/actions/workflows/build.yml/badge.svg)](https://github.com/kzkaed/Web-Server/actions/workflows/build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kzkaed_Web-Server&metric=alert_status)](https://sonarcloud.io/summary/overall?id=kzkaed_Web-Server)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kzkaed_web-server&metric=alert_status)](https://sonarcloud.io/summary/overall?id=kzkaed_web_server)
 
 A Java HTTP/1.1 server built around a registry pattern. Request handling is composed from interchangeable `Asset` implementations registered with an `AssetManager` — adding a new route or content type means writing a new `Asset`, not modifying the server.
 
