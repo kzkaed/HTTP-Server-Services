@@ -2,6 +2,9 @@ package com.scutigera.color;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,22 @@ public class ApplicationTest {
 		void returns_a_manager_with_registered_assets() {
 			AssetManager manager = Application.registerApplicationAssets(new AssetManager());
 			assertNotNull(manager.getAssets(), "registered assets should not be null");
+		}
+	}
+
+	@Nested
+	@DisplayName("when checking class design")
+	class WhenCheckingClassDesign {
+
+		@Test
+		@DisplayName("has a private constructor to prevent instantiation")
+		void has_a_private_constructor_to_prevent_instantiation() throws Exception {
+			Constructor<Application> constructor = Application.class.getDeclaredConstructor();
+			assertTrue(Modifier.isPrivate(constructor.getModifiers()),
+					"constructor should be private");
+			constructor.setAccessible(true);
+			assertNotNull(constructor.newInstance(),
+					"private constructor should still create an instance via reflection");
 		}
 	}
 }

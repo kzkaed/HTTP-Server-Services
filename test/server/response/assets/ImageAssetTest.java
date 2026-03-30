@@ -99,5 +99,15 @@ public class ImageAssetTest {
 			assertArrayEquals(imageInBytes, response.getBodyBytes(), "response body bytes should match the file contents");
 			assertEquals("image: " + request.getURI(), response.getBody(), "response body string should indicate the image URI");
 		}
+
+		@Test
+		@DisplayName("returns 404 when the image file does not exist")
+		void returns_404_when_the_image_file_does_not_exist() throws IOException {
+			Request request = new Request();
+			request.setURI("/nonexistent.jpeg");
+
+			Response response = imgAsset.execute(request);
+			assertTrue(response.getStatusLine().contains("404"), "should return 404 for missing image");
+		}
 	}
 }

@@ -83,6 +83,37 @@ public class RequestParserTest {
 	}
 
 	@Nested
+	@DisplayName("when handling edge cases")
+	class WhenHandlingEdgeCases {
+
+		@Test
+		@DisplayName("returns empty request when input stream is empty")
+		void returns_empty_request_when_input_stream_is_empty() throws IOException {
+			ByteArrayInputStream inStream = new ByteArrayInputStream(new byte[0]);
+			BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+			RequestParser parser = new RequestParser(in, "localhost", 0);
+			Request resultRequest = parser.parseRequest();
+
+			assertEquals("", resultRequest.getMethod(), "method should be empty for null request line");
+			assertEquals("", resultRequest.getURI(), "URI should be empty for null request line");
+		}
+
+		@Test
+		@DisplayName("parses a request with headers but no body")
+		void parses_a_request_with_headers_but_no_body() throws IOException {
+			String request = "GET /index HTTP1/1" + CRLF
+					+ "Host" + COLON + "localhost" + HEADERS_END;
+			ByteArrayInputStream inStream = new ByteArrayInputStream(request.getBytes());
+			BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+			RequestParser parser = new RequestParser(in, "localhost", 0);
+			Request resultRequest = parser.parseRequest();
+
+			assertEquals("GET", resultRequest.getMethod(), "method should be GET");
+			assertEquals("/index", resultRequest.getURI(), "URI should be /index");
+		}
+	}
+
+	@Nested
 	@DisplayName("when parsing URL-encoded parameters")
 	class WhenParsingUrlEncodedParameters {
 
