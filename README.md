@@ -1,4 +1,4 @@
-# Web Server Services
+# Web Server (HTTP)
 
 [![Build](https://github.com/kzkaed/Web-Server/actions/workflows/build.yml/badge.svg)](https://github.com/kzkaed/Web-Server/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kzkaed&metric=alert_status)](https://sonarcloud.io/summary/overall?id=kzkaed)
